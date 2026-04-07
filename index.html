@@ -1266,6 +1266,18 @@
       line-height: 1.7;
     }
 
+    .detail-list {
+      margin: 0.85rem 0 0;
+      padding-left: 1.15rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+
+    .detail-list li + li {
+      margin-top: 0.35rem;
+    }
+
     .role-dash {
       display: none;
       margin-top: 2rem;
@@ -1284,6 +1296,18 @@
       border-radius: 16px;
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
+    }
+
+    .component-card h4 {
+      margin: 0.8rem 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    .component-use {
+      margin-top: 0.6rem;
+      color: var(--text-2);
+      font-size: 0.86rem;
+      line-height: 1.7;
     }
 
     .color-input {
@@ -1829,6 +1853,56 @@
                   <div class="result-box" id="storage-retention">Used for short-horizon troubleshooting and exact event playback.</div>
                 </div>
               </div>
+              <div class="grid-2" style="margin-top:1rem;">
+                <div class="table-card reveal sql-workspace">
+                  <div class="query-meta">
+                    <div>
+                      <h3>How To Verify Database Storage</h3>
+                      <div class="muted">This live page visualizes storage windows in the browser, while real storage verification should be done against the delivered SQL implementation and local Flask prototype.</div>
+                    </div>
+                    <span class="tiny-pill mono">DEMO + REAL CHECKS</span>
+                  </div>
+                  <ol class="detail-list">
+                    <li>Use the storage window buttons above to compare short-term and long-term retention behavior in the demo.</li>
+                    <li>Open <span class="mono">deliverables/synapse2026_postgres.sql</span> and load the schema in PostgreSQL for the actual relational implementation.</li>
+                    <li>Run the verification queries to measure total rows, per-sensor volume, daily retention, live status views, and maintenance-due output.</li>
+                    <li>Use the query results to compare fault counts across 2-hour, 6-hour, 12-hour, 48-hour, and 1-year horizons for maintenance decisions.</li>
+                  </ol>
+                  <div class="query-note">GitHub Pages shows simulated browser-side data for presentation. The local full-stack prototype in <span class="mono">synapse_flask</span> is where PostgreSQL-backed verification happens.</div>
+                </div>
+                <div class="table-card reveal sql-workspace">
+                  <div class="query-meta">
+                    <div>
+                      <h3>Verification Queries</h3>
+                      <div class="muted">Use these PostgreSQL checks to confirm storage depth, trend history, and analytical views in the delivered database design.</div>
+                    </div>
+                    <span class="tiny-pill mono">SQL</span>
+                  </div>
+                  <pre class="sql-block"><code><span class="sql-comment">-- Total retained telemetry rows</span>
+<span class="sql-key">SELECT</span> <span class="sql-key">COUNT</span>(*) <span class="sql-key">AS</span> total_readings <span class="sql-key">FROM</span> SensorReading;
+
+<span class="sql-comment">-- Per-sensor storage volume</span>
+<span class="sql-key">SELECT</span> sensor_id, <span class="sql-key">COUNT</span>(*) <span class="sql-key">AS</span> retained_rows
+<span class="sql-key">FROM</span> SensorReading
+<span class="sql-key">GROUP BY</span> sensor_id
+<span class="sql-key">ORDER BY</span> retained_rows <span class="sql-key">DESC</span>;
+
+<span class="sql-comment">-- Daily history for long-term trend comparison</span>
+<span class="sql-key">SELECT</span> <span class="sql-key">DATE</span>(timestamp) <span class="sql-key">AS</span> reading_day, <span class="sql-key">COUNT</span>(*) <span class="sql-key">AS</span> day_rows
+<span class="sql-key">FROM</span> SensorReading
+<span class="sql-key">GROUP BY</span> <span class="sql-key">DATE</span>(timestamp)
+<span class="sql-key">ORDER BY</span> reading_day <span class="sql-key">DESC</span>;
+
+<span class="sql-comment">-- View for latest machine condition</span>
+<span class="sql-key">SELECT</span> * <span class="sql-key">FROM</span> live_sensor_status;
+
+<span class="sql-comment">-- Aggregated machine health snapshot</span>
+<span class="sql-key">SELECT</span> * <span class="sql-key">FROM</span> machine_health_summary;
+
+<span class="sql-comment">-- Stored procedure for overdue maintenance</span>
+<span class="sql-key">CALL</span> get_maintenance_due();</code></pre>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -1941,7 +2015,7 @@
               <div class="control-card reveal"><h3>Font Selector</h3><div class="field-group"><label class="field-label">Heading Font</label><select class="select-input" id="heading-font"><option value="Rajdhani">Rajdhani</option><option value="Orbitron">Orbitron</option><option value="Exo 2">Exo 2</option><option value="Bebas Neue">Bebas Neue</option></select></div><div class="field-group"><label class="field-label">Body Font</label><select class="select-input" id="body-font"><option value="DM Sans">DM Sans</option><option value="Inter">Inter</option><option value="Nunito">Nunito</option><option value="Source Sans 3">Source Sans 3</option></select></div><div class="preview-card" id="font-preview">SmartMold IoT keeps charts, dashboards, and data tables readable while the typography system changes live.</div></div>
               <div class="control-card reveal"><h3>Animation Controls</h3><div class="control-grid" style="grid-template-columns:1fr;"><div class="toggle-row"><span>Sensor pulse animations</span><input class="switch" id="toggle-pulse" type="checkbox" checked></div><div class="toggle-row"><span>Architecture dots</span><input class="switch" id="toggle-dots" type="checkbox" checked></div><div class="toggle-row"><span>Fade-in scroll</span><input class="switch" id="toggle-reveal" type="checkbox" checked></div><div class="toggle-row"><span>Counter animation</span><input class="switch" id="toggle-counters" type="checkbox" checked></div></div></div>
             </div>
-            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-grid"><div class="component-card"><span class="badge">Sensor Card</span><strong class="mono">184.1 C</strong><span class="status-pill status-normal">NORMAL</span></div><div class="component-card"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong><p class="muted">Availability metric</p></div><div class="component-card"><button class="btn btn-primary" type="button">Primary</button></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
+            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-grid"><div class="component-card"><span class="badge">Sensor Card</span><strong class="mono">184.1 C</strong><span class="status-pill status-normal">NORMAL</span><h4>What it is for</h4><ul class="detail-list"><li>Shows live telemetry such as temperature, pressure, or vibration.</li><li>Pairs the current value with a status badge so abnormal behavior is visible instantly.</li><li>Usually includes trend cues like sparklines and operating ranges for quick floor decisions.</li></ul><div class="component-use">Used in the public sensor section and operator workspace to monitor machine condition in real time.</div></div><div class="component-card"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong><p class="muted">Availability metric</p><h4>What it is for</h4><ul class="detail-list"><li>Summarizes one KPI such as uptime, alerts, latency, output, or fault count.</li><li>Uses large mono values for rapid scanning during shift reviews and management reporting.</li><li>Works best for comparisons across machines, time windows, or performance targets.</li></ul><div class="component-use">Used in the hero, dashboard, storage panel, and admin overview to turn raw records into decision-ready indicators.</div></div><div class="component-card"><span class="badge">Primary Action</span><button class="btn btn-primary" type="button">Primary</button><h4>What it is for</h4><ul class="detail-list"><li>Highlights the main action a user should take next, such as logging in, running a query, or saving a design setting.</li><li>Keeps the UI focused by giving one accent-colored action stronger visual priority than secondary buttons.</li><li>Supports cleaner workflow design when multiple controls appear in the same panel.</li></ul><div class="component-use">Used for high-priority actions across login, SQL preview, quick actions, and design controls.</div></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
           </div>
         </div>
       </main>
