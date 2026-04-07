@@ -13,3 +13,14 @@ dom_dump.html
 # Local backup pages
 index_before_two_screen_rebuild.html
 index_prev_rebuild_backup.html
+
+# Python/Flask local artifacts
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+server.log
+server.err.log
+server.out.log

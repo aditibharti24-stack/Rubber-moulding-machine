@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synapse 2026 | Rubber Molding Command Deck</title>
+  <meta name="description" content="Local IIoT dashboard for a 4-pillar compression type rubber molding machine.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="ambient-grid" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow-left" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow-right" aria-hidden="true"></div>
+
+  <header class="masthead shell">
+    <div class="eyebrow">Synapse 2026 · NUCoEET · Industrial IoT Demonstrator</div>
+    <div class="masthead-row">
+      <div class="masthead-copy">
+        <h1>Rubber Molding Command Deck</h1>
+        <p>
+          A local-first monitoring interface for the IoT-enabled 4-pillar compression molding machine,
+          designed around live telemetry, MQTT reliability cues, batch quality, and predictive maintenance.
+        </p>
+      </div>
+      <div class="masthead-meta panel">
+        <div class="status-pill">
+          <span class="status-dot" id="connectionDot"></span>
+          <span id="brokerStatus">Broker Online</span>
+        </div>
+        <div class="meta-pair">
+          <span>Machine</span>
+          <strong id="machineTitle">RPC-4P-07</strong>
+        </div>
+        <div class="meta-pair">
+          <span>Last sample</span>
+          <strong id="liveTimestamp">06 Apr 2026, 09:00</strong>
+        </div>
+        <div class="meta-pair">
+          <span>MQTT QoS</span>
+          <strong id="qosMode">Telemetry QoS 1 · Alerts QoS 2</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell dashboard">
+    <section class="panel hero-panel">
+      <div class="panel-heading">
+        <span class="panel-kicker">Machine Pulse</span>
+        <span class="panel-note">Temperature, pressure, vibration, quality, and network context</span>
+      </div>
+
+      <div class="hero-topline">
+        <div>
+          <div class="machine-name" id="machineName">Rubber Press 07</div>
+          <div class="machine-subtitle" id="machineSubtitle">Plant A / Line 2 · Model RPC-4P-220</div>
+        </div>
+        <div class="health-badge">
+          <span>Overall Health</span>
+          <strong id="machineHealth">92%</strong>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi-card accent-hot">
+          <div class="kpi-label">Mold Temperature</div>
+          <div class="kpi-value"><span id="tempValue">180.0</span><small>degC</small></div>
+          <div class="kpi-foot"><span id="tempDelta">+0.3 vs target</span></div>
+        </article>
+
+        <article class="kpi-card accent-pressure">
+          <div class="kpi-label">Compression Pressure</div>
+          <div class="kpi-value"><span id="pressureValue">118.0</span><small>bar</small></div>
+          <div class="kpi-foot"><span id="pressureDelta">Stable under load</span></div>
+        </article>
+
+        <article class="kpi-card accent-vibration">
+          <div class="kpi-label">Vibration</div>
+          <div class="kpi-value"><span id="vibrationValue">1.20</span><small>mm/s</small></div>
+          <div class="kpi-foot"><span id="vibrationDelta">Normal bearing signature</span></div>
+        </article>
+
+        <article class="kpi-card accent-quality">
+          <div class="kpi-label">Quality Score</div>
+          <div class="kpi-value"><span id="qualityValue">97.5</span><small>/100</small></div>
+          <div class="kpi-foot"><span id="defectRisk">Low defect risk</span></div>
+        </article>
+
+        <article class="kpi-card accent-energy">
+          <div class="kpi-label">Energy Intensity</div>
+          <div class="kpi-value"><span id="energyValue">53.2</span><small>kWh/batch</small></div>
+          <div class="kpi-foot"><span id="energyDelta">Within control band</span></div>
+        </article>
+
+        <article class="kpi-card accent-cycle">
+          <div class="kpi-label">Cycle Phase</div>
+          <div class="kpi-value"><span id="phaseValue">Compression</span></div>
+          <div class="kpi-foot"><span id="phaseClock">Cycle minute 13</span></div>
+        </article>
+      </div>
+
+      <div class="phase-track">
+        <div class="phase-segment" data-phase="Pre-Heat">Pre-Heat</div>
+        <div class="phase-segment" data-phase="Compression">Compression</div>
+        <div class="phase-segment" data-phase="Cooling">Cooling</div>
+      </div>
+    </section>
+
+    <aside class="panel side-panel">
+      <div class="panel-heading">
+        <span class="panel-kicker">Signal Path</span>
+        <span class="panel-note">Local controller to analytics loop</span>
+      </div>
+
+      <div class="pipeline-stack">
+        <div class="pipeline-node is-active">Sensors</div>
+        <div class="pipeline-node is-active">PLC / Edge</div>
+        <div class="pipeline-node is-active">MQTT over TCP</div>
+        <div class="pipeline-node is-active">Broker</div>
+        <div class="pipeline-node is-active">Database</div>
+        <div class="pipeline-node is-active">R Analytics</div>
+        <div class="pipeline-node is-active">Dashboard</div>
+      </div>
+
+      <div class="metrics-list">
+        <div class="metric-row">
+          <span>PLC IP</span>
+          <strong id="plcIp">192.168.10.21</strong>
+        </div>
+        <div class="metric-row">
+          <span>Broker Port</span>
+          <strong id="brokerPort">8883 / TLS</strong>
+        </div>
+        <div class="metric-row">
+          <span>Buffered Frames</span>
+          <strong id="bufferedFrames">0</strong>
+        </div>
+        <div class="metric-row">
+          <span>Last Ack Seq</span>
+          <strong id="ackSequence">10428</strong>
+        </div>
+        <div class="metric-row">
+          <span>Latency</span>
+          <strong id="latencyValue">34 ms</strong>
+        </div>
+        <div class="metric-row">
+          <span>Packet Loss</span>
+          <strong id="packetLossValue">0.2%</strong>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-title">Current inference</div>
+        <p id="networkNarrative">
+          Reliable transport. No buffered telemetry. MQTT acknowledgments are keeping the stream in sync.
+        </p>
+      </div>
+    </aside>
+
+    <section class="panel signal-panel">
+      <div class="panel-heading signal-heading">
+        <div>
+          <span class="panel-kicker">Live Telemetry</span>
+          <span class="panel-note">Last 48 hours of simulated sensor flow</span>
+        </div>
+        <div class="window-switcher" role="tablist" aria-label="Chart window">
+          <button class="window-button is-active" data-window="16">8h</button>
+          <button class="window-button" data-window="48">24h</button>
+          <button class="window-button" data-window="96">48h</button>
+        </div>
+      </div>
+
+      <div class="signal-grid">
+        <article class="signal-card" data-series="temperature">
+          <div class="signal-header">
+            <div>
+              <h2>Temperature Trend</h2>
+              <p>Target 180 degC · Control band 150 to 195</p>
+            </div>
+            <div class="signal-meta">
+              <strong id="tempChartValue">180.0 degC</strong>
+              <span id="tempChartTag">Centered</span>
+            </div>
+          </div>
+          <svg class="signal-svg" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </article>
+
+        <article class="signal-card" data-series="pressure">
+          <div class="signal-header">
+            <div>
+              <h2>Pressure Trend</h2>
+              <p>Cycle sensitive · Compression band 110 to 140 bar</p>
+            </div>
+            <div class="signal-meta">
+              <strong id="pressureChartValue">118.0 bar</strong>
+              <span id="pressureChartTag">Load stable</span>
+            </div>
+          </div>
+          <svg class="signal-svg" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </article>
+
+        <article class="signal-card" data-series="vibration">
+          <div class="signal-header">
+            <div>
+              <h2>Vibration Trend</h2>
+              <p>Predictive maintenance cue · Alert threshold 4.0 mm/s</p>
+            </div>
+            <div class="signal-meta">
+              <strong id="vibrationChartValue">1.20 mm/s</strong>
+              <span id="vibrationChartTag">Healthy signature</span>
+            </div>
+          </div>
+          <svg class="signal-svg" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel alerts-panel">
+      <div class="panel-heading">
+        <span class="panel-kicker">Alert Feed</span>
+        <span class="panel-note">Threshold and anomaly events generated from the stream</span>
+      </div>
+      <div class="alert-list" id="alertList"></div>
+    </section>
+
+    <section class="panel batches-panel">
+      <div class="panel-heading">
+        <span class="panel-kicker">Production Batches</span>
+        <span class="panel-note">Quality-facing view for recent output windows</span>
+      </div>
+
+      <div class="batch-table-wrap">
+        <table class="batch-table">
+          <thead>
+            <tr>
+              <th>Batch</th>
+              <th>Window</th>
+              <th>Qty</th>
+              <th>Defects</th>
+              <th>Quality</th>
+              <th>Phase Signature</th>
+            </tr>
+          </thead>
+          <tbody id="batchTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel maintenance-panel">
+      <div class="panel-heading">
+        <span class="panel-kicker">Maintenance Outlook</span>
+        <span class="panel-note">Condition indicators tied to vibration, drift, and alert history</span>
+      </div>
+
+      <div class="component-grid" id="componentGrid"></div>
+      <div class="recommendations" id="recommendationList"></div>
+    </section>
+
+    <section class="panel analytics-panel">
+      <div class="panel-heading">
+        <span class="panel-kicker">Analytics Layer</span>
+        <span class="panel-note">Metrics shaped for the later PostgreSQL + R backend</span>
+      </div>
+
+      <div class="analytics-grid">
+        <article class="analytic-tile">
+          <span class="analytic-label">SPC Status</span>
+          <strong id="spcStatus">In Control</strong>
+          <p id="spcNote">No special-cause variation on the current subgroup window.</p>
+        </article>
+        <article class="analytic-tile">
+          <span class="analytic-label">Anomaly Score</span>
+          <strong id="anomalyScore">0.8 / 5</strong>
+          <p id="anomalyNote">Z-score flags remain below action threshold.</p>
+        </article>
+        <article class="analytic-tile">
+          <span class="analytic-label">Reliability at 100h</span>
+          <strong id="reliabilityValue">93.4%</strong>
+          <p id="reliabilityNote">Weibull fit indicates healthy short-term availability.</p>
+        </article>
+        <article class="analytic-tile">
+          <span class="analytic-label">Quality Forecast</span>
+          <strong id="qualityForecast">97.1</strong>
+          <p id="qualityForecastNote">Regression suggests stable product quality at present conditions.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.SYNAPSE_SEED = {{ seed_data|tojson }};
+    window.SYNAPSE_API = {
+      dashboard: "{{ url_for('main.dashboard_payload') }}",
+      telemetry: "{{ url_for('main.telemetry_payload') }}",
+      alerts: "{{ url_for('main.alerts_payload') }}",
+      batches: "{{ url_for('main.batches_payload') }}",
+      maintenance: "{{ url_for('main.maintenance_payload') }}"
+    };
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

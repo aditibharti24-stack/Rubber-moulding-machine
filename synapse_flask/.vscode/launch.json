@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Synapse Flask: Launch App",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}\\run.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}\\.env",
+      "env": {
+        "FLASK_HOST": "127.0.0.1",
+        "FLASK_PORT": "5000",
+        "FLASK_DEBUG": "true",
+        "FLASK_USE_RELOADER": "false"
+      },
+      "jinja": true,
+      "justMyCode": true,
+      "subProcess": true
+    },
+    {
+      "name": "Synapse Flask: Production-like",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}\\run.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}\\.env",
+      "env": {
+        "FLASK_HOST": "127.0.0.1",
+        "FLASK_PORT": "5000",
+        "FLASK_DEBUG": "false",
+        "FLASK_USE_RELOADER": "false"
+      },
+      "jinja": true,
+      "justMyCode": true,
+      "subProcess": false
+    }
+  ]
+}

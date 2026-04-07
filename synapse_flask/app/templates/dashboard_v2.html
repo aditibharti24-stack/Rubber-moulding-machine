@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+
+{% block title %}Synapse 2026 | Dashboard{% endblock %}
+
+{% block body_class %}dashboard-body{% endblock %}
+
+{% block content %}
+<main class="app-shell">
+  <aside class="app-sidebar surface-panel-strong">
+    <div class="sidebar-brand">
+      <p class="eyebrow">Synapse 2026</p>
+      <h1>Rubber Molding Command Deck</h1>
+      <p>Professional live monitoring for the IoT-enabled 4-pillar compression press.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item is-active" href="{{ url_for('main.dashboard') }}">Overview</a>
+      <a class="nav-item" href="#telemetry">Telemetry</a>
+      <a class="nav-item" href="#alerts">Alerts</a>
+      <a class="nav-item" href="#batches">Production</a>
+      <a class="nav-item" href="#maintenance">Maintenance</a>
+      <a class="nav-item" href="#analytics">Analytics</a>
+    </nav>
+
+    <section class="sidebar-user surface-card">
+      <div class="sidebar-user-top">
+        <div class="user-avatar">{{ current_user.name[0] }}</div>
+        <div>
+          <strong>{{ current_user.name }}</strong>
+          <p>{{ current_user.role }}</p>
+        </div>
+      </div>
+      <div class="sidebar-user-meta">
+        <span>{{ current_user.department }}</span>
+      </div>
+      <p class="sidebar-user-focus">{{ current_user.focus }}</p>
+      <a class="button-secondary sidebar-logout" href="{{ url_for('main.logout') }}">Logout</a>
+    </section>
+
+    <section class="sidebar-mini surface-card">
+      <span class="mini-label">Data Pipeline</span>
+      <p>Sensor -> PLC -> MQTT -> PostgreSQL -> Flask -> Socket.IO Dashboard</p>
+    </section>
+  </aside>
+
+  <section class="app-main">
+    <header class="topbar surface-panel">
+      <div>
+        <p class="eyebrow">{{ dashboard_view.workspace_label }}</p>
+        <h2>{{ dashboard_view.workspace_title }}</h2>
+        <p class="topbar-copy">{{ dashboard_view.workspace_summary }}</p>
+      </div>
+      <div class="topbar-status">
+        <div class="status-pill">
+          <span class="status-dot" id="connectionDot"></span>
+          <span id="brokerStatus">Broker Online</span>
+        </div>
+        <div class="role-chip">{{ current_user.role }}</div>
+        <div class="info-chip">PostgreSQL Live</div>
+        <div class="info-chip info-chip-muted">IEC 62443 Aware</div>
+      </div>
+    </header>
+
+    <section class="role-brief-grid">
+      <section class="role-brief-card surface-panel-strong">
+        <div class="panel-heading">
+          <div>
+            <span class="panel-kicker">{{ dashboard_view.attention_title }}</span>
+            <span class="panel-note">{{ dashboard_view.attention_note }}</span>
+          </div>
+          <div class="role-chip">{{ current_user.role }}</div>
+        </div>
+
+        <div class="role-kpi-row">
+          {% for item in dashboard_view.priority_kpis %}
+          <span class="role-kpi-chip">{{ item }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="role-focus-grid">
+          {% for tile in dashboard_view.focus_tiles %}
+          <article class="surface-card role-focus-card">
+            <span class="role-focus-label">{{ tile.label }}</span>
+            <strong>{{ tile.value }}</strong>
+            <p>{{ tile.note }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <aside class="priority-board surface-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="panel-kicker">Action Queue</span>
+            <span class="panel-note">Role-specific priorities for the current operating window</span>
+          </div>
+        </div>
+        <div class="priority-list">
+          {% for action in dashboard_view.action_queue %}
+          <article class="priority-card surface-card">
+            <span class="priority-owner">{{ action.owner }}</span>
+            <strong>{{ action.title }}</strong>
+            <p>{{ action.body }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </aside>
+    </section>
+
+    <section class="hero-grid">
+      <section class="hero-card surface-panel-strong">
+        <div class="hero-header-row">
+          <div>
+            <p class="eyebrow">Machine Pulse</p>
+            <h3 id="machineName">Rubber Press 07</h3>
+            <p class="hero-subtitle" id="machineSubtitle">Plant A / Line 2 | Model RPC-4P-220</p>
+          </div>
+          <div class="health-orb">
+            <span>Overall Health</span>
+            <strong id="machineHealth">92%</strong>
+          </div>
+        </div>
+
+        <div class="hero-meta-grid">
+          <div class="meta-tile surface-card">
+            <span>Machine</span>
+            <strong id="machineTitle">RPC-4P-07</strong>
+          </div>
+          <div class="meta-tile surface-card">
+            <span>Last sample</span>
+            <strong id="liveTimestamp">06 Apr 2026, 09:00</strong>
+          </div>
+          <div class="meta-tile surface-card">
+            <span>MQTT QoS</span>
+            <strong id="qosMode">Telemetry QoS 1 | Alerts QoS 2</strong>
+          </div>
+          <div class="meta-tile surface-card">
+            <span>Current user</span>
+            <strong>{{ current_user.name }}</strong>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <article class="kpi-card accent-hot">
+            <div class="kpi-label">Mold Temperature</div>
+            <div class="kpi-value"><span id="tempValue">180.0</span><small>degC</small></div>
+            <div class="kpi-foot"><span id="tempDelta">+0.3 vs target</span></div>
+          </article>
+          <article class="kpi-card accent-pressure">
+            <div class="kpi-label">Compression Pressure</div>
+            <div class="kpi-value"><span id="pressureValue">118.0</span><small>bar</small></div>
+            <div class="kpi-foot"><span id="pressureDelta">Stable under load</span></div>
+          </article>
+          <article class="kpi-card accent-vibration">
+            <div class="kpi-label">Vibration</div>
+            <div class="kpi-value"><span id="vibrationValue">1.20</span><small>mm/s</small></div>
+            <div class="kpi-foot"><span id="vibrationDelta">Normal bearing signature</span></div>
+          </article>
+          <article class="kpi-card accent-quality">
+            <div class="kpi-label">Quality Score</div>
+            <div class="kpi-value"><span id="qualityValue">97.5</span><small>/100</small></div>
+            <div class="kpi-foot"><span id="defectRisk">Low defect risk</span></div>
+          </article>
+          <article class="kpi-card accent-energy">
+            <div class="kpi-label">Energy Intensity</div>
+            <div class="kpi-value"><span id="energyValue">53.2</span><small>kWh/batch</small></div>
+            <div class="kpi-foot"><span id="energyDelta">Within control band</span></div>
+          </article>
+          <article class="kpi-card accent-cycle">
+            <div class="kpi-label">Cycle Phase</div>
+            <div class="kpi-value"><span id="phaseValue">Compression</span></div>
+            <div class="kpi-foot"><span id="phaseClock">Cycle minute 13</span></div>
+          </article>
+        </div>
+
+        <div class="phase-track">
+          <div class="phase-segment" data-phase="Pre-Heat">Pre-Heat</div>
+          <div class="phase-segment" data-phase="Compression">Compression</div>
+          <div class="phase-segment" data-phase="Cooling">Cooling</div>
+        </div>
+      </section>
+
+      <aside class="signal-path-card surface-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="panel-kicker">Signal Path</span>
+            <span class="panel-note">Operational networking and runtime health</span>
+          </div>
+        </div>
+
+        <div class="pipeline-stack">
+          <div class="pipeline-node is-active">Sensors</div>
+          <div class="pipeline-node is-active">PLC / Edge</div>
+          <div class="pipeline-node is-active">MQTT over TCP</div>
+          <div class="pipeline-node is-active">Broker</div>
+          <div class="pipeline-node is-active">PostgreSQL</div>
+          <div class="pipeline-node is-active">Flask + Socket.IO</div>
+        </div>
+
+        <div class="metrics-list">
+          <div class="metric-row"><span>PLC IP</span><strong id="plcIp">192.168.10.21</strong></div>
+          <div class="metric-row"><span>Broker Port</span><strong id="brokerPort">1883 / MQTT</strong></div>
+          <div class="metric-row"><span>Buffered Frames</span><strong id="bufferedFrames">0</strong></div>
+          <div class="metric-row"><span>Last Ack Seq</span><strong id="ackSequence">10428</strong></div>
+          <div class="metric-row"><span>Latency</span><strong id="latencyValue">34 ms</strong></div>
+          <div class="metric-row"><span>Packet Loss</span><strong id="packetLossValue">0.2%</strong></div>
+        </div>
+
+        <div class="insight-box">
+          <div class="insight-title">Current inference</div>
+          <p id="networkNarrative">Reliable transport. No buffered telemetry. MQTT acknowledgments are keeping the stream in sync.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="operator-strip">
+      {% for card in dashboard_view.strip_cards %}
+      <article class="surface-card strip-card">
+        <span class="strip-label">{{ card.label }}</span>
+        <strong>{{ card.title }}</strong>
+        <p>{{ card.body }}</p>
+      </article>
+      {% endfor %}
+    </section>
+
+    <section class="panel signal-panel surface-panel" id="telemetry">
+      <div class="panel-heading signal-heading">
+        <div>
+          <span class="panel-kicker">Live Telemetry</span>
+          <span class="panel-note">{{ dashboard_view.section_notes.telemetry }}</span>
+        </div>
+        <div class="window-switcher" role="tablist" aria-label="Chart window">
+          <button class="window-button is-active" data-window="16">8h</button>
+          <button class="window-button" data-window="48">24h</button>
+          <button class="window-button" data-window="96">48h</button>
+        </div>
+      </div>
+
+      <div class="signal-grid">
+        <article class="signal-card surface-card" data-series="temperature">
+          <div class="signal-header">
+            <div>
+              <h2>Temperature Trend</h2>
+              <p>Target 180 degC | Control band 150 to 195</p>
+            </div>
+            <div class="signal-meta">
+              <strong id="tempChartValue">180.0 degC</strong>
+              <span id="tempChartTag">Centered</span>
+            </div>
+          </div>
+          <svg class="signal-svg" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </article>
+
+        <article class="signal-card surface-card" data-series="pressure">
+          <div class="signal-header">
+            <div>
+              <h2>Pressure Trend</h2>
+              <p>Cycle sensitive | Compression band 110 to 140 bar</p>
+            </div>
+            <div class="signal-meta">
+              <strong id="pressureChartValue">118.0 bar</strong>
+              <span id="pressureChartTag">Load stable</span>
+            </div>
+          </div>
+          <svg class="signal-svg" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </article>
+
+        <article class="signal-card surface-card" data-series="vibration">
+          <div class="signal-header">
+            <div>
+              <h2>Vibration Trend</h2>
+              <p>Predictive maintenance cue | Alert threshold 4.0 mm/s</p>
+            </div>
+            <div class="signal-meta">
+              <strong id="vibrationChartValue">1.20 mm/s</strong>
+              <span id="vibrationChartTag">Healthy signature</span>
+            </div>
+          </div>
+          <svg class="signal-svg" viewBox="0 0 520 180" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel alerts-panel surface-panel" id="alerts">
+      <div class="panel-heading">
+        <div>
+          <span class="panel-kicker">Alert Feed</span>
+          <span class="panel-note">{{ dashboard_view.section_notes.alerts }}</span>
+        </div>
+      </div>
+      <div class="alert-list" id="alertList"></div>
+    </section>
+
+    <section class="panel batches-panel surface-panel" id="batches">
+      <div class="panel-heading">
+        <div>
+          <span class="panel-kicker">Production Batches</span>
+          <span class="panel-note">{{ dashboard_view.section_notes.batches }}</span>
+        </div>
+      </div>
+      <div class="batch-table-wrap">
+        <table class="batch-table">
+          <thead>
+            <tr>
+              <th>Batch</th>
+              <th>Window</th>
+              <th>Qty</th>
+              <th>Defects</th>
+              <th>Quality</th>
+              <th>Phase Signature</th>
+            </tr>
+          </thead>
+          <tbody id="batchTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel maintenance-panel surface-panel" id="maintenance">
+      <div class="panel-heading">
+        <div>
+          <span class="panel-kicker">Maintenance Outlook</span>
+          <span class="panel-note">{{ dashboard_view.section_notes.maintenance }}</span>
+        </div>
+      </div>
+      <div class="component-grid" id="componentGrid"></div>
+      <div class="recommendations" id="recommendationList"></div>
+    </section>
+
+    <section class="panel analytics-panel surface-panel" id="analytics">
+      <div class="panel-heading">
+        <div>
+          <span class="panel-kicker">Analytics Layer</span>
+          <span class="panel-note">{{ dashboard_view.section_notes.analytics }}</span>
+        </div>
+      </div>
+      <div class="analytics-grid">
+        <article class="analytic-tile surface-card">
+          <span class="analytic-label">SPC Status</span>
+          <strong id="spcStatus">In Control</strong>
+          <p id="spcNote">No special-cause variation on the current subgroup window.</p>
+        </article>
+        <article class="analytic-tile surface-card">
+          <span class="analytic-label">Anomaly Score</span>
+          <strong id="anomalyScore">0.8 / 5</strong>
+          <p id="anomalyNote">Z-score flags remain below action threshold.</p>
+        </article>
+        <article class="analytic-tile surface-card">
+          <span class="analytic-label">Reliability at 100h</span>
+          <strong id="reliabilityValue">93.4%</strong>
+          <p id="reliabilityNote">Weibull fit indicates healthy short-term availability.</p>
+        </article>
+        <article class="analytic-tile surface-card">
+          <span class="analytic-label">Quality Forecast</span>
+          <strong id="qualityForecast">97.1</strong>
+          <p id="qualityForecastNote">Regression suggests stable product quality at present conditions.</p>
+        </article>
+      </div>
+    </section>
+  </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    window.SYNAPSE_SEED = {{ seed_data|tojson }};
+    window.SYNAPSE_API = {
+      dashboard: "{{ url_for('main.dashboard_payload') }}",
+      telemetry: "{{ url_for('main.telemetry_payload') }}",
+      alerts: "{{ url_for('main.alerts_payload') }}",
+      batches: "{{ url_for('main.batches_payload') }}",
+      maintenance: "{{ url_for('main.maintenance_payload') }}"
+    };
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}

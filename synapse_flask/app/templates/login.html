@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Synapse 2026 | Login{% endblock %}
+
+{% block body_class %}auth-body{% endblock %}
+
+{% block content %}
+<main class="auth-shell">
+  <section class="auth-hero surface-panel-strong">
+    <p class="eyebrow">Synapse 2026 | Smart Molding System</p>
+    <h1>Professional control for your IoT-enabled rubber molding machine.</h1>
+    <p class="hero-copy">
+      Sign in to monitor live machine telemetry, production quality, MQTT communication health,
+      predictive maintenance indicators, and database-backed alert workflows.
+    </p>
+
+    <div class="hero-stat-grid">
+      <article class="hero-stat surface-card">
+        <span>Monitoring Layers</span>
+        <strong>CNDC -> DBMS -> Analytics</strong>
+      </article>
+      <article class="hero-stat surface-card">
+        <span>Live Stack</span>
+        <strong>Flask | PostgreSQL | MQTT</strong>
+      </article>
+      <article class="hero-stat surface-card">
+        <span>Machine Focus</span>
+        <strong>4-Pillar Compression Press</strong>
+      </article>
+    </div>
+  </section>
+
+  <section class="auth-panel surface-panel">
+    <div class="auth-form-head">
+      <p class="eyebrow">Secure Access</p>
+      <h2>Login to the command deck</h2>
+      <p>Use one of the three demo users below or sign in manually with the same credentials.</p>
+    </div>
+
+    <form method="post" action="{{ url_for('main.login') }}" class="auth-form">
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" placeholder="admin@synapse.local" required>
+      </label>
+
+      <label class="field">
+        <span>Password</span>
+        <input type="password" name="password" placeholder="Admin@123" required>
+      </label>
+
+      <button type="submit" class="button-primary auth-submit">Enter Dashboard</button>
+    </form>
+
+    <div class="demo-users-head">
+      <div>
+        <p class="eyebrow">Demo Users</p>
+        <h3>Three role-based accounts</h3>
+      </div>
+      <p>Each profile lands on the same live dashboard with a different operational focus.</p>
+    </div>
+
+    <div class="demo-users">
+      {% for user in demo_users %}
+      <article class="demo-user-card surface-card card-hover">
+        <div class="demo-user-head">
+          <div>
+            <h3>{{ user.name }}</h3>
+            <p>{{ user.role }}</p>
+          </div>
+          <span class="role-pill">{{ user.key|upper }}</span>
+        </div>
+        <p class="demo-user-focus">{{ user.focus }}</p>
+        <div class="demo-user-meta">
+          <span>{{ user.email }}</span>
+          <span>{{ user.password }}</span>
+        </div>
+        <form method="post" action="{{ url_for('main.demo_login', user_key=user.key) }}">
+          <button type="submit" class="button-secondary auth-demo-button">Login As {{ user.role }}</button>
+        </form>
+      </article>
+      {% endfor %}
+    </div>
+
+    <p class="auth-footnote">
+      Local demo access only. This prototype uses session-based authentication for role demonstration.
+    </p>
+  </section>
+</main>
+{% endblock %}
