@@ -256,19 +256,34 @@
     }
 
     #login-screen .login-shell {
-      width: min(1120px, 100%);
+      width: min(1040px, 100%);
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(390px, 0.92fr);
-      border-radius: 32px;
+      grid-template-columns: minmax(0, 1.02fr) minmax(380px, 0.98fr);
+      border-radius: 30px;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 28%), var(--bg-card);
       box-shadow: var(--shadow-lg);
       overflow: hidden;
+      position: relative;
+    }
+
+    #login-screen .login-shell::before {
+      content: "";
+      position: absolute;
+      inset: -18% auto auto 52%;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 165, 0, 0.18), transparent 68%);
+      pointer-events: none;
+      filter: blur(8px);
     }
 
     #login-screen .login-left,
     #login-screen .login-right {
-      padding: 1.75rem;
+      padding: 1.45rem;
+      position: relative;
+      z-index: 1;
     }
 
     #login-screen .login-left {
@@ -279,32 +294,33 @@
         var(--bg-panel);
       display: grid;
       align-content: center;
-      gap: 0.95rem;
-      min-height: 620px;
+      gap: 0.8rem;
+      min-height: 560px;
     }
 
     #login-screen .login-right {
       display: grid;
       align-content: center;
-      gap: 1rem;
+      gap: 0.85rem;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%), var(--bg-card);
     }
 
     #login-screen .login-copy {
       margin: 0;
-      line-height: 1.65;
+      line-height: 1.58;
       color: var(--text-2);
-      max-width: 52ch;
+      max-width: 44ch;
+      font-size: 0.98rem;
     }
 
     #login-screen .login-highlights {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.85rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.7rem;
     }
 
     #login-screen .mini-card {
-      padding: 1rem;
+      padding: 0.8rem 0.75rem;
       border-radius: var(--radius-lg);
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
@@ -313,13 +329,13 @@
     #login-screen .chip-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.55rem;
     }
 
     #login-screen .login-title {
       margin: 0;
-      font-size: clamp(2.1rem, 5vw, 3.8rem);
-      line-height: 0.95;
+      font-size: clamp(1.9rem, 4.5vw, 3.25rem);
+      line-height: 0.98;
       text-align: left;
     }
 
@@ -341,32 +357,32 @@
 
     #login-screen .role-select-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.8rem;
-      margin-bottom: 0.4rem;
+      gap: 0.65rem;
+      margin-bottom: 0.15rem;
     }
 
     #login-screen .role-card {
-      min-height: 96px;
-      padding: 0.9rem;
+      min-height: 84px;
+      padding: 0.75rem;
       text-align: left;
     }
 
     #login-screen .role-card small {
       display: block;
-      margin-top: 0.35rem;
+      margin-top: 0.22rem;
       color: var(--text-2);
-      font-size: 0.9rem;
-      line-height: 1.55;
+      font-size: 0.82rem;
+      line-height: 1.35;
     }
 
     #login-screen .role-icon {
-      margin: 0 0 0.55rem;
+      margin: 0 0 0.45rem;
     }
 
     #login-screen .login-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     #login-screen .btn.btn-primary,
@@ -991,6 +1007,35 @@
       font-size: 0.8rem;
     }
 
+    .automation-card {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .automation-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .automation-card p {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .automation-code {
+      margin-top: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-a);
+      letter-spacing: 0.02em;
+      word-break: break-word;
+    }
+
     .connector-stack {
       position: relative;
       height: 72px;
@@ -1298,16 +1343,32 @@
       background: rgba(255, 255, 255, 0.03);
     }
 
+    .component-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
     .component-card h4 {
-      margin: 0.8rem 0 0.35rem;
+      margin: 0;
       font-size: 1rem;
     }
 
-    .component-use {
-      margin-top: 0.6rem;
+    .component-note {
+      margin: 0.5rem 0 0;
       color: var(--text-2);
-      font-size: 0.86rem;
-      line-height: 1.7;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .component-use {
+      margin-top: auto;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--line);
+      color: var(--text-2);
+      font-size: 0.8rem;
+      line-height: 1.55;
     }
 
     .color-input {
@@ -1449,6 +1510,17 @@
     *::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 999px; }
 
     @media (max-width: 1180px) {
+      #login-screen .login-shell {
+        grid-template-columns: 1fr;
+      }
+      #login-screen .login-left {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      #login-screen .login-highlights {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
       .nav-center { display: none; }
       .hero-banner,
       .problem-solution,
@@ -1471,6 +1543,16 @@
     }
 
     @media (max-width: 768px) {
+      #login-screen {
+        padding: 0.85rem;
+      }
+      #login-screen .login-left,
+      #login-screen .login-right {
+        padding: 1rem;
+      }
+      #login-screen .login-highlights {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
       #sidebar {
         width: 0;
         transform: translateX(-100%);
@@ -1504,32 +1586,32 @@
   <div id="login-screen">
     <div class="login-shell" id="login-card">
       <div class="login-left">
-        <span class="badge">Trusted Machine Intelligence Workspace</span>
-        <h1 class="login-title">Access SmartMold IoT With Confidence.</h1>
-        <p class="login-copy">Sign in to open the live industrial dashboard for the IoT-enabled 4-pillar compression molding machine.</p>
+        <span class="badge">Industrial Access Workspace</span>
+        <h1 class="login-title">Access SmartMold IoT.</h1>
+        <p class="login-copy">Open the live command interface for the IoT-enabled 4-pillar compression rubber molding machine.</p>
         <div class="chip-row">
-          <span class="pill">Real-Time Monitoring</span>
-          <span class="pill">MQTT Over TCP/IP</span>
-          <span class="pill">MySQL Relational Architecture</span>
-          <span class="pill">Statistical Intelligence</span>
+          <span class="pill">Live Monitoring</span>
+          <span class="pill">MQTT + TCP/IP</span>
+          <span class="pill">MySQL Storage</span>
+          <span class="pill">Statistical Insight</span>
         </div>
         <div class="login-highlights">
-          <div class="mini-card"><strong class="mono">99.2%</strong><div class="muted">Simulated system uptime</div></div>
-          <div class="mini-card"><strong class="mono">0.4s</strong><div class="muted">End-to-end data latency</div></div>
-          <div class="mini-card"><strong class="mono">37%</strong><div class="muted">Estimated energy reduction</div></div>
-          <div class="mini-card"><strong class="mono">QoS 2</strong><div class="muted">Exactly-once delivery model</div></div>
+          <div class="mini-card"><strong class="mono">99.2%</strong><div class="muted">Uptime</div></div>
+          <div class="mini-card"><strong class="mono">0.4s</strong><div class="muted">Latency</div></div>
+          <div class="mini-card"><strong class="mono">37%</strong><div class="muted">Energy saved</div></div>
+          <div class="mini-card"><strong class="mono">QoS 2</strong><div class="muted">Reliable delivery</div></div>
         </div>
       </div>
       <div class="login-right">
         <span class="badge">Role Access</span>
         <div>
           <h2 class="login-title" style="font-size:2.4rem;">SmartMold IoT</h2>
-          <p class="login-copy">Choose a workspace and continue with the matching demo login.</p>
+          <p class="login-copy">Choose a workspace and continue with the matching demo access.</p>
         </div>
         <div class="role-select-grid" id="role-selector">
-          <button class="role-card" type="button" data-role="operator"><div class="role-icon">OP</div><strong>Operator</strong><small>Machine floor control</small></button>
-          <button class="role-card" type="button" data-role="admin"><div class="role-icon">AD</div><strong>Admin</strong><small>System control center</small></button>
-          <button class="role-card" type="button" data-role="designer"><div class="role-icon">DS</div><strong>Designer</strong><small>Theme and layout studio</small></button>
+          <button class="role-card" type="button" data-role="operator"><div class="role-icon">OP</div><strong>Operator</strong><small>Floor monitoring</small></button>
+          <button class="role-card" type="button" data-role="admin"><div class="role-icon">AD</div><strong>Admin</strong><small>System control</small></button>
+          <button class="role-card" type="button" data-role="designer"><div class="role-icon">DS</div><strong>Designer</strong><small>Theme studio</small></button>
         </div>
         <div class="hint-line" id="login-hint"></div>
         <form id="login-form">
@@ -1781,10 +1863,10 @@
             <div class="band band-bottom reveal" style="margin-top:1rem;">
               <span class="band-label">ANALYTICS &amp; AUTOMATION</span>
               <div class="grid-4">
-                <div class="card"><h3>VIEW live_sensor_status</h3></div>
-                <div class="card"><h3>VIEW machine_health_summary</h3></div>
-                <div class="card"><h3>TRIGGER auto_alert_on_threshold</h3></div>
-                <div class="card"><h3>PROC get_maintenance_due()</h3></div>
+                <div class="card automation-card"><span class="tiny-pill mono">VIEW</span><h3>Live Sensor Status</h3><p>Latest reading and health state for every sensor channel.</p><div class="automation-code">live_sensor_status</div></div>
+                <div class="card automation-card"><span class="tiny-pill mono">VIEW</span><h3>Machine Health Summary</h3><p>Aggregated condition indicators for machine-level monitoring.</p><div class="automation-code">machine_health_summary</div></div>
+                <div class="card automation-card"><span class="tiny-pill mono">TRIGGER</span><h3>Auto Alert On Threshold</h3><p>Creates an alert immediately when a new reading crosses its limit.</p><div class="automation-code">auto_alert_on_threshold</div></div>
+                <div class="card automation-card"><span class="tiny-pill mono">PROC</span><h3>Maintenance Due Check</h3><p>Returns machines that are overdue or close to service windows.</p><div class="automation-code">get_maintenance_due()</div></div>
               </div>
               <pre class="sql-block"><code><span class="sql-comment">-- Trigger inserts an alert when a reading crosses the threshold</span>
 <span class="sql-key">CREATE TRIGGER</span> auto_alert_on_threshold
@@ -2015,7 +2097,7 @@
               <div class="control-card reveal"><h3>Font Selector</h3><div class="field-group"><label class="field-label">Heading Font</label><select class="select-input" id="heading-font"><option value="Rajdhani">Rajdhani</option><option value="Orbitron">Orbitron</option><option value="Exo 2">Exo 2</option><option value="Bebas Neue">Bebas Neue</option></select></div><div class="field-group"><label class="field-label">Body Font</label><select class="select-input" id="body-font"><option value="DM Sans">DM Sans</option><option value="Inter">Inter</option><option value="Nunito">Nunito</option><option value="Source Sans 3">Source Sans 3</option></select></div><div class="preview-card" id="font-preview">SmartMold IoT keeps charts, dashboards, and data tables readable while the typography system changes live.</div></div>
               <div class="control-card reveal"><h3>Animation Controls</h3><div class="control-grid" style="grid-template-columns:1fr;"><div class="toggle-row"><span>Sensor pulse animations</span><input class="switch" id="toggle-pulse" type="checkbox" checked></div><div class="toggle-row"><span>Architecture dots</span><input class="switch" id="toggle-dots" type="checkbox" checked></div><div class="toggle-row"><span>Fade-in scroll</span><input class="switch" id="toggle-reveal" type="checkbox" checked></div><div class="toggle-row"><span>Counter animation</span><input class="switch" id="toggle-counters" type="checkbox" checked></div></div></div>
             </div>
-            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-grid"><div class="component-card"><span class="badge">Sensor Card</span><strong class="mono">184.1 C</strong><span class="status-pill status-normal">NORMAL</span><h4>What it is for</h4><ul class="detail-list"><li>Shows live telemetry such as temperature, pressure, or vibration.</li><li>Pairs the current value with a status badge so abnormal behavior is visible instantly.</li><li>Usually includes trend cues like sparklines and operating ranges for quick floor decisions.</li></ul><div class="component-use">Used in the public sensor section and operator workspace to monitor machine condition in real time.</div></div><div class="component-card"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong><p class="muted">Availability metric</p><h4>What it is for</h4><ul class="detail-list"><li>Summarizes one KPI such as uptime, alerts, latency, output, or fault count.</li><li>Uses large mono values for rapid scanning during shift reviews and management reporting.</li><li>Works best for comparisons across machines, time windows, or performance targets.</li></ul><div class="component-use">Used in the hero, dashboard, storage panel, and admin overview to turn raw records into decision-ready indicators.</div></div><div class="component-card"><span class="badge">Primary Action</span><button class="btn btn-primary" type="button">Primary</button><h4>What it is for</h4><ul class="detail-list"><li>Highlights the main action a user should take next, such as logging in, running a query, or saving a design setting.</li><li>Keeps the UI focused by giving one accent-colored action stronger visual priority than secondary buttons.</li><li>Supports cleaner workflow design when multiple controls appear in the same panel.</li></ul><div class="component-use">Used for high-priority actions across login, SQL preview, quick actions, and design controls.</div></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
+            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-grid"><div class="component-card"><div class="component-head"><span class="badge">Sensor Card</span><span class="status-pill status-normal">NORMAL</span></div><strong class="mono">184.1 C</strong><p class="component-note">Live telemetry tile for temperature, pressure, or vibration with instant condition feedback.</p><div class="component-use">Best for floor monitoring, threshold watch, and quick trend awareness.</div></div><div class="component-card"><div class="component-head"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong></div><p class="component-note">Compact KPI block for uptime, alerts, latency, energy, or production performance.</p><div class="component-use">Best for summaries, comparisons, and manager-facing dashboards.</div></div><div class="component-card"><div class="component-head"><span class="badge">Primary Action</span><button class="btn btn-primary" type="button">Primary</button></div><p class="component-note">Accent action button that guides the user to the most important next step.</p><div class="component-use">Best for login, save, query, acknowledge, and workflow confirmation.</div></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
           </div>
         </div>
       </main>
