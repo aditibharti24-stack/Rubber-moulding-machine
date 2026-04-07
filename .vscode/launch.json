@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "SmartMold: Live Server Root",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "SmartMold: Python Preview Root",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5501/index.html",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "SmartMold: Operator Demo",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html?demo=operator",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "SmartMold: Admin Demo",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html?demo=admin",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "SmartMold: Designer Demo",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html?demo=designer",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "SmartMold: Statistics Focus",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html?demo=admin&view=sec-analytics",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}

@@ -1,0 +1,3129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartMold IoT | Industrial Intelligence System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg-base: #060b18;
+      --bg-card: #0d1526;
+      --bg-panel: #111d35;
+      --accent-a: #00e5cc;
+      --accent-b: #ff5722;
+      --accent-c: #7b5ea7;
+      --text-1: #e8edf5;
+      --text-2: #6b7fa3;
+      --border-subtle: rgba(0, 229, 204, 0.15);
+      --success: #67e7a0;
+      --warning: #ffb56b;
+      --danger: #ff6f6f;
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.18);
+      --shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --nav-height: 56px;
+      --sidebar-width: 240px;
+      --sidebar-collapsed: 64px;
+      --font-heading: "Rajdhani", sans-serif;
+      --font-body: "DM Sans", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    body.theme-space {
+      --bg-base: #060b18;
+      --bg-card: #0d1526;
+      --bg-panel: #111d35;
+      --accent-a: #00e5cc;
+      --accent-b: #ff5722;
+      --accent-c: #7b5ea7;
+      --text-1: #e8edf5;
+      --text-2: #6b7fa3;
+      --border-subtle: rgba(0, 229, 204, 0.15);
+      --grid-dot: rgba(255, 255, 255, 0.07);
+      --line: rgba(255, 255, 255, 0.08);
+      --scrollbar: rgba(0, 229, 204, 0.55);
+    }
+
+    body.theme-steel {
+      --bg-base: #0f0c08;
+      --bg-card: #1a1510;
+      --bg-panel: #221c14;
+      --accent-a: #f0a500;
+      --accent-b: #e84545;
+      --accent-c: #4a9e8a;
+      --text-1: #f0ead6;
+      --text-2: #8a7d6a;
+      --border-subtle: rgba(240, 165, 0, 0.15);
+      --grid-dot: rgba(255, 255, 255, 0.06);
+      --line: rgba(255, 255, 255, 0.08);
+      --scrollbar: rgba(240, 165, 0, 0.55);
+    }
+
+    body.theme-arctic {
+      --bg-base: #f0f4fa;
+      --bg-card: #ffffff;
+      --bg-panel: #e8eef8;
+      --accent-a: #0070f3;
+      --accent-b: #ff4500;
+      --accent-c: #6c3fc5;
+      --text-1: #0d1526;
+      --text-2: #4a5568;
+      --border-subtle: rgba(0, 112, 243, 0.15);
+      --grid-dot: rgba(13, 21, 38, 0.08);
+      --line: rgba(13, 21, 38, 0.08);
+      --scrollbar: rgba(0, 112, 243, 0.55);
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-1);
+      background: linear-gradient(135deg, var(--bg-base), var(--bg-panel));
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, var(--grid-dot) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: 0.32;
+      animation: gridPulse 4s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    body,
+    body * {
+      transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .brand-text,
+    .nav-link,
+    .sidebar-link,
+    .section-kicker,
+    .badge,
+    .pill,
+    .role-badge,
+    .counter-label {
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+    }
+
+    .muted {
+      color: var(--text-2);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .panel,
+    .card,
+    .table-card,
+    .chart-card,
+    .stat-card,
+    .role-card,
+    .login-card,
+    .dash-card,
+    .entity-box,
+    .member-card,
+    .stack-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 34%), var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn,
+    .icon-btn,
+    .theme-btn,
+    .logout-btn,
+    .small-btn,
+    .filter-btn,
+    .layout-btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      min-height: 42px;
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--text-1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-c));
+      color: #06101d;
+      box-shadow: 0 18px 36px rgba(0, 229, 204, 0.18);
+    }
+
+    body.theme-arctic .btn-primary {
+      color: #ffffff;
+    }
+
+    .btn-secondary,
+    .theme-btn,
+    .logout-btn,
+    .icon-btn,
+    .small-btn,
+    .filter-btn,
+    .layout-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--line);
+    }
+
+    .filter-btn,
+    .layout-btn,
+    .small-btn {
+      min-height: 36px;
+      padding: 0.55rem 0.85rem;
+      border-radius: 14px;
+      font-size: 0.9rem;
+    }
+
+    .filter-btn.active,
+    .layout-btn.active,
+    .role-card.selected {
+      border-color: var(--accent-a);
+      color: var(--accent-a);
+      box-shadow: 0 0 0 1px rgba(0, 229, 204, 0.15);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .badge,
+    .pill,
+    .tiny-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--accent-a);
+      font-size: 0.78rem;
+    }
+
+    #login-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-base);
+      z-index: 1000;
+      transition: opacity 0.4s ease;
+      padding: 1.5rem;
+    }
+
+    #login-screen .login-shell {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(390px, 0.92fr);
+      border-radius: 32px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 28%), var(--bg-card);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    #login-screen .login-left,
+    #login-screen .login-right {
+      padding: 1.75rem;
+    }
+
+    #login-screen .login-left {
+      border-right: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 36%),
+        linear-gradient(150deg, rgba(255, 255, 255, 0.02), transparent 55%),
+        var(--bg-panel);
+      display: grid;
+      align-content: center;
+      gap: 0.95rem;
+      min-height: 620px;
+    }
+
+    #login-screen .login-right {
+      display: grid;
+      align-content: center;
+      gap: 1rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%), var(--bg-card);
+    }
+
+    #login-screen .login-copy {
+      margin: 0;
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 52ch;
+    }
+
+    #login-screen .login-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    #login-screen .mini-card {
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    #login-screen .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    #login-screen .login-title {
+      margin: 0;
+      font-size: clamp(2.1rem, 5vw, 3.8rem);
+      line-height: 0.95;
+      text-align: left;
+    }
+
+    #login-screen .login-subtitle {
+      margin: 0;
+      text-align: left;
+      font-size: 13px;
+      color: var(--text-2);
+    }
+
+    #login-screen .logo-row {
+      justify-content: flex-start;
+      margin-bottom: 0;
+    }
+
+    #login-screen .divider {
+      margin: 0;
+    }
+
+    #login-screen .role-select-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    #login-screen .role-card {
+      min-height: 96px;
+      padding: 0.9rem;
+      text-align: left;
+    }
+
+    #login-screen .role-card small {
+      display: block;
+      margin-top: 0.35rem;
+      color: var(--text-2);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    #login-screen .role-icon {
+      margin: 0 0 0.55rem;
+    }
+
+    #login-screen .login-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    #login-screen .btn.btn-primary,
+    #login-screen .btn.btn-secondary {
+      flex: 1 1 180px;
+    }
+
+    .login-card {
+      width: min(440px, 100%);
+      padding: 1.75rem;
+      position: relative;
+      z-index: 1;
+      animation: loginRise 0.6s ease both;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: var(--accent-a);
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg,
+    .icon-btn svg,
+    .brand-mark svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .login-title {
+      margin: 0;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .login-subtitle {
+      margin: 0 0 1rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-2);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 1rem 0 1.2rem;
+    }
+
+    .role-select-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .role-card {
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      min-height: 96px;
+    }
+
+    .role-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      margin: 0 auto 0.5rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-family: var(--font-mono);
+    }
+
+    .field-group {
+      margin-bottom: 0.85rem;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .text-input,
+    .select-input {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-1);
+      padding: 0.85rem 1rem;
+      outline: none;
+    }
+
+    .text-input:focus,
+    .select-input:focus {
+      border-color: var(--accent-a);
+      box-shadow: 0 0 0 3px rgba(0, 229, 204, 0.14);
+    }
+
+    .hint-line,
+    .error-line {
+      min-height: 1.2rem;
+      font-size: 0.88rem;
+      margin: 0.35rem 0 0.5rem;
+    }
+
+    .hint-line {
+      color: var(--accent-a);
+    }
+
+    .error-line {
+      color: var(--danger);
+    }
+
+    details.credentials-panel {
+      margin-top: 0.85rem;
+      padding: 0.85rem 0.95rem;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    details.credentials-panel summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .credentials-table {
+      width: 100%;
+      margin-top: 0.75rem;
+      border-collapse: collapse;
+      min-width: 0;
+    }
+
+    .credentials-table th,
+    .credentials-table td {
+      padding: 0.55rem 0.35rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    #app-shell {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    #top-navbar {
+      height: 56px;
+      min-height: 56px;
+      flex-shrink: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 1rem;
+    }
+
+    .nav-left,
+    .nav-center,
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .nav-left {
+      flex: 0 0 auto;
+    }
+
+    .nav-center {
+      flex: 1;
+      justify-content: center;
+      gap: 1.25rem;
+      overflow: hidden;
+    }
+
+    .nav-right {
+      flex: 0 0 auto;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      flex-wrap: nowrap;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: var(--accent-a);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-size: 18px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .nav-link {
+      position: relative;
+      color: var(--text-2);
+      cursor: pointer;
+      font-size: 0.95rem;
+      padding: 0.2rem 0;
+      white-space: nowrap;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--text-1);
+    }
+
+    .nav-link.active::after,
+    .nav-link:hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.45rem;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--accent-a);
+    }
+
+    .role-badge,
+    .user-chip,
+    .live-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+      font-size: 0.82rem;
+    }
+
+    .role-operator { color: var(--accent-a); border-color: rgba(0, 229, 204, 0.32); }
+    .role-admin { color: var(--accent-b); border-color: rgba(255, 87, 34, 0.32); }
+    .role-designer { color: var(--accent-c); border-color: rgba(123, 94, 167, 0.32); }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 12px rgba(103, 231, 160, 0.75);
+      animation: livePulse 1.8s ease-in-out infinite;
+    }
+
+    #body-wrapper {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    #sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      height: 100%;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border-subtle);
+      transition: width 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0;
+    }
+
+    #sidebar.collapsed {
+      width: 64px;
+    }
+
+    #sidebar .sidebar-label,
+    #sidebar .section-title {
+      transition: opacity 0.2s ease;
+    }
+
+    #sidebar.collapsed .sidebar-label,
+    #sidebar.collapsed .section-title {
+      display: none;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0 1rem 1rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 0.8rem;
+    }
+
+    .sidebar-section {
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      padding: 0 1rem 0.4rem;
+      color: var(--text-2);
+      font-size: 0.78rem;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      cursor: pointer;
+      color: var(--text-2);
+      font-size: 14px;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      color: var(--accent-a);
+      border-left-color: var(--accent-a);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .sidebar-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    #main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem;
+      min-width: 0;
+      scroll-behavior: smooth;
+    }
+
+    .content-wrap {
+      width: min(1380px, 100%);
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 20px;
+    }
+
+    .section-head {
+      margin-bottom: 1.3rem;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      margin-bottom: 0.55rem;
+      color: var(--accent-a);
+      font-size: 0.84rem;
+    }
+
+    .section-title-main {
+      margin: 0;
+      font-size: clamp(2rem, 4.6vw, 3.6rem);
+      line-height: 0.96;
+    }
+
+    .section-copy {
+      max-width: 60ch;
+      color: var(--text-2);
+      line-height: 1.75;
+    }
+
+    .hero-banner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 1.2rem;
+      padding: 1.6rem;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 38%), var(--bg-card);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title {
+      margin: 0 0 0.7rem;
+      font-size: clamp(3rem, 7vw, 4.8rem);
+      line-height: 0.92;
+    }
+
+    .hero-subtitle {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 58ch;
+    }
+
+    .counter-grid,
+    .problem-solution,
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .sensor-grid,
+    .layer-grid,
+    .info-grid,
+    .dashboard-grid,
+    .member-grid,
+    .theme-grid,
+    .control-grid,
+    .layout-grid,
+    .component-grid,
+    .metric-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .counter-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 1.2rem 0;
+    }
+
+    .grid-2,
+    .dashboard-grid,
+    .problem-solution {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3,
+    .sensor-grid,
+    .layer-grid,
+    .info-grid,
+    .theme-grid,
+    .component-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4,
+    .metric-grid,
+    .member-grid,
+    .layout-grid,
+    .control-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .stat-card,
+    .card,
+    .table-card,
+    .chart-card,
+    .dash-card,
+    .entity-box,
+    .member-card,
+    .stack-card {
+      padding: 1rem;
+    }
+
+    .counter-value,
+    .sensor-value,
+    .metric-value,
+    .big-value {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: clamp(1.8rem, 4.2vw, 2.6rem);
+      margin-top: 0.35rem;
+      line-height: 1;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 6%;
+      border-radius: 22px;
+      background-image: linear-gradient(30deg, transparent 48%, rgba(255,255,255,0.04) 49%, transparent 50%), linear-gradient(-30deg, transparent 48%, rgba(255,255,255,0.04) 49%, transparent 50%);
+      opacity: 0.28;
+    }
+
+    .machine-svg {
+      width: min(520px, 100%);
+      position: relative;
+      z-index: 2;
+    }
+
+    .machine-stroke {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.72);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    body.theme-arctic .machine-stroke {
+      stroke: rgba(13, 21, 38, 0.72);
+    }
+
+    .ripple-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-a);
+      box-shadow: 0 0 16px rgba(0, 229, 204, 0.7);
+      z-index: 3;
+    }
+
+    .ripple-dot::before,
+    .ripple-dot::after {
+      content: "";
+      position: absolute;
+      inset: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 229, 204, 0.58);
+      transform: translate(-50%, -50%);
+      animation: ripple 2.4s linear infinite;
+    }
+
+    .ripple-dot::after {
+      animation-delay: 1.2s;
+    }
+
+    .pulse-1 { top: 28%; left: 61%; }
+    .pulse-2 { top: 58%; left: 33%; }
+    .pulse-3 { top: 76%; left: 72%; }
+
+    .tag-chip {
+      position: absolute;
+      z-index: 3;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.05);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+    }
+
+    .tag-1 { top: 22%; left: 63%; }
+    .tag-2 { top: 64%; left: 16%; }
+    .tag-3 { top: 82%; left: 68%; }
+
+    .problem-card { border-left: 4px solid var(--accent-b); }
+    .solution-card { border-left: 4px solid var(--accent-a); }
+
+    .band {
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 32%), var(--bg-card);
+    }
+
+    .band-top { border-left: 4px solid var(--accent-c); }
+    .band-mid { border-left: 4px solid var(--accent-a); }
+    .band-bottom { border-left: 4px solid var(--accent-b); }
+
+    .band-label {
+      display: inline-flex;
+      margin-bottom: 0.8rem;
+      padding: 0.38rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.8rem;
+    }
+
+    .connector-stack {
+      position: relative;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .connector-stack::before {
+      content: "";
+      width: 2px;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, transparent, var(--accent-a), transparent);
+    }
+
+    .moving-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-a);
+      animation: moveUp 2s linear infinite;
+    }
+
+    .moving-dot.d1 { animation-delay: 0.4s; }
+    .moving-dot.d2 { animation-delay: 0.8s; }
+    .moving-dot.d3 { animation-delay: 1.2s; }
+    .moving-dot.d4 { animation-delay: 1.6s; }
+
+    .protocol-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .protocol-pill {
+      padding: 0.38rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 94px;
+      min-height: 32px;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+    }
+
+    .status-normal,
+    .status-ok,
+    .status-resolved,
+    .status-running {
+      color: var(--success);
+      border-color: rgba(103, 231, 160, 0.32);
+      background: rgba(103, 231, 160, 0.11);
+    }
+
+    .status-warning,
+    .status-high,
+    .status-due {
+      color: var(--warning);
+      border-color: rgba(255, 181, 107, 0.32);
+      background: rgba(255, 181, 107, 0.1);
+    }
+
+    .status-critical,
+    .status-alert,
+    .status-overdue,
+    .status-active {
+      color: var(--danger);
+      border-color: rgba(255, 111, 111, 0.32);
+      background: rgba(255, 111, 111, 0.1);
+    }
+
+    .sparkline {
+      height: 74px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.4rem;
+    }
+
+    .event-log {
+      max-height: 280px;
+      overflow-y: auto;
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .event-row {
+      padding: 0.8rem 0.9rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .event-row.warn {
+      border-color: rgba(255, 87, 34, 0.32);
+      background: rgba(255, 87, 34, 0.08);
+    }
+
+    .table-wrap {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.82rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: var(--text-2);
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .entity-box .attr-list {
+      display: grid;
+      gap: 0.3rem;
+      color: var(--text-2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .entity-svg {
+      width: 100%;
+      height: 220px;
+      margin-top: 1rem;
+    }
+
+    .entity-svg line,
+    .entity-svg path {
+      stroke: rgba(255, 255, 255, 0.3);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    body.theme-arctic .entity-svg line,
+    body.theme-arctic .entity-svg path {
+      stroke: rgba(13, 21, 38, 0.22);
+    }
+
+    .entity-svg text {
+      fill: var(--text-2);
+      font-size: 13px;
+      font-family: var(--font-mono);
+    }
+
+    .sql-block {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.24);
+      overflow: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .sql-key { color: var(--accent-a); }
+    .sql-value { color: var(--accent-b); }
+    .sql-comment { color: var(--text-2); }
+
+    .sql-workspace {
+      margin-top: 1rem;
+    }
+
+    .sql-toolbar,
+    .sql-shortcuts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .sql-toolbar {
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .sql-shortcuts {
+      margin-top: 1rem;
+    }
+
+    .query-chip {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-2);
+      padding: 0.72rem 0.95rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+
+    .query-chip:hover,
+    .query-chip.active {
+      color: var(--text-1);
+      border-color: var(--accent-a);
+      box-shadow: 0 0 0 1px rgba(0, 229, 204, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .query-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .query-terminal {
+      min-height: 92px;
+      white-space: pre-wrap;
+    }
+
+    .query-note {
+      margin-top: 0.9rem;
+      color: var(--text-2);
+      font-size: 0.88rem;
+    }
+
+    .chart-shell {
+      height: 280px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.7rem;
+    }
+
+    .result-box {
+      margin-top: 0.8rem;
+      padding: 0.9rem 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .role-dash {
+      display: none;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .role-dash.active {
+      display: block;
+    }
+
+    .control-card,
+    .preview-card,
+    .component-card {
+      padding: 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .color-input {
+      width: 100%;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: transparent;
+      padding: 0.25rem;
+    }
+
+    .preview-swatches {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.8rem;
+    }
+
+    .preview-swatches span {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      display: inline-block;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .switch {
+      appearance: none;
+      width: 56px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.08);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .switch::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--text-1);
+      transition: transform 0.25s ease;
+    }
+
+    .switch:checked {
+      background: rgba(0, 229, 204, 0.2);
+      border-color: var(--accent-a);
+    }
+
+    .switch:checked::before {
+      transform: translateX(25px);
+      background: var(--accent-a);
+    }
+
+    .member-card {
+      text-align: center;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 0.8rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      color: var(--accent-a);
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    #toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 9999;
+      width: min(360px, calc(100vw - 2rem));
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    body.no-reveal .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    body.no-pulse .ripple-dot::before,
+    body.no-pulse .ripple-dot::after {
+      animation: none;
+      opacity: 0;
+    }
+
+    body.no-dots .moving-dot {
+      animation: none;
+      opacity: 0.75;
+    }
+
+    body.density-compact #main-content {
+      padding: 1.2rem;
+    }
+
+    body.density-expanded #main-content {
+      padding: 2.6rem;
+    }
+
+    @keyframes gridPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+    @keyframes ripple { 0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(4.6); } }
+    @keyframes moveUp { from { transform: translateY(60px); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(-60px); opacity: 0; } }
+    @keyframes livePulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(103,231,160,0.45); } 50% { box-shadow: 0 0 0 12px rgba(103,231,160,0); } }
+    @keyframes loginRise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+
+    .shake { animation: shake 0.35s ease; }
+
+    *::-webkit-scrollbar { width: 10px; height: 10px; }
+    *::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+    *::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 999px; }
+
+    @media (max-width: 1180px) {
+      .nav-center { display: none; }
+      .hero-banner,
+      .problem-solution,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .sensor-grid,
+      .layer-grid,
+      .info-grid,
+      .dashboard-grid,
+      .member-grid,
+      .theme-grid,
+      .control-grid,
+      .layout-grid,
+      .component-grid,
+      .metric-grid,
+      .counter-grid,
+      .role-select-grid,
+      .entity-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        width: 0;
+        transform: translateX(-100%);
+        padding: 1rem 0;
+      }
+      #sidebar.mobile-open {
+        width: 240px;
+        transform: translateX(0);
+      }
+      #main-content {
+        padding: 1rem;
+      }
+      #top-navbar {
+        padding: 0 0.9rem;
+      }
+      .nav-right {
+        gap: 0.4rem;
+      }
+      .role-badge,
+      .user-chip,
+      .live-chip,
+      .theme-btn,
+      .logout-btn {
+        font-size: 0.72rem;
+        padding: 0.4rem 0.55rem;
+      }
+    }
+  </style>
+</head>
+<body class="theme-space">
+  <div id="login-screen">
+    <div class="login-shell" id="login-card">
+      <div class="login-left">
+        <span class="badge">Trusted Machine Intelligence Workspace</span>
+        <h1 class="login-title">Access SmartMold IoT With Confidence.</h1>
+        <p class="login-copy">Sign in to open the live industrial dashboard for the IoT-enabled 4-pillar compression molding machine.</p>
+        <div class="chip-row">
+          <span class="pill">Real-Time Monitoring</span>
+          <span class="pill">MQTT Over TCP/IP</span>
+          <span class="pill">MySQL Relational Architecture</span>
+          <span class="pill">Statistical Intelligence</span>
+        </div>
+        <div class="login-highlights">
+          <div class="mini-card"><strong class="mono">99.2%</strong><div class="muted">Simulated system uptime</div></div>
+          <div class="mini-card"><strong class="mono">0.4s</strong><div class="muted">End-to-end data latency</div></div>
+          <div class="mini-card"><strong class="mono">37%</strong><div class="muted">Estimated energy reduction</div></div>
+          <div class="mini-card"><strong class="mono">QoS 2</strong><div class="muted">Exactly-once delivery model</div></div>
+        </div>
+      </div>
+      <div class="login-right">
+        <span class="badge">Role Access</span>
+        <div>
+          <h2 class="login-title" style="font-size:2.4rem;">SmartMold IoT</h2>
+          <p class="login-copy">Choose a workspace and continue with the matching demo login.</p>
+        </div>
+        <div class="role-select-grid" id="role-selector">
+          <button class="role-card" type="button" data-role="operator"><div class="role-icon">OP</div><strong>Operator</strong><small>Machine floor control</small></button>
+          <button class="role-card" type="button" data-role="admin"><div class="role-icon">AD</div><strong>Admin</strong><small>System control center</small></button>
+          <button class="role-card" type="button" data-role="designer"><div class="role-icon">DS</div><strong>Designer</strong><small>Theme and layout studio</small></button>
+        </div>
+        <div class="hint-line" id="login-hint"></div>
+        <form id="login-form">
+          <div class="field-group">
+            <label class="field-label" for="login-username">Username</label>
+            <input class="text-input" id="login-username" autocomplete="username" placeholder="Enter username">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="login-password">Password</label>
+            <input class="text-input" id="login-password" type="password" autocomplete="current-password" placeholder="Enter password">
+          </div>
+          <div class="login-actions">
+            <button class="btn btn-primary" type="submit">Access System</button>
+            <button class="btn btn-secondary" type="button" id="prefill-button">Use Selected Demo</button>
+          </div>
+        </form>
+        <div class="error-line" id="login-error"></div>
+        <details class="credentials-panel">
+          <summary>Demo Credentials</summary>
+          <table class="credentials-table">
+            <thead><tr><th>Role</th><th>User</th><th>Password</th></tr></thead>
+            <tbody>
+              <tr><td>Operator</td><td class="mono">operator</td><td class="mono">mold123</td></tr>
+              <tr><td>Admin</td><td class="mono">admin</td><td class="mono">admin456</td></tr>
+              <tr><td>Designer</td><td class="mono">designer</td><td class="mono">design789</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-shell" style="display:none;">
+    <nav id="top-navbar">
+      <div class="nav-left">
+        <button class="icon-btn" id="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+        </button>
+        <div class="brand-block">
+          <div class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M4.9 4.9l2.1 2.1"></path><path d="M17 17l2.1 2.1"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><path d="M4.9 19.1l2.1-2.1"></path><path d="M17 7l2.1-2.1"></path><circle cx="12" cy="12" r="4.5"></circle></svg></div>
+          <div class="brand-text">SmartMold IoT</div>
+        </div>
+      </div>
+      <div class="nav-center" id="navbar-links"></div>
+      <div class="nav-right">
+        <button class="theme-btn" id="theme-switcher" type="button">THEME: DEEP SPACE</button>
+        <span class="role-badge role-operator" id="nav-role-badge">OPERATOR</span>
+        <span class="user-chip" id="nav-username">operator</span>
+        <span class="live-chip"><span class="live-dot"></span>System Live</span>
+        <button class="logout-btn" id="logout-btn" type="button">Logout</button>
+      </div>
+    </nav>
+
+    <div id="body-wrapper">
+      <aside id="sidebar"></aside>
+      <main id="main-content">
+        <div class="content-wrap">
+          <section id="sec-overview">
+            <div class="hero-banner reveal">
+              <div>
+                <span class="badge">Industrial precision project portfolio</span>
+                <h2 class="hero-title">SmartMold IoT</h2>
+                <p class="hero-subtitle">Data-Driven Digital Transformation of an IoT-Enabled 4-Pillar Compression Type Rubber Molding Machine</p>
+                <div class="counter-grid">
+                  <div class="stat-card"><span class="counter-label">System uptime</span><strong class="counter-value mono" data-count="99.2" data-suffix="%">0%</strong></div>
+                  <div class="stat-card"><span class="counter-label">Energy saved</span><strong class="counter-value mono" data-count="37" data-suffix="%">0%</strong></div>
+                  <div class="stat-card"><span class="counter-label">Data latency</span><strong class="counter-value mono" data-count="0.4" data-suffix="s">0s</strong></div>
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+                  <button class="btn btn-primary" type="button" data-scroll-target="sec-architecture">Explore Architecture</button>
+                  <button class="btn btn-secondary" type="button" data-scroll-target="sec-dashboard">View Dashboard</button>
+                </div>
+              </div>
+              <div class="hero-visual">
+                <svg class="machine-svg" viewBox="0 0 560 520" aria-hidden="true">
+                  <path class="machine-stroke" d="M170 100h220a18 18 0 0 1 18 18v24H152v-24a18 18 0 0 1 18-18Z"></path>
+                  <path class="machine-stroke" d="M152 142h256"></path>
+                  <path class="machine-stroke" d="M188 142v206"></path>
+                  <path class="machine-stroke" d="M238 142v206"></path>
+                  <path class="machine-stroke" d="M322 142v206"></path>
+                  <path class="machine-stroke" d="M372 142v206"></path>
+                  <path class="machine-stroke" d="M150 224h260"></path>
+                  <path class="machine-stroke" d="M142 348h276a16 16 0 0 1 16 16v22H126v-22a16 16 0 0 1 16-16Z"></path>
+                  <path class="machine-stroke" d="M162 386h236a16 16 0 0 1 16 16v12H146v-12a16 16 0 0 1 16-16Z"></path>
+                  <circle class="machine-stroke" cx="168" cy="446" r="18"></circle>
+                  <circle class="machine-stroke" cx="392" cy="446" r="18"></circle>
+                </svg>
+                <div class="ripple-dot pulse-1"></div>
+                <div class="ripple-dot pulse-2"></div>
+                <div class="ripple-dot pulse-3"></div>
+                <span class="tag-chip tag-1">temperature</span>
+                <span class="tag-chip tag-2">pressure</span>
+                <span class="tag-chip tag-3">vibration</span>
+              </div>
+            </div>
+            <div class="problem-solution">
+              <div class="reveal">
+                <div class="section-kicker">Traditional machines</div>
+                <div class="card problem-card"><h3>Inconsistent Quality</h3><p class="muted">Fixed cycles offer no real-time adaptation to changing mold conditions.</p></div>
+                <div class="card problem-card" style="margin-top:1rem;"><h3>Energy Waste</h3><p class="muted">No feedback loop means power losses remain invisible during operation.</p></div>
+                <div class="card problem-card" style="margin-top:1rem;"><h3>Reactive Maintenance</h3><p class="muted">Breakdown signatures are noticed only after downtime has already begun.</p></div>
+                <div class="card problem-card" style="margin-top:1rem;"><h3>Zero Visibility</h3><p class="muted">Operators cannot see live health, alert trends, or machine history.</p></div>
+              </div>
+              <div class="reveal">
+                <div class="section-kicker">SmartMold IoT</div>
+                <div class="card solution-card"><h3>Adaptive Control</h3><p class="muted">Live sensor data supports condition-aware decision making for each cycle.</p></div>
+                <div class="card solution-card" style="margin-top:1rem;"><h3>Energy Optimization</h3><p class="muted">Operational visibility makes cycle tuning and load balancing practical.</p></div>
+                <div class="card solution-card" style="margin-top:1rem;"><h3>Predictive Maintenance</h3><p class="muted">Threshold breaches and anomaly patterns surface before failure escalates.</p></div>
+                <div class="card solution-card" style="margin-top:1rem;"><h3>Full Observability</h3><p class="muted">All machine intelligence lives in one role-aware workspace.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <section id="sec-architecture">
+            <div class="section-head reveal">
+              <span class="section-kicker">Communication architecture</span>
+              <h2 class="section-title-main">3-Layer Industrial IoT Framework - Client/Server Over MQTT</h2>
+              <p class="section-copy">The machine controller publishes sensor data through the network layer to a central server and database, enabling a live analytics dashboard with fault-tolerant messaging.</p>
+            </div>
+            <div class="band band-top reveal">
+              <span class="band-label">SERVER &amp; APPLICATION LAYER</span>
+              <div class="layer-grid">
+                <div class="card"><h3>Central Server</h3><p class="muted">Receives MQTT payloads, validates records, and coordinates storage workflows.</p></div>
+                <div class="card"><h3>MySQL Database</h3><p class="muted">Stores sensor readings, alerts, maintenance logs, and batch history.</p></div>
+                <div class="card"><h3>Analytics Dashboard</h3><p class="muted">Visualizes live and historical machine state across roles.</p></div>
+              </div>
+            </div>
+            <div class="connector-stack"><span class="moving-dot"></span><span class="moving-dot d1"></span><span class="moving-dot d2"></span><span class="moving-dot d3"></span><span class="moving-dot d4"></span></div>
+            <div class="band band-mid reveal">
+              <span class="band-label">NETWORK &amp; PROTOCOL LAYER</span>
+              <div class="grid-2">
+                <div class="card"><h3>Industrial LAN</h3><p class="muted">Static IP Ethernet transport between controller, broker, and server.</p></div>
+                <div class="card"><h3>MQTT Broker</h3><p class="muted">Topic fan-out and QoS-managed message routing over TCP/IP.</p></div>
+              </div>
+              <div class="protocol-pill-row" style="margin-top:1rem;"><span class="protocol-pill">MQTT</span><span class="protocol-pill">QoS 2</span><span class="protocol-pill">TLS 1.3</span><span class="protocol-pill">Port 8883</span><span class="protocol-pill">TCP/IP</span></div>
+            </div>
+            <div class="connector-stack"><span class="moving-dot"></span><span class="moving-dot d1"></span><span class="moving-dot d2"></span><span class="moving-dot d3"></span><span class="moving-dot d4"></span></div>
+            <div class="band band-bottom reveal">
+              <span class="band-label">DEVICE &amp; SENSOR LAYER</span>
+              <div class="layer-grid">
+                <div class="card"><h3>Temperature Sensor</h3><p class="muted">Live value: <span class="mono" id="arch-temp">178.4 C</span></p></div>
+                <div class="card"><h3>Pressure Sensor</h3><p class="muted">Live value: <span class="mono" id="arch-pressure">104.2 bar</span></p></div>
+                <div class="card"><h3>Vibration Sensor</h3><p class="muted">Live value: <span class="mono" id="arch-vibration">1.84 mm/s</span></p></div>
+              </div>
+              <div class="card" style="margin-top:1rem;"><h3>PLC / ESP32 - MQTT Client</h3><p class="muted">Publishes to <span class="mono">/machine/*</span> topics, buffers on disconnect, and reconnects automatically.</p></div>
+            </div>
+            <div class="info-grid" style="margin-top:1rem;">
+              <div class="card reveal"><h3>Why MQTT</h3><p class="muted">Lightweight publish-subscribe behavior suits high-frequency machine telemetry better than polling-driven HTTP.</p></div>
+              <div class="card reveal"><h3>Fault Tolerance</h3><p class="muted">Client buffering, retries, acknowledgments, and QoS 2 protect against message loss.</p></div>
+              <div class="card reveal"><h3>Security IEC 62443</h3><p class="muted">TLS, authenticated broker access, and secure transport align with industrial cybersecurity practices.</p></div>
+            </div>
+            <div class="grid-2" style="margin-top:1rem;">
+              <div class="card reveal"><h3>Client</h3><p class="muted">PLC publishes temperature, pressure, and vibration topics and caches payloads locally during outages.</p></div>
+              <div class="card reveal"><h3>Server</h3><p class="muted">Broker and central server subscribe, validate, store, and expose records to the analytics layer.</p></div>
+            </div>
+          </section>
+
+          <section id="sec-sensors">
+            <div class="section-head reveal">
+              <span class="section-kicker">Live sensor monitoring</span>
+              <h2 class="section-title-main">Real-Time Machine Signals</h2>
+            </div>
+            <div class="sensor-grid">
+              <div class="card reveal"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Temperature</h3><div class="muted">Target 150-200 C</div></div><span class="status-pill status-normal" id="temp-status">NORMAL</span></div><strong class="sensor-value mono" id="temp-value">184.3 C</strong><div class="sparkline" id="temp-spark"></div></div>
+              <div class="card reveal"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Pressure</h3><div class="muted">Target 50-150 bar</div></div><span class="status-pill status-normal" id="pressure-status">NORMAL</span></div><strong class="sensor-value mono" id="pressure-value">112.7 bar</strong><div class="sparkline" id="pressure-spark"></div></div>
+              <div class="card reveal"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Vibration</h3><div class="muted">Target 0.1-5.0 mm/s</div></div><span class="status-pill status-normal" id="vibration-status">NORMAL</span></div><strong class="sensor-value mono" id="vibration-value">1.84 mm/s</strong><div class="sparkline" id="vibration-spark"></div></div>
+            </div>
+            <div class="table-card reveal" style="margin-top:1rem;">
+              <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:0.8rem;"><div><h3>Event Log</h3><div class="muted">Updates every 3 seconds, max 15 rows</div></div><span class="tiny-pill mono" id="event-log-count">0 rows</span></div>
+              <div class="event-log" id="event-log"></div>
+            </div>
+          </section>
+
+          <section id="sec-database">
+            <div class="section-head reveal">
+              <span class="section-kicker">Database architecture</span>
+              <h2 class="section-title-main">3-Level Data Management - MySQL Relational System</h2>
+            </div>
+            <div class="band band-mid reveal">
+              <span class="band-label">REAL-TIME INGESTION</span>
+              <div class="grid-2">
+                <div class="table-card"><h3>SensorReading</h3><div class="table-wrap"><table><thead><tr><th>Sensor</th><th>Timestamp</th><th>Value</th><th>Status</th></tr></thead><tbody id="ingestion-body"></tbody></table></div></div>
+                <div class="table-card"><h3>Alert</h3><div class="table-wrap"><table><thead><tr><th>Alert</th><th>Sensor</th><th>Threshold</th><th>Actual</th></tr></thead><tbody id="alert-ingestion-body"></tbody></table></div></div>
+              </div>
+            </div>
+            <div class="band band-top reveal" style="margin-top:1rem;">
+              <span class="band-label">CORE RELATIONAL STORE</span>
+              <svg class="entity-svg" viewBox="0 0 1000 220" aria-hidden="true"><line x1="120" y1="68" x2="320" y2="68"></line><text x="205" y="54">1:N</text><line x1="380" y1="68" x2="580" y2="68"></line><text x="465" y="54">1:N</text><line x1="120" y1="150" x2="320" y2="150"></line><text x="205" y="136">1:N</text><line x1="380" y1="150" x2="580" y2="150"></line><text x="468" y="136">1:N</text><line x1="640" y1="150" x2="860" y2="150"></line><text x="740" y="136">N:1</text><line x1="380" y1="68" x2="380" y2="150"></line><text x="396" y="112">1:N</text></svg>
+              <div class="entity-grid">
+                <div class="entity-box"><h3>Machine</h3><div class="attr-list"><span>machine_id PK</span><span>name</span><span>location</span><span>model</span></div></div>
+                <div class="entity-box"><h3>Sensor</h3><div class="attr-list"><span>sensor_id PK</span><span>machine_id FK</span><span>sensor_type</span><span>unit</span></div></div>
+                <div class="entity-box"><h3>SensorReading</h3><div class="attr-list"><span>reading_id PK</span><span>sensor_id FK</span><span>timestamp</span><span>status</span></div></div>
+                <div class="entity-box"><h3>ProductionBatch</h3><div class="attr-list"><span>batch_id PK</span><span>machine_id FK</span><span>quantity_produced</span><span>quality_score</span></div></div>
+                <div class="entity-box"><h3>MaintenanceRecord</h3><div class="attr-list"><span>maintenance_id PK</span><span>machine_id FK</span><span>technician_id FK</span><span>type</span></div></div>
+                <div class="entity-box"><h3>Technician</h3><div class="attr-list"><span>technician_id PK</span><span>name</span><span>specialization</span><span>contact</span></div></div>
+              </div>
+            </div>
+            <div class="band band-bottom reveal" style="margin-top:1rem;">
+              <span class="band-label">ANALYTICS &amp; AUTOMATION</span>
+              <div class="grid-4">
+                <div class="card"><h3>VIEW live_sensor_status</h3></div>
+                <div class="card"><h3>VIEW machine_health_summary</h3></div>
+                <div class="card"><h3>TRIGGER auto_alert_on_threshold</h3></div>
+                <div class="card"><h3>PROC get_maintenance_due()</h3></div>
+              </div>
+              <pre class="sql-block"><code><span class="sql-comment">-- Trigger inserts an alert when a reading crosses the threshold</span>
+<span class="sql-key">CREATE TRIGGER</span> auto_alert_on_threshold
+<span class="sql-key">AFTER INSERT ON</span> SensorReading
+<span class="sql-key">FOR EACH ROW</span>
+<span class="sql-key">BEGIN</span>
+  <span class="sql-key">IF</span> NEW.value &gt; <span class="sql-value">200</span> <span class="sql-key">THEN</span>
+    <span class="sql-key">INSERT INTO</span> Alert(sensor_id, triggered_at, alert_type, threshold_value, actual_value, resolved)
+    <span class="sql-key">VALUES</span> (NEW.sensor_id, NEW.timestamp, <span class="sql-value">'HIGH_TEMP'</span>, <span class="sql-value">200</span>, NEW.value, <span class="sql-value">FALSE</span>);
+  <span class="sql-key">END IF</span>;
+<span class="sql-key">END</span>;</code></pre>
+              <div class="table-card reveal sql-workspace">
+                <div class="query-meta">
+                  <div>
+                    <h3>SQL Query Explorer</h3>
+                    <div class="muted">Run the same relational queries used for monitoring, alert summarization, maintenance joins, and stored procedure previews.</div>
+                  </div>
+                  <span class="tiny-pill mono">SELECT | GROUP BY | JOIN | CALL</span>
+                </div>
+                <div class="sql-shortcuts" id="public-query-shortcuts">
+                  <button class="query-chip active" type="button" data-public-query="readings">Recent Readings</button>
+                  <button class="query-chip" type="button" data-public-query="alerts">Alert Summary</button>
+                  <button class="query-chip" type="button" data-public-query="join">Maintenance Join</button>
+                  <button class="query-chip" type="button" data-public-query="procedure">Maintenance Procedure</button>
+                </div>
+                <div class="sql-toolbar">
+                  <select class="select-input" id="public-query-select" style="flex:1 1 280px;">
+                    <option value="readings">SELECT sensor readings from last hour</option>
+                    <option value="alerts">COUNT alerts grouped by type</option>
+                    <option value="join">JOIN machines with maintenance</option>
+                    <option value="procedure">CALL get_maintenance_due()</option>
+                  </select>
+                  <button class="btn btn-primary" type="button" id="public-run-query">Run SQL Preview</button>
+                </div>
+                <div class="result-box query-terminal" id="public-query-terminal"></div>
+                <div class="table-wrap" id="public-query-result" style="margin-top:1rem;"></div>
+                <div class="query-note">Simulated outputs are aligned with the SmartMold relational schema so the page stays Live Server friendly while still demonstrating executable SQL design.</div>
+              </div>
+              <div class="table-card reveal sql-workspace">
+                <div class="query-meta">
+                  <div>
+                    <h3>Historical Storage And Fault Comparison</h3>
+                    <div class="muted">The database stores short-window raw telemetry and longer-window summaries so operators, supervisors, and maintenance teams can compare drift, faults, and recovery trends over time.</div>
+                  </div>
+                  <span class="tiny-pill mono" id="storage-window-label">2H HOT BUFFER</span>
+                </div>
+                <div class="sql-shortcuts" id="storage-window-controls">
+                  <button class="query-chip active" type="button" data-storage-window="2h">2 Hours</button>
+                  <button class="query-chip" type="button" data-storage-window="6h">6 Hours</button>
+                  <button class="query-chip" type="button" data-storage-window="12h">12 Hours</button>
+                  <button class="query-chip" type="button" data-storage-window="48h">48 Hours</button>
+                  <button class="query-chip" type="button" data-storage-window="1y">1 Year</button>
+                </div>
+                <div class="metric-grid" style="margin-top:1rem;">
+                  <div class="card"><span class="counter-label">Granularity</span><strong class="big-value mono" id="storage-granularity">15 sec</strong><p class="muted">Data resolution in storage</p></div>
+                  <div class="card"><span class="counter-label">Stored Rows</span><strong class="big-value mono" id="storage-rows">1,440</strong><p class="muted">Telemetry rows retained</p></div>
+                  <div class="card"><span class="counter-label">Fault Events</span><strong class="big-value mono" id="storage-faults">0</strong><p class="muted">Detected events in range</p></div>
+                  <div class="card"><span class="counter-label">Storage Tier</span><strong class="big-value mono" id="storage-tier">Hot</strong><p class="muted">Retention profile</p></div>
+                </div>
+                <div class="chart-card" style="margin-top:1rem;">
+                  <h3 id="storage-chart-title">Trend And Fault Comparison - Last 2 Hours</h3>
+                  <div class="chart-shell"><canvas id="storage-trend-chart"></canvas></div>
+                </div>
+                <div class="grid-2" style="margin-top:1rem;">
+                  <div class="result-box" id="storage-purpose">Immediate operator replay after a warning or stoppage.</div>
+                  <div class="result-box" id="storage-retention">Used for short-horizon troubleshooting and exact event playback.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="sec-analytics">
+            <div class="section-head reveal">
+              <span class="section-kicker">Statistical process intelligence</span>
+              <h2 class="section-title-main">Inferential Statistics On The 30-Day Sensor Dataset</h2>
+            </div>
+            <div class="grid-3">
+              <div class="chart-card reveal"><h3>T-Test: Mean Temperature vs 180 C</h3><div class="chart-shell"><canvas id="ttest-chart"></canvas></div><div class="result-box">H0: mu = 180 C | H1: mu != 180 C<br>t = 2.14 | p = 0.032<br>Reject H0 at alpha = 0.05.</div></div>
+              <div class="chart-card reveal"><h3>Regression: Quality vs Temperature</h3><div class="chart-shell"><canvas id="regression-chart"></canvas></div><div class="result-box">R2 = 0.74 | p &lt; 0.001<br>Quality = 142.3 - 0.68 x Temp.</div></div>
+              <div class="chart-card reveal"><h3>Anomaly Detection: Vibration</h3><div class="chart-shell"><canvas id="anomaly-chart"></canvas></div><div class="result-box">120 points analysed | 14 anomalies detected | 5 require urgent inspection.</div></div>
+            </div>
+          </section>
+
+          <section id="sec-dashboard">
+            <div class="section-head reveal">
+              <span class="section-kicker">Real-time monitoring dashboard</span>
+              <h2 class="section-title-main">Operational Dashboard View</h2>
+            </div>
+            <div class="metric-grid">
+              <div class="stat-card reveal"><span class="counter-label">Temperature</span><strong class="metric-value mono" id="dash-temp-metric">184.3 C</strong><span class="status-pill status-normal" id="dash-temp-status">NORMAL</span></div>
+              <div class="stat-card reveal"><span class="counter-label">Pressure</span><strong class="metric-value mono" id="dash-pressure-metric">112.7 bar</strong><span class="status-pill status-normal" id="dash-pressure-status">NORMAL</span></div>
+              <div class="stat-card reveal"><span class="counter-label">Vibration</span><strong class="metric-value mono" id="dash-vibration-metric">1.84 mm/s</strong><span class="status-pill status-normal" id="dash-vibration-status">NORMAL</span></div>
+              <div class="stat-card reveal"><span class="counter-label">Machine</span><strong class="metric-value mono">RUNNING</strong><span class="status-pill status-running">LIVE</span></div>
+            </div>
+            <div class="grid-2" style="margin-top:1rem;">
+              <div class="chart-card reveal"><h3>Temperature - Last 20 Readings</h3><div class="chart-shell"><canvas id="dashboard-temp-chart"></canvas></div></div>
+              <div class="chart-card reveal"><h3>Pressure - Last 10 Cycles</h3><div class="chart-shell"><canvas id="dashboard-pressure-chart"></canvas></div></div>
+            </div>
+            <div class="table-card reveal" style="margin-top:1rem;"><h3>Alert Log</h3><div class="table-wrap"><table><thead><tr><th>Time</th><th>Sensor</th><th>Alert Type</th><th>Value</th><th>Status</th></tr></thead><tbody id="dashboard-alert-body"></tbody></table></div></div>
+          </section>
+
+          <div id="dash-operator" class="role-dash">
+            <div class="section-head reveal"><span class="section-kicker">Operator workspace</span><h2 class="section-title-main">Operator Dashboard</h2></div>
+            <div class="dashboard-grid">
+              <div class="dash-card reveal"><h3>Live Machine Status</h3><div class="grid-3"><div class="card"><div class="muted">Shift</div><strong class="big-value mono" id="op-shift">Shift 1</strong></div><div class="card"><div class="muted">Cycle Counter</div><strong class="big-value mono" id="op-cycle">128</strong></div><div class="card"><div class="muted">Remaining</div><strong class="big-value mono" id="op-remaining">44</strong></div></div></div>
+              <div class="dash-card reveal"><h3>Compact Sensor Table</h3><div class="table-wrap"><table><thead><tr><th>Sensor</th><th>Value</th><th>Status</th></tr></thead><tbody id="operator-sensor-body"></tbody></table></div></div>
+              <div class="dash-card reveal"><div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;"><h3>Alert History</h3><div style="display:flex;gap:0.5rem;"><button class="filter-btn active" type="button" data-operator-filter="all">All</button><button class="filter-btn" type="button" data-operator-filter="active">Active</button><button class="filter-btn" type="button" data-operator-filter="resolved">Resolved</button></div></div><div class="table-wrap"><table><thead><tr><th>Time</th><th>Machine</th><th>Sensor</th><th>Alert</th><th>Value</th><th>Action</th></tr></thead><tbody id="operator-alert-body"></tbody></table></div></div>
+              <div class="dash-card reveal"><h3>Quick Actions</h3><div style="display:flex;flex-wrap:wrap;gap:0.75rem;"><button class="btn btn-primary quick-action" type="button" data-toast="Operator acknowledged the latest alert.">Acknowledge Alert</button><button class="btn btn-secondary quick-action" type="button" data-toast="Maintenance request queued.">Request Maintenance</button><button class="btn btn-secondary quick-action" type="button" data-toast="Observation saved to machine log.">Log Observation</button></div></div>
+            </div>
+          </div>
+
+          <div id="dash-admin" class="role-dash">
+            <div class="section-head reveal"><span class="section-kicker">Admin workspace</span><h2 class="section-title-main">Admin Dashboard</h2></div>
+            <div class="metric-grid">
+              <div class="stat-card reveal"><span class="counter-label">Total Machines</span><strong class="metric-value mono">4</strong></div>
+              <div class="stat-card reveal"><span class="counter-label">Active Sensors</span><strong class="metric-value mono">12</strong></div>
+              <div class="stat-card reveal"><span class="counter-label">Alerts This Week</span><strong class="metric-value mono">7</strong></div>
+              <div class="stat-card reveal"><span class="counter-label">Uptime</span><strong class="metric-value mono">99.2%</strong></div>
+            </div>
+            <div class="table-card reveal" style="margin-top:1rem;"><h3>Sensor Config</h3><div class="table-wrap"><table><thead><tr><th>Sensor ID</th><th>Machine</th><th>Type</th><th>Unit</th><th>Min</th><th>Max</th><th>Status</th><th>Edit</th></tr></thead><tbody id="admin-config-body"></tbody></table></div></div>
+            <div class="table-card reveal" style="margin-top:1rem;"><h3>Maintenance Scheduler</h3><div class="table-wrap"><table><thead><tr><th>Machine</th><th>Last</th><th>Next Due</th><th>Technician</th><th>Status</th><th>Schedule</th></tr></thead><tbody id="admin-maint-body"></tbody></table></div></div>
+            <div class="table-card reveal" style="margin-top:1rem;"><h3>User Management</h3><div class="table-wrap"><table><thead><tr><th>Username</th><th>Role</th><th>Last Login</th><th>Status</th><th>Toggle</th></tr></thead><tbody id="admin-user-body"></tbody></table></div></div>
+            <div class="grid-3" style="margin-top:1rem;"><div class="chart-card reveal"><h3>Admin T-Test</h3><div class="chart-shell"><canvas id="admin-ttest-chart"></canvas></div></div><div class="chart-card reveal"><h3>Admin Regression</h3><div class="chart-shell"><canvas id="admin-regression-chart"></canvas></div></div><div class="chart-card reveal"><h3>Admin Anomaly</h3><div class="chart-shell"><canvas id="admin-anomaly-chart"></canvas></div></div></div>
+            <div class="table-card reveal" style="margin-top:1rem;"><h3>Database Query Simulator</h3><div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;"><select class="select-input" id="query-select" style="flex:1 1 260px;"><option value="">Select Query</option><option value="readings">SELECT sensor readings from last hour</option><option value="alerts">COUNT alerts grouped by type</option><option value="join">JOIN machines with maintenance</option><option value="procedure">CALL get_maintenance_due()</option></select><button class="btn btn-primary" type="button" id="run-query">Run Query</button></div><div class="result-box" id="query-terminal"></div><div class="table-wrap" id="query-result" style="margin-top:1rem;"></div></div>
+          </div>
+
+          <div id="dash-designer" class="role-dash">
+            <div class="section-head reveal"><span class="section-kicker">Design studio</span><h2 class="section-title-main">Designer Dashboard</h2></div>
+            <div class="theme-grid">
+              <div class="control-card reveal"><h3>Theme Studio</h3><div class="field-group"><label class="field-label">Background Base</label><input class="color-input" id="color-base" type="color"></div><div class="field-group"><label class="field-label">Accent A</label><input class="color-input" id="color-a" type="color"></div><div class="field-group"><label class="field-label">Accent B</label><input class="color-input" id="color-b" type="color"></div><div class="field-group"><label class="field-label">Accent C</label><input class="color-input" id="color-c" type="color"></div><div style="display:flex;gap:0.75rem;flex-wrap:wrap;"><button class="btn btn-primary" type="button" id="save-custom-theme">Save Custom Theme</button><button class="btn btn-secondary" type="button" id="reset-custom-theme">Reset</button></div><div class="preview-swatches"><span id="sw-base"></span><span id="sw-a"></span><span id="sw-b"></span><span id="sw-c"></span></div></div>
+              <div class="control-card reveal"><h3>Font Selector</h3><div class="field-group"><label class="field-label">Heading Font</label><select class="select-input" id="heading-font"><option value="Rajdhani">Rajdhani</option><option value="Orbitron">Orbitron</option><option value="Exo 2">Exo 2</option><option value="Bebas Neue">Bebas Neue</option></select></div><div class="field-group"><label class="field-label">Body Font</label><select class="select-input" id="body-font"><option value="DM Sans">DM Sans</option><option value="Inter">Inter</option><option value="Nunito">Nunito</option><option value="Source Sans 3">Source Sans 3</option></select></div><div class="preview-card" id="font-preview">SmartMold IoT keeps charts, dashboards, and data tables readable while the typography system changes live.</div></div>
+              <div class="control-card reveal"><h3>Animation Controls</h3><div class="control-grid" style="grid-template-columns:1fr;"><div class="toggle-row"><span>Sensor pulse animations</span><input class="switch" id="toggle-pulse" type="checkbox" checked></div><div class="toggle-row"><span>Architecture dots</span><input class="switch" id="toggle-dots" type="checkbox" checked></div><div class="toggle-row"><span>Fade-in scroll</span><input class="switch" id="toggle-reveal" type="checkbox" checked></div><div class="toggle-row"><span>Counter animation</span><input class="switch" id="toggle-counters" type="checkbox" checked></div></div></div>
+            </div>
+            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-grid"><div class="component-card"><span class="badge">Sensor Card</span><strong class="mono">184.1 C</strong><span class="status-pill status-normal">NORMAL</span></div><div class="component-card"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong><p class="muted">Availability metric</p></div><div class="component-card"><button class="btn btn-primary" type="button">Primary</button></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const USERS = {
+        operator: { password: 'mold123', role: 'operator', label: 'Operator' },
+        admin: { password: 'admin456', role: 'admin', label: 'Admin' },
+        designer: { password: 'design789', role: 'designer', label: 'Designer' }
+      };
+
+      const THEMES = [
+        { className: 'theme-space', label: 'Deep Space' },
+        { className: 'theme-steel', label: 'Steel Forge' },
+        { className: 'theme-arctic', label: 'Arctic Lab' }
+      ];
+
+      const PUBLIC_LINKS = [
+        { id: 'sec-overview', icon: 'OV', label: 'Project Overview' },
+        { id: 'sec-architecture', icon: 'AR', label: 'Architecture' },
+        { id: 'sec-sensors', icon: 'SN', label: 'Live Sensors' },
+        { id: 'sec-database', icon: 'DB', label: 'Database' },
+        { id: 'sec-analytics', icon: 'AN', label: 'Analytics' },
+        { id: 'sec-dashboard', icon: 'DS', label: 'Dashboard' }
+      ];
+
+      const ROLE_LINKS = {
+        operator: [
+          { id: 'dash-operator', icon: 'LM', label: 'Live Monitor' },
+          { id: 'dash-operator', icon: 'AL', label: 'Alert History' },
+          { id: 'dash-operator', icon: 'MS', label: 'Machine Status' },
+          { id: 'dash-operator', icon: 'PF', label: 'My Profile' }
+        ],
+        admin: [
+          { id: 'dash-admin', icon: 'SO', label: 'System Overview' },
+          { id: 'dash-admin', icon: 'SC', label: 'Sensor Config' },
+          { id: 'dash-admin', icon: 'MT', label: 'Maintenance' },
+          { id: 'dash-admin', icon: 'UM', label: 'User Management' },
+          { id: 'dash-admin', icon: 'FA', label: 'Full Analytics' },
+          { id: 'dash-admin', icon: 'QS', label: 'Query Simulator' }
+        ],
+        designer: [
+          { id: 'dash-designer', icon: 'TS', label: 'Theme Studio' },
+          { id: 'dash-designer', icon: 'FS', label: 'Font Selector' },
+          { id: 'dash-designer', icon: 'CL', label: 'Component Library' },
+          { id: 'dash-designer', icon: 'LP', label: 'Layout Preview' },
+          { id: 'dash-designer', icon: 'AC', label: 'Animation Controls' }
+        ]
+      };
+
+      const QUERY_RESULTS = {
+        readings: {
+          sql: 'SELECT sensor_id, timestamp, value, status FROM SensorReading WHERE timestamp >= NOW() - INTERVAL 1 HOUR;',
+          headers: ['sensor_id', 'timestamp', 'value', 'status'],
+          rows: [
+            ['temp_sensor_01', '10:18:12', '198.4 C', 'WARNING'],
+            ['pres_sensor_01', '10:18:12', '112.7 bar', 'NORMAL'],
+            ['vib_sensor_01', '10:18:12', '1.84 mm/s', 'NORMAL']
+          ]
+        },
+        alerts: {
+          sql: 'SELECT alert_type, COUNT(*) AS total FROM Alert GROUP BY alert_type;',
+          headers: ['alert_type', 'total'],
+          rows: [['HIGH_TEMP', '3'], ['PRESSURE_DRIFT', '2'], ['VIBRATION_SURGE', '2']]
+        },
+        join: {
+          sql: 'SELECT m.name, mr.date, mr.type, t.name FROM Machine m JOIN MaintenanceRecord mr ON m.machine_id = mr.machine_id JOIN Technician t ON mr.technician_id = t.technician_id;',
+          headers: ['machine', 'date', 'type', 'technician'],
+          rows: [['Rubber Press 01', '2026-04-01', 'Preventive', 'A. Kumar'], ['Rubber Press 02', '2026-04-03', 'Inspection', 'R. Iyer'], ['Rubber Press 03', '2026-04-05', 'Lubrication', 'S. Nair']]
+        },
+        procedure: {
+          sql: 'CALL get_maintenance_due();',
+          headers: ['machine', 'next_due', 'status'],
+          rows: [['Rubber Press 02', '2026-04-10', 'Due Soon'], ['Rubber Press 04', '2026-04-08', 'Overdue']]
+        }
+      };
+
+      let intervals = [];
+      let currentRole = null;
+      let currentUser = '';
+      let selectedRole = null;
+      let appStarted = false;
+      let currentThemeIndex = 0;
+      let revealObserver = null;
+      let operatorFilter = 'all';
+      let queryTimer = null;
+      let publicQueryTimer = null;
+      let currentStorageWindow = '2h';
+
+      let charts = {
+        ttest: null,
+        regression: null,
+        anomaly: null,
+        dashboardTemp: null,
+        dashboardPressure: null,
+        adminTtest: null,
+        adminRegression: null,
+        adminAnomaly: null,
+        storageTrend: null
+      };
+
+      const sensorState = {
+        tick: 0,
+        reading: { temperature: 184.3, pressure: 112.7, vibration: 1.84 },
+        statuses: { temperature: 'NORMAL', pressure: 'NORMAL', vibration: 'NORMAL' },
+        lastStatuses: { temperature: 'NORMAL', pressure: 'NORMAL', vibration: 'NORMAL' },
+        sparkHistory: {
+          temperature: [176.2, 178.1, 180.4, 181.2, 182.1, 184.4, 183.6, 185.2, 186.1, 184.8, 183.9, 184.3],
+          pressure: [98.2, 101.4, 103.1, 99.8, 105.2, 106.7, 104.6, 108.2, 110.3, 109.1, 111.2, 112.7],
+          vibration: [1.22, 1.44, 1.53, 1.61, 1.74, 1.88, 1.73, 1.91, 1.79, 1.88, 1.81, 1.84]
+        },
+        dashboardHistory: {
+          temperature: [176.2,177.1,178.1,179.5,180.1,181.2,182.1,182.9,183.5,184.2,184.9,185.4,186.1,185.7,184.9,184.4,183.8,184.6,184.1,184.3],
+          pressure: [92, 95, 98, 102, 108, 111, 107, 104, 110, 113]
+        },
+        eventLog: [],
+        operatorAlerts: [],
+        dashboardAlerts: [],
+        cycle: 128,
+        remaining: 44,
+        shift: 1
+      };
+
+      const adminData = {
+        config: [
+          { id: 'temp_sensor_01', machine: 'M-01', type: 'Temperature', unit: 'C', min: 150, max: 200, status: 'Active', editing: false },
+          { id: 'pres_sensor_01', machine: 'M-01', type: 'Pressure', unit: 'bar', min: 50, max: 150, status: 'Active', editing: false },
+          { id: 'vib_sensor_01', machine: 'M-01', type: 'Vibration', unit: 'mm/s', min: 0.1, max: 5.0, status: 'Active', editing: false },
+          { id: 'temp_sensor_02', machine: 'M-02', type: 'Temperature', unit: 'C', min: 150, max: 200, status: 'Active', editing: false },
+          { id: 'pres_sensor_02', machine: 'M-02', type: 'Pressure', unit: 'bar', min: 50, max: 150, status: 'Standby', editing: false },
+          { id: 'vib_sensor_02', machine: 'M-02', type: 'Vibration', unit: 'mm/s', min: 0.1, max: 5.0, status: 'Active', editing: false }
+        ],
+        maintenance: [
+          { machine: 'M-01', last: '2026-04-01', next: '2026-04-29', tech: 'A. Kumar', status: 'Completed' },
+          { machine: 'M-02', last: '2026-03-22', next: '2026-04-10', tech: 'R. Iyer', status: 'Due Soon' },
+          { machine: 'M-03', last: '2026-03-10', next: '2026-04-08', tech: 'S. Nair', status: 'Overdue' },
+          { machine: 'M-04', last: '2026-03-28', next: '2026-04-18', tech: 'P. Das', status: 'Completed' }
+        ],
+        users: [
+          { username: 'operator', role: 'Operator', lastLogin: '2026-04-07 09:15', status: 'Active' },
+          { username: 'admin', role: 'Admin', lastLogin: '2026-04-07 10:01', status: 'Active' },
+          { username: 'designer', role: 'Designer', lastLogin: '2026-04-07 08:48', status: 'Active' }
+        ]
+      };
+
+      const analyticsData = buildAnalyticsData();
+      const storageHistoryData = buildStorageHistoryData();
+
+      const loginScreen = document.getElementById('login-screen');
+      const appShell = document.getElementById('app-shell');
+      const loginCard = document.getElementById('login-card');
+      const loginForm = document.getElementById('login-form');
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      const loginError = document.getElementById('login-error');
+      const loginHint = document.getElementById('login-hint');
+      const roleSelector = document.getElementById('role-selector');
+      const prefillButton = document.getElementById('prefill-button');
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('main-content');
+      const navbarLinks = document.getElementById('navbar-links');
+      const navRoleBadge = document.getElementById('nav-role-badge');
+      const navUsername = document.getElementById('nav-username');
+      const themeSwitcher = document.getElementById('theme-switcher');
+      const publicQuerySelect = document.getElementById('public-query-select');
+      const publicRunQueryButton = document.getElementById('public-run-query');
+      const publicQueryTerminal = document.getElementById('public-query-terminal');
+      const publicQueryResult = document.getElementById('public-query-result');
+      const publicQueryShortcuts = document.getElementById('public-query-shortcuts');
+      const storageWindowControls = document.getElementById('storage-window-controls');
+      const storageWindowLabel = document.getElementById('storage-window-label');
+      const storageChartTitle = document.getElementById('storage-chart-title');
+      const storageGranularity = document.getElementById('storage-granularity');
+      const storageRows = document.getElementById('storage-rows');
+      const storageFaults = document.getElementById('storage-faults');
+      const storageTier = document.getElementById('storage-tier');
+      const storagePurpose = document.getElementById('storage-purpose');
+      const storageRetention = document.getElementById('storage-retention');
+
+      function getCssVar(name) {
+        return getComputedStyle(document.body).getPropertyValue(name).trim();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function formatTime() {
+        return new Date().toLocaleTimeString('en-GB', { hour12: false });
+      }
+
+      function rgbToHex(value) {
+        if (!value) return '#000000';
+        if (value.startsWith('#')) return value;
+        const parts = value.match(/\d+/g);
+        if (!parts) return '#000000';
+        return '#' + parts.slice(0, 3).map(function (part) { return Number(part).toString(16).padStart(2, '0'); }).join('');
+      }
+
+      function buildAnalyticsData() {
+        const bell = [];
+        const critical = [];
+        for (let x = 165; x <= 195; x += 1) {
+          const y = Math.exp(-0.5 * Math.pow((x - 180) / 4.5, 2));
+          bell.push({ x: x, y: Number(y.toFixed(4)) });
+          critical.push({ x: x, y: (x <= 173 || x >= 187) ? Number(y.toFixed(4)) : null });
+        }
+        const regression = [];
+        for (let i = 0; i < 30; i += 1) {
+          const temp = 160 + (i * 1.35);
+          const quality = clamp(142.3 - (0.68 * temp) + ((Math.random() - 0.5) * 5), 8, 40);
+          regression.push({ x: Number(temp.toFixed(1)), y: Number(quality.toFixed(1)) });
+        }
+        const anomalyBase = [];
+        for (let i = 0; i < 120; i += 1) {
+          anomalyBase.push(Number((2 + Math.sin(i / 7.5) * 0.55 + ((Math.random() - 0.5) * 0.28)).toFixed(2)));
+        }
+        const anomalyIndices = [5, 9, 13, 22, 28, 35, 44, 51, 63, 70, 82, 96, 104, 113];
+        anomalyIndices.forEach(function (index, order) {
+          anomalyBase[index] = Number((anomalyBase[index] + (order % 2 === 0 ? 2.3 : 1.9)).toFixed(2));
+        });
+        const anomalyOnly = anomalyBase.map(function (value, index) {
+          return anomalyIndices.indexOf(index) >= 0 ? value : null;
+        });
+        return {
+          bell: bell,
+          critical: critical,
+          observedMean: 183.4,
+          regression: regression,
+          regressionLine: [{ x: 160, y: 142.3 - (0.68 * 160) }, { x: 200, y: 142.3 - (0.68 * 200) }],
+          anomalyBase: anomalyBase,
+          anomalyOnly: anomalyOnly
+        };
+      }
+
+      function buildStorageHistoryData() {
+        function createRange(config) {
+          const labels = [];
+          const temperature = [];
+          const faults = [];
+          const pressure = [];
+          for (let i = 0; i < config.points; i += 1) {
+            labels.push(config.labelFormatter(i, config.points));
+            const temp = config.tempBase + Math.sin(i / config.waveA) * config.tempSwing + Math.cos(i / config.waveB) * 1.1;
+            const pres = config.pressureBase + Math.sin(i / 2.8) * config.pressureSwing + Math.cos(i / 5.3) * 2.2;
+            const fault = Math.max(0, Math.round(config.faultBase + ((Math.sin(i / config.faultWave) + 1) * config.faultSwing) + (i % config.spikeEvery === 0 ? config.spikeAdd : 0)));
+            temperature.push(Number(temp.toFixed(1)));
+            pressure.push(Number(pres.toFixed(1)));
+            faults.push(fault);
+          }
+          return {
+            title: config.title,
+            labels: labels,
+            temperature: temperature,
+            pressure: pressure,
+            faults: faults,
+            tier: config.tier,
+            granularity: config.granularity,
+            rows: config.rows,
+            purpose: config.purpose,
+            retention: config.retention,
+            comparison: config.comparison
+          };
+        }
+
+        return {
+          '2h': createRange({
+            title: 'Last 2 Hours',
+            points: 24,
+            labelFormatter: function (i) { return 'T-' + ((23 - i) * 5) + 'm'; },
+            tempBase: 181.2,
+            tempSwing: 2.4,
+            pressureBase: 104,
+            pressureSwing: 6,
+            faultBase: 0,
+            faultSwing: 0.8,
+            waveA: 3.2,
+            waveB: 5.8,
+            faultWave: 2.7,
+            spikeEvery: 9,
+            spikeAdd: 1,
+            tier: 'Hot buffer',
+            granularity: '15 sec raw packets',
+            rows: '1,440 rows',
+            purpose: 'Immediate operator replay after a warning or stoppage.',
+            retention: 'Used for short-horizon troubleshooting and exact event playback.',
+            comparison: 'Best for identifying the exact point where temperature, pressure, or vibration crossed a threshold.'
+          }),
+          '6h': createRange({
+            title: 'Last 6 Hours',
+            points: 24,
+            labelFormatter: function (i) { return 'T-' + (23 - i) * 15 + 'm'; },
+            tempBase: 180.6,
+            tempSwing: 2.9,
+            pressureBase: 103,
+            pressureSwing: 7.5,
+            faultBase: 1,
+            faultSwing: 1.1,
+            waveA: 3.8,
+            waveB: 6.4,
+            faultWave: 3.1,
+            spikeEvery: 8,
+            spikeAdd: 1,
+            tier: 'Shift buffer',
+            granularity: '15 min trend bins',
+            rows: '4,320 rows',
+            purpose: 'Compares shifts and fault buildup inside the same production window.',
+            retention: 'Used by supervisors to compare startup, steady-state, and pre-maintenance behavior.',
+            comparison: 'Good for seeing whether repeated warnings are isolated spikes or a growing pattern.'
+          }),
+          '12h': createRange({
+            title: 'Last 12 Hours',
+            points: 24,
+            labelFormatter: function (i) { return 'T-' + (23 - i) * 30 + 'm'; },
+            tempBase: 179.8,
+            tempSwing: 3.3,
+            pressureBase: 101.5,
+            pressureSwing: 8.3,
+            faultBase: 1,
+            faultSwing: 1.4,
+            waveA: 4.6,
+            waveB: 7.2,
+            faultWave: 3.7,
+            spikeEvery: 7,
+            spikeAdd: 2,
+            tier: 'Operational history',
+            granularity: '30 min process aggregates',
+            rows: '8,640 rows',
+            purpose: 'Captures day-long drift and lets the team compare early and late-cycle stability.',
+            retention: 'Used for fault onset comparison across half-day production runs.',
+            comparison: 'Useful for spotting thermal drift that slowly reduces quality before an alarm appears.'
+          }),
+          '48h': createRange({
+            title: 'Last 48 Hours',
+            points: 24,
+            labelFormatter: function (i) { return 'T-' + (23 - i) * 2 + 'h'; },
+            tempBase: 179.1,
+            tempSwing: 3.8,
+            pressureBase: 100.8,
+            pressureSwing: 9.2,
+            faultBase: 2,
+            faultSwing: 1.7,
+            waveA: 5.4,
+            waveB: 8.6,
+            faultWave: 4.1,
+            spikeEvery: 6,
+            spikeAdd: 2,
+            tier: 'Maintenance review',
+            granularity: '2 hour grouped summaries',
+            rows: '34,560 rows',
+            purpose: 'Compares recurring faults over multiple batches and maintenance interventions.',
+            retention: 'Used by maintenance teams to confirm whether yesterday’s repair reduced repeat alerts.',
+            comparison: 'Ideal for comparing fault density before and after technician action.'
+          }),
+          '1y': createRange({
+            title: 'Last 1 Year',
+            points: 12,
+            labelFormatter: function (i) { return ['May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'][i]; },
+            tempBase: 178.7,
+            tempSwing: 4.2,
+            pressureBase: 100.2,
+            pressureSwing: 10.6,
+            faultBase: 3,
+            faultSwing: 2.1,
+            waveA: 2.9,
+            waveB: 4.2,
+            faultWave: 2.4,
+            spikeEvery: 4,
+            spikeAdd: 3,
+            tier: 'Archive layer',
+            granularity: 'Monthly reliability summaries',
+            rows: '8.7M summarized records',
+            purpose: 'Benchmarks long-term degradation, seasonal drift, and maintenance effectiveness.',
+            retention: 'Used for reliability planning, replacement strategy, and annual process review.',
+            comparison: 'Best for proving whether fault frequency is improving, stable, or accelerating over time.'
+          })
+        };
+      }
+
+      function seedLogs() {
+        sensorState.eventLog = [
+          { text: '[09:40:19] - Sensor reading received - temp 182.4 C | pressure 101.2 bar | vibration 3.54 mm/s', warn: false },
+          { text: '[09:40:19] - WARNING: Vibration exceeded 3.5 mm/s threshold', warn: true },
+          { text: '[09:52:33] - WARNING: Temperature exceeded 190 C threshold', warn: true }
+        ];
+        sensorState.operatorAlerts = [
+          { id: 1, time: '10:18:12', machine: 'M-01', sensor: 'Temperature', type: 'HIGH TEMP', value: '198.4 C', resolved: false },
+          { id: 2, time: '10:14:48', machine: 'M-01', sensor: 'Vibration', type: 'VIBRATION SURGE', value: '4.28 mm/s', resolved: true },
+          { id: 3, time: '10:08:11', machine: 'M-01', sensor: 'Pressure', type: 'PRESSURE DRIFT', value: '108.7 bar', resolved: true },
+          { id: 4, time: '09:52:33', machine: 'M-01', sensor: 'Temperature', type: 'THERMAL WARNING', value: '191.6 C', resolved: true },
+          { id: 5, time: '09:40:19', machine: 'M-01', sensor: 'Vibration', type: 'BEARING WATCH', value: '3.54 mm/s', resolved: false }
+        ];
+        sensorState.dashboardAlerts = sensorState.operatorAlerts.slice(0, 5).map(function (item) {
+          return { time: item.time, sensor: item.sensor, type: item.type, value: item.value, status: item.resolved ? 'RESOLVED' : 'ACTIVE' };
+        });
+      }
+
+      function showToast(msg, type) {
+        const toast = document.createElement('div');
+        toast.style.cssText = 'padding:12px 20px;margin-top:8px;border-radius:8px;font-size:13px;color:var(--text-1);background:var(--bg-card);border-left:4px solid ' + (type === 'warning' ? 'var(--accent-b)' : type === 'error' ? '#e53e3e' : 'var(--accent-a)') + ';box-shadow:0 4px 16px rgba(0,0,0,0.4);transform:translateX(120%);transition:transform 0.3s ease;';
+        toast.textContent = msg;
+        document.getElementById('toast-container').appendChild(toast);
+        requestAnimationFrame(function () { toast.style.transform = 'translateX(0)'; });
+        setTimeout(function () {
+          toast.style.transform = 'translateX(120%)';
+          setTimeout(function () { toast.remove(); }, 300);
+        }, 3000);
+      }
+
+      function autofillDemoCredentials(role) {
+        const user = USERS[role];
+        if (!user) return;
+        usernameInput.value = role;
+        passwordInput.value = user.password;
+        loginHint.textContent = user.label + ' demo credentials autofilled.';
+        loginError.textContent = '';
+      }
+
+      function setPublicQuerySelection(key) {
+        if (!QUERY_RESULTS[key]) return;
+        publicQuerySelect.value = key;
+        Array.from(publicQueryShortcuts.querySelectorAll('[data-public-query]')).forEach(function (button) {
+          button.classList.toggle('active', button.dataset.publicQuery === key);
+        });
+      }
+
+      function renderQueryPreview(key, terminal, tableWrap, mode) {
+        const result = QUERY_RESULTS[key];
+        if (!result) return;
+        if (mode === 'admin' && queryTimer) {
+          clearInterval(queryTimer);
+          queryTimer = null;
+        }
+        if (mode === 'public' && publicQueryTimer) {
+          clearInterval(publicQueryTimer);
+          publicQueryTimer = null;
+        }
+        terminal.textContent = '';
+        tableWrap.innerHTML = '';
+        let index = 0;
+        const timer = setInterval(function () {
+          index += 1;
+          terminal.textContent = result.sql.slice(0, index);
+          if (index >= result.sql.length) {
+            clearInterval(timer);
+            if (mode === 'admin') queryTimer = null;
+            if (mode === 'public') publicQueryTimer = null;
+            setTimeout(function () {
+              terminal.innerHTML += '\n\nExecution complete. ' + result.rows.length + ' row set returned.';
+              tableWrap.innerHTML = '<table><thead><tr>' + result.headers.map(function (header) { return '<th>' + header + '</th>'; }).join('') + '</tr></thead><tbody>' + result.rows.map(function (row) { return '<tr>' + row.map(function (cell) { return '<td>' + cell + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
+            }, 140);
+          }
+        }, 16);
+        if (mode === 'admin') queryTimer = timer;
+        if (mode === 'public') publicQueryTimer = timer;
+      }
+
+      function setStorageWindow(key) {
+        if (!storageHistoryData[key]) return;
+        currentStorageWindow = key;
+        Array.from(storageWindowControls.querySelectorAll('[data-storage-window]')).forEach(function (button) {
+          button.classList.toggle('active', button.dataset.storageWindow === key);
+        });
+        renderStorageWindow();
+      }
+
+      function renderStorageWindow() {
+        const windowData = storageHistoryData[currentStorageWindow];
+        if (!windowData) return;
+        storageWindowLabel.textContent = windowData.title.toUpperCase() + ' | ' + windowData.tier.toUpperCase();
+        storageChartTitle.textContent = 'Trend And Fault Comparison - ' + windowData.title;
+        storageGranularity.textContent = windowData.granularity;
+        storageRows.textContent = windowData.rows;
+        storageFaults.textContent = windowData.faults.reduce(function (sum, value) { return sum + value; }, 0);
+        storageTier.textContent = windowData.tier;
+        storagePurpose.innerHTML = '<strong style="display:block;margin-bottom:0.35rem;">Primary use</strong>' + windowData.purpose + '<br><br><span class="muted">' + windowData.comparison + '</span>';
+        storageRetention.innerHTML = '<strong style="display:block;margin-bottom:0.35rem;">Retention logic</strong>' + windowData.retention;
+        updateStorageChart();
+      }
+
+      function updateStorageChart() {
+        if (!charts.storageTrend) return;
+        const accentA = getCssVar('--accent-a');
+        const accentB = getCssVar('--accent-b');
+        const text = getCssVar('--text-2');
+        const line = getCssVar('--line');
+        const windowData = storageHistoryData[currentStorageWindow];
+        const tempMin = Math.min.apply(null, windowData.temperature);
+        const tempMax = Math.max.apply(null, windowData.temperature);
+        const faultMax = Math.max.apply(null, windowData.faults);
+        charts.storageTrend.data.labels = windowData.labels;
+        charts.storageTrend.data.datasets[0].data = windowData.temperature;
+        charts.storageTrend.data.datasets[0].borderColor = accentA;
+        charts.storageTrend.data.datasets[0].backgroundColor = accentA + '22';
+        charts.storageTrend.data.datasets[1].data = windowData.faults;
+        charts.storageTrend.data.datasets[1].backgroundColor = accentB + 'bb';
+        charts.storageTrend.options.scales.x.ticks.color = text;
+        charts.storageTrend.options.scales.x.grid.color = line;
+        charts.storageTrend.options.scales.y.min = Math.floor(tempMin - 2);
+        charts.storageTrend.options.scales.y.max = Math.ceil(tempMax + 2);
+        charts.storageTrend.options.scales.y.ticks.color = text;
+        charts.storageTrend.options.scales.y.grid.color = line;
+        charts.storageTrend.options.scales.y1.max = faultMax + 2;
+        charts.storageTrend.options.scales.y1.ticks.color = text;
+        charts.storageTrend.options.scales.y1.grid.color = 'transparent';
+        charts.storageTrend.update('none');
+      }
+
+      function selectRoleCard(role) {
+        selectedRole = role;
+        Array.from(roleSelector.querySelectorAll('.role-card')).forEach(function (card) {
+          card.classList.toggle('selected', card.dataset.role === role);
+        });
+        autofillDemoCredentials(role);
+      }
+
+      function renderNavbarLinks() {
+        navbarLinks.innerHTML = PUBLIC_LINKS.map(function (link) {
+          return '<span class="nav-link" data-target="' + link.id + '">' + link.label.replace('Project ', '') + '</span>';
+        }).join('');
+      }
+
+      function renderSidebarForRole(role) {
+        const roleLabel = role === 'admin' ? 'ADMIN PANEL' : role === 'designer' ? 'DESIGN STUDIO' : 'MY WORKSPACE';
+        const publicLinks = PUBLIC_LINKS.map(function (link) {
+          return '<div class="sidebar-link" data-target="' + link.id + '"><span class="sidebar-icon">' + link.icon + '</span><span class="sidebar-label">' + link.label + '</span></div>';
+        }).join('');
+        const privateLinks = ROLE_LINKS[role].map(function (link) {
+          return '<div class="sidebar-link" data-target="' + link.id + '"><span class="sidebar-icon">' + link.icon + '</span><span class="sidebar-label">' + link.label + '</span></div>';
+        }).join('');
+        sidebar.innerHTML = '<div class="sidebar-header"><div class="logo-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M4.9 4.9l2.1 2.1"></path><path d="M17 17l2.1 2.1"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><path d="M4.9 19.1l2.1-2.1"></path><path d="M17 7l2.1-2.1"></path><circle cx="12" cy="12" r="4.5"></circle></svg></div><div class="sidebar-label"><div class="brand-text" style="font-size:16px;">SmartMold</div><div class="muted" style="font-size:12px;">' + USERS[role].label + ' workspace</div></div></div><div class="sidebar-section"><div class="section-title">PUBLIC</div>' + publicLinks + '</div><div class="sidebar-section"><div class="section-title">' + roleLabel + '</div>' + privateLinks + '</div>';
+      }
+
+      function setRole(role, username) {
+        currentRole = role;
+        currentUser = username;
+        navRoleBadge.textContent = role.toUpperCase();
+        navRoleBadge.className = 'role-badge ' + (role === 'admin' ? 'role-admin' : role === 'designer' ? 'role-designer' : 'role-operator');
+        navUsername.textContent = username;
+        renderSidebarForRole(role);
+        document.querySelectorAll('.role-dash').forEach(function (dash) {
+          dash.classList.remove('active');
+          dash.style.display = 'none';
+        });
+        const activeDash = document.getElementById('dash-' + role);
+        activeDash.style.display = 'block';
+        activeDash.classList.add('active');
+        updateActiveLinks();
+      }
+
+      function doLogin(username, password) {
+        const user = USERS[String(username).toLowerCase()];
+        if (!user || user.password !== password) {
+          loginCard.classList.add('shake');
+          setTimeout(function () { loginCard.classList.remove('shake'); }, 350);
+          loginError.textContent = 'Invalid username or password.';
+          return false;
+        }
+        loginScreen.style.opacity = '0';
+        setTimeout(function () {
+          loginScreen.style.display = 'none';
+          appShell.style.display = 'flex';
+          mainContent.scrollTop = 0;
+          setRole(user.role, username.toLowerCase());
+          initApp();
+        }, 400);
+        return true;
+      }
+
+      function destroyCharts() {
+        Object.keys(charts).forEach(function (key) {
+          if (charts[key] && typeof charts[key].destroy === 'function') charts[key].destroy();
+          charts[key] = null;
+        });
+      }
+
+      function doLogout() {
+        intervals.forEach(function (id) { clearInterval(id); });
+        intervals = [];
+        if (queryTimer) {
+          clearInterval(queryTimer);
+          queryTimer = null;
+        }
+        if (publicQueryTimer) {
+          clearInterval(publicQueryTimer);
+          publicQueryTimer = null;
+        }
+        destroyCharts();
+        appStarted = false;
+        currentRole = null;
+        currentUser = '';
+        appShell.style.display = 'none';
+        loginScreen.style.opacity = '0';
+        loginScreen.style.display = 'flex';
+        requestAnimationFrame(function () { loginScreen.style.opacity = '1'; });
+        usernameInput.value = '';
+        passwordInput.value = '';
+        loginHint.textContent = '';
+        loginError.textContent = '';
+        mainContent.scrollTop = 0;
+        selectedRole = null;
+        Array.from(roleSelector.querySelectorAll('.role-card')).forEach(function (card) { card.classList.remove('selected'); });
+      }
+
+      function scrollToSection(id) {
+        const target = document.getElementById(id);
+        if (!target) return;
+        mainContent.scrollTo({ top: target.offsetTop - 20, behavior: 'smooth' });
+      }
+
+      function updateActiveLinks() {
+        const targets = PUBLIC_LINKS.map(function (item) { return item.id; }).concat(currentRole ? ['dash-' + currentRole] : []);
+        let current = targets[0];
+        const scrollTop = mainContent.scrollTop;
+        targets.forEach(function (id) {
+          const node = document.getElementById(id);
+          if (node && scrollTop >= node.offsetTop - 80) current = id;
+        });
+        document.querySelectorAll('.nav-link, .sidebar-link').forEach(function (link) {
+          link.classList.toggle('active', link.dataset.target === current);
+        });
+      }
+
+      function setupRevealObserver() {
+        if (revealObserver) revealObserver.disconnect();
+        revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+          });
+        }, { root: mainContent, threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(function (node) {
+          node.classList.remove('visible');
+          revealObserver.observe(node);
+        });
+      }
+
+      function renderSparkline(containerId, values, color) {
+        const container = document.getElementById(containerId);
+        const width = 260;
+        const height = 70;
+        const min = Math.min.apply(null, values);
+        const max = Math.max.apply(null, values);
+        const range = max - min || 1;
+        const points = values.map(function (value, index) {
+          const x = (index / Math.max(values.length - 1, 1)) * width;
+          const y = height - (((value - min) / range) * (height - 16)) - 8;
+          return x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ');
+        container.innerHTML = '<svg viewBox="0 0 260 70" preserveAspectRatio="none"><polyline fill="none" stroke="' + color + '" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="' + points + '"></polyline></svg>';
+      }
+
+      function sensorClass(sensorType, status) {
+        if (sensorType === 'temperature') return status === 'CRITICAL' ? 'status-critical' : status === 'WARNING' ? 'status-warning' : 'status-normal';
+        if (sensorType === 'pressure') return status === 'HIGH' ? 'status-warning' : 'status-normal';
+        return status === 'ALERT' ? 'status-critical' : 'status-normal';
+      }
+
+      function renderSensorUI() {
+        document.getElementById('temp-value').textContent = sensorState.reading.temperature.toFixed(1) + ' C';
+        document.getElementById('pressure-value').textContent = sensorState.reading.pressure.toFixed(1) + ' bar';
+        document.getElementById('vibration-value').textContent = sensorState.reading.vibration.toFixed(2) + ' mm/s';
+        document.getElementById('arch-temp').textContent = sensorState.reading.temperature.toFixed(1) + ' C';
+        document.getElementById('arch-pressure').textContent = sensorState.reading.pressure.toFixed(1) + ' bar';
+        document.getElementById('arch-vibration').textContent = sensorState.reading.vibration.toFixed(2) + ' mm/s';
+
+        const tempStatus = document.getElementById('temp-status');
+        const pressureStatus = document.getElementById('pressure-status');
+        const vibrationStatus = document.getElementById('vibration-status');
+        tempStatus.className = 'status-pill ' + sensorClass('temperature', sensorState.statuses.temperature);
+        pressureStatus.className = 'status-pill ' + sensorClass('pressure', sensorState.statuses.pressure);
+        vibrationStatus.className = 'status-pill ' + sensorClass('vibration', sensorState.statuses.vibration);
+        tempStatus.textContent = sensorState.statuses.temperature;
+        pressureStatus.textContent = sensorState.statuses.pressure;
+        vibrationStatus.textContent = sensorState.statuses.vibration;
+
+        const accent = getCssVar('--accent-a');
+        const alert = getCssVar('--accent-b');
+        renderSparkline('temp-spark', sensorState.sparkHistory.temperature, sensorState.statuses.temperature === 'NORMAL' ? accent : alert);
+        renderSparkline('pressure-spark', sensorState.sparkHistory.pressure, sensorState.statuses.pressure === 'NORMAL' ? accent : alert);
+        renderSparkline('vibration-spark', sensorState.sparkHistory.vibration, sensorState.statuses.vibration === 'NORMAL' ? accent : alert);
+
+        document.getElementById('dash-temp-metric').textContent = sensorState.reading.temperature.toFixed(1) + ' C';
+        document.getElementById('dash-pressure-metric').textContent = sensorState.reading.pressure.toFixed(1) + ' bar';
+        document.getElementById('dash-vibration-metric').textContent = sensorState.reading.vibration.toFixed(2) + ' mm/s';
+        document.getElementById('dash-temp-status').className = 'status-pill ' + sensorClass('temperature', sensorState.statuses.temperature);
+        document.getElementById('dash-pressure-status').className = 'status-pill ' + sensorClass('pressure', sensorState.statuses.pressure);
+        document.getElementById('dash-vibration-status').className = 'status-pill ' + sensorClass('vibration', sensorState.statuses.vibration);
+        document.getElementById('dash-temp-status').textContent = sensorState.statuses.temperature;
+        document.getElementById('dash-pressure-status').textContent = sensorState.statuses.pressure;
+        document.getElementById('dash-vibration-status').textContent = sensorState.statuses.vibration;
+      }
+
+      function renderEventLog() {
+        const eventLog = document.getElementById('event-log');
+        eventLog.innerHTML = sensorState.eventLog.map(function (entry) {
+          return '<div class="event-row' + (entry.warn ? ' warn' : '') + '">' + entry.text + '</div>';
+        }).join('');
+        document.getElementById('event-log-count').textContent = sensorState.eventLog.length + ' rows';
+      }
+
+      function renderIngestionTables() {
+        const now = formatTime();
+        document.getElementById('ingestion-body').innerHTML = [
+          ['temp_sensor_01', now, sensorState.reading.temperature.toFixed(1) + ' C', sensorState.statuses.temperature],
+          ['pres_sensor_01', now, sensorState.reading.pressure.toFixed(1) + ' bar', sensorState.statuses.pressure],
+          ['vib_sensor_01', now, sensorState.reading.vibration.toFixed(2) + ' mm/s', sensorState.statuses.vibration]
+        ].map(function (row) {
+          return '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td class="mono">' + row[2] + '</td><td>' + row[3] + '</td></tr>';
+        }).join('');
+        document.getElementById('alert-ingestion-body').innerHTML = sensorState.operatorAlerts.slice(0, 4).map(function (alertRow) {
+          const threshold = alertRow.sensor === 'Temperature' ? '190 C' : alertRow.sensor === 'Pressure' ? '130 bar' : '3.5 mm/s';
+          return '<tr><td>' + alertRow.type + '</td><td>' + alertRow.sensor + '</td><td class="mono">' + threshold + '</td><td class="mono">' + alertRow.value + '</td></tr>';
+        }).join('');
+      }
+
+      function renderDashboardAlerts() {
+        document.getElementById('dashboard-alert-body').innerHTML = sensorState.dashboardAlerts.map(function (row) {
+          const className = row.status === 'ACTIVE' ? 'status-active' : 'status-resolved';
+          return '<tr><td>' + row.time + '</td><td>' + row.sensor + '</td><td>' + row.type + '</td><td class="mono">' + row.value + '</td><td><span class="status-pill ' + className + '">' + row.status + '</span></td></tr>';
+        }).join('');
+      }
+
+      function renderOperatorDash() {
+        document.getElementById('op-shift').textContent = 'Shift ' + sensorState.shift;
+        document.getElementById('op-cycle').textContent = sensorState.cycle;
+        document.getElementById('op-remaining').textContent = sensorState.remaining;
+        document.getElementById('operator-sensor-body').innerHTML = [
+          ['Temperature', sensorState.reading.temperature.toFixed(1) + ' C', sensorState.statuses.temperature, 'temperature'],
+          ['Pressure', sensorState.reading.pressure.toFixed(1) + ' bar', sensorState.statuses.pressure, 'pressure'],
+          ['Vibration', sensorState.reading.vibration.toFixed(2) + ' mm/s', sensorState.statuses.vibration, 'vibration']
+        ].map(function (row) {
+          return '<tr><td>' + row[0] + '</td><td class="mono">' + row[1] + '</td><td><span class="status-pill ' + sensorClass(row[3], row[2]) + '">' + row[2] + '</span></td></tr>';
+        }).join('');
+        let alerts = sensorState.operatorAlerts.slice();
+        if (operatorFilter === 'active') alerts = alerts.filter(function (row) { return !row.resolved; });
+        if (operatorFilter === 'resolved') alerts = alerts.filter(function (row) { return row.resolved; });
+        document.getElementById('operator-alert-body').innerHTML = alerts.map(function (row) {
+          return '<tr><td>' + row.time + '</td><td>' + row.machine + '</td><td>' + row.sensor + '</td><td>' + row.type + '</td><td class="mono">' + row.value + '</td><td>' + (row.resolved ? '<span class="status-pill status-resolved">RESOLVED</span>' : '<button class="small-btn" type="button" data-resolve-id="' + row.id + '">Resolve</button>') + '</td></tr>';
+        }).join('');
+      }
+
+      function renderAdminDash() {
+        document.getElementById('admin-config-body').innerHTML = adminData.config.map(function (row, index) {
+          if (row.editing) {
+            return '<tr><td>' + row.id + '</td><td>' + row.machine + '</td><td>' + row.type + '</td><td>' + row.unit + '</td><td><input class="text-input" type="number" data-min-index="' + index + '" value="' + row.min + '"></td><td><input class="text-input" type="number" data-max-index="' + index + '" value="' + row.max + '"></td><td>' + row.status + '</td><td><button class="small-btn" type="button" data-save-index="' + index + '">Save</button></td></tr>';
+          }
+          return '<tr><td>' + row.id + '</td><td>' + row.machine + '</td><td>' + row.type + '</td><td>' + row.unit + '</td><td class="mono">' + row.min + '</td><td class="mono">' + row.max + '</td><td>' + row.status + '</td><td><button class="small-btn" type="button" data-edit-index="' + index + '">Edit</button></td></tr>';
+        }).join('');
+        document.getElementById('admin-maint-body').innerHTML = adminData.maintenance.map(function (row, index) {
+          const className = row.status === 'Completed' ? 'status-resolved' : row.status === 'Due Soon' ? 'status-warning' : 'status-critical';
+          return '<tr><td>' + row.machine + '</td><td>' + row.last + '</td><td>' + row.next + '</td><td>' + row.tech + '</td><td><span class="status-pill ' + className + '">' + row.status + '</span></td><td><button class="small-btn" type="button" data-schedule-index="' + index + '">Schedule</button></td></tr>';
+        }).join('');
+        document.getElementById('admin-user-body').innerHTML = adminData.users.map(function (row, index) {
+          const className = row.status === 'Active' ? 'status-ok' : 'status-warning';
+          return '<tr><td>' + row.username + '</td><td>' + row.role + '</td><td>' + row.lastLogin + '</td><td><span class="status-pill ' + className + '">' + row.status + '</span></td><td><button class="small-btn" type="button" data-user-index="' + index + '">' + (row.status === 'Active' ? 'Deactivate' : 'Activate') + '</button></td></tr>';
+        }).join('');
+      }
+
+      function baseChartOptions() {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: getCssVar('--text-2') }, grid: { color: getCssVar('--line') } },
+            y: { ticks: { color: getCssVar('--text-2') }, grid: { color: getCssVar('--line') } }
+          }
+        };
+      }
+
+      function renderCharts() {
+        if (!window.Chart) return;
+        destroyCharts();
+        const accentA = getCssVar('--accent-a');
+        const accentB = getCssVar('--accent-b');
+        const text = getCssVar('--text-2');
+        const line = getCssVar('--line');
+
+        charts.ttest = new Chart(document.getElementById('ttest-chart'), {
+          type: 'line',
+          data: { datasets: [
+            { data: analyticsData.bell, borderColor: accentA, pointRadius: 0, tension: 0.3, parsing: false },
+            { data: analyticsData.critical, borderColor: accentB, backgroundColor: accentB + '22', fill: 'origin', pointRadius: 0, tension: 0.3, parsing: false },
+            { type: 'scatter', data: [{ x: analyticsData.observedMean, y: 0.78 }], pointRadius: 5, pointBackgroundColor: accentA }
+          ] },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { type: 'linear', min: 165, max: 195, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 1.1, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.regression = new Chart(document.getElementById('regression-chart'), {
+          type: 'scatter',
+          data: { datasets: [
+            { data: analyticsData.regression, backgroundColor: accentA, pointRadius: 4 },
+            { type: 'line', data: analyticsData.regressionLine, borderColor: accentB, pointRadius: 0, borderWidth: 2.4 }
+          ] },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { min: 160, max: 200, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 50, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.anomaly = new Chart(document.getElementById('anomaly-chart'), {
+          type: 'line',
+          data: { labels: analyticsData.anomalyBase.map(function (_, i) { return 'D' + (i + 1); }), datasets: [
+            { data: analyticsData.anomalyBase, borderColor: accentA, pointRadius: 2, pointBackgroundColor: accentA, tension: 0.24 },
+            { data: analyticsData.anomalyOnly, borderColor: accentB, pointRadius: 5, pointBackgroundColor: accentB, showLine: false }
+          ] },
+          options: baseChartOptions()
+        });
+
+        charts.dashboardTemp = new Chart(document.getElementById('dashboard-temp-chart'), {
+          type: 'line',
+          data: { labels: sensorState.dashboardHistory.temperature.map(function (_, i) { return 'R' + (i + 1); }), datasets: [{ data: sensorState.dashboardHistory.temperature, borderColor: accentA, backgroundColor: accentA + '22', fill: true, pointRadius: 2, tension: 0.3 }] },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { color: line } }, y: { min: 150, max: 200, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.dashboardPressure = new Chart(document.getElementById('dashboard-pressure-chart'), {
+          type: 'bar',
+          data: { labels: sensorState.dashboardHistory.pressure.map(function (_, i) { return 'C' + (i + 1); }), datasets: [{ data: sensorState.dashboardHistory.pressure, backgroundColor: sensorState.dashboardHistory.pressure.map(function (value) { return value >= 100 ? accentB + 'bb' : accentA + 'bb'; }), borderRadius: 10 }] },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { display: false } }, y: { min: 50, max: 150, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.adminTtest = new Chart(document.getElementById('admin-ttest-chart'), {
+          type: 'line',
+          data: { datasets: [
+            { data: analyticsData.bell, borderColor: accentA, pointRadius: 0, tension: 0.3, parsing: false },
+            { data: analyticsData.critical, borderColor: accentB, backgroundColor: accentB + '22', fill: 'origin', pointRadius: 0, tension: 0.3, parsing: false },
+            { type: 'scatter', data: [{ x: analyticsData.observedMean, y: 0.78 }], pointRadius: 5, pointBackgroundColor: accentA }
+          ] },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { type: 'linear', min: 165, max: 195, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 1.1, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.adminRegression = new Chart(document.getElementById('admin-regression-chart'), {
+          type: 'scatter',
+          data: { datasets: [
+            { data: analyticsData.regression, backgroundColor: accentA, pointRadius: 4 },
+            { type: 'line', data: analyticsData.regressionLine, borderColor: accentB, pointRadius: 0, borderWidth: 2.4 }
+          ] },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { min: 160, max: 200, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 50, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.adminAnomaly = new Chart(document.getElementById('admin-anomaly-chart'), {
+          type: 'line',
+          data: { labels: analyticsData.anomalyBase.map(function (_, i) { return 'D' + (i + 1); }), datasets: [
+            { data: analyticsData.anomalyBase, borderColor: accentA, pointRadius: 2, pointBackgroundColor: accentA, tension: 0.24 },
+            { data: analyticsData.anomalyOnly, borderColor: accentB, pointRadius: 5, pointBackgroundColor: accentB, showLine: false }
+          ] },
+          options: baseChartOptions()
+        });
+
+        charts.storageTrend = new Chart(document.getElementById('storage-trend-chart'), {
+          type: 'bar',
+          data: {
+            labels: storageHistoryData[currentStorageWindow].labels,
+            datasets: [
+              { type: 'line', data: storageHistoryData[currentStorageWindow].temperature, borderColor: accentA, backgroundColor: accentA + '22', fill: true, tension: 0.28, pointRadius: 2, yAxisID: 'y' },
+              { type: 'bar', data: storageHistoryData[currentStorageWindow].faults, backgroundColor: accentB + 'bb', borderRadius: 8, yAxisID: 'y1' }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: text }, grid: { color: line } },
+              y: { min: 165, max: 195, ticks: { color: text }, grid: { color: line } },
+              y1: { position: 'right', min: 0, max: 8, ticks: { color: text }, grid: { drawOnChartArea: false } }
+            }
+          }
+        });
+      }
+
+      function updateLiveCharts() {
+        if (!charts.dashboardTemp || !charts.dashboardPressure) return;
+        const accentA = getCssVar('--accent-a');
+        const accentB = getCssVar('--accent-b');
+        charts.dashboardTemp.data.labels = sensorState.dashboardHistory.temperature.map(function (_, i) { return 'R' + (i + 1); });
+        charts.dashboardTemp.data.datasets[0].data = sensorState.dashboardHistory.temperature;
+        charts.dashboardTemp.data.datasets[0].borderColor = accentA;
+        charts.dashboardTemp.data.datasets[0].backgroundColor = accentA + '22';
+        charts.dashboardTemp.update('none');
+        charts.dashboardPressure.data.labels = sensorState.dashboardHistory.pressure.map(function (_, i) { return 'C' + (i + 1); });
+        charts.dashboardPressure.data.datasets[0].data = sensorState.dashboardHistory.pressure;
+        charts.dashboardPressure.data.datasets[0].backgroundColor = sensorState.dashboardHistory.pressure.map(function (value) { return value >= 100 ? accentB + 'bb' : accentA + 'bb'; });
+        charts.dashboardPressure.update('none');
+      }
+
+      function applyTheme(themeIndex) {
+        ['--bg-base', '--accent-a', '--accent-b', '--accent-c'].forEach(function (key) {
+          document.body.style.removeProperty(key);
+        });
+        document.body.classList.remove('theme-space', 'theme-steel', 'theme-arctic');
+        document.body.classList.add(THEMES[themeIndex].className);
+        currentThemeIndex = themeIndex;
+        themeSwitcher.textContent = 'THEME: ' + THEMES[themeIndex].label.toUpperCase();
+        localStorage.setItem('smiot_theme', THEMES[themeIndex].className);
+        syncDesignerControls();
+        if (appStarted) renderCharts();
+      }
+
+      function cycleTheme() {
+        applyTheme((currentThemeIndex + 1) % THEMES.length);
+      }
+
+      function syncDesignerControls() {
+        document.getElementById('color-base').value = rgbToHex(getCssVar('--bg-base'));
+        document.getElementById('color-a').value = rgbToHex(getCssVar('--accent-a'));
+        document.getElementById('color-b').value = rgbToHex(getCssVar('--accent-b'));
+        document.getElementById('color-c').value = rgbToHex(getCssVar('--accent-c'));
+        document.getElementById('sw-base').style.background = getCssVar('--bg-base');
+        document.getElementById('sw-a').style.background = getCssVar('--accent-a');
+        document.getElementById('sw-b').style.background = getCssVar('--accent-b');
+        document.getElementById('sw-c').style.background = getCssVar('--accent-c');
+      }
+
+      function loadFont(family) {
+        const id = 'font-' + family.replace(/\s+/g, '-').toLowerCase();
+        if (document.getElementById(id)) return;
+        const link = document.createElement('link');
+        link.id = id;
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=' + family.replace(/ /g, '+') + ':wght@400;500;600;700&display=swap';
+        document.head.appendChild(link);
+      }
+
+      function applyCustomFonts() {
+        const headingFont = document.getElementById('heading-font').value;
+        const bodyFont = document.getElementById('body-font').value;
+        loadFont(headingFont);
+        loadFont(bodyFont);
+        document.documentElement.style.setProperty('--font-heading', '"' + headingFont + '", sans-serif');
+        document.documentElement.style.setProperty('--font-body', '"' + bodyFont + '", sans-serif');
+        document.getElementById('font-preview').style.fontFamily = '"' + bodyFont + '", sans-serif';
+      }
+
+      function setDensity(mode) {
+        document.body.classList.remove('density-compact', 'density-standard', 'density-expanded');
+        document.body.classList.add('density-' + mode);
+        document.querySelectorAll('[data-density]').forEach(function (button) {
+          button.classList.toggle('active', button.dataset.density === mode);
+        });
+      }
+
+      function updateTelemetry() {
+        sensorState.tick += 1;
+        const forcedSpike = sensorState.tick % 10 === 0 ? ['temperature', 'pressure', 'vibration'][Math.floor(Math.random() * 3)] : '';
+        let temperature = 175 + (Math.random() * 30) - 10;
+        let pressure = 100 + (Math.random() * 40) - 20;
+        let vibration = 2 + (Math.random() * 2) - 1;
+        if (forcedSpike === 'temperature') temperature = 198 + (Math.random() * 2.4);
+        if (forcedSpike === 'pressure') pressure = 136 + (Math.random() * 8);
+        if (forcedSpike === 'vibration') vibration = 4 + (Math.random() * 0.7);
+        temperature = clamp(Number(temperature.toFixed(1)), 165, 198.8);
+        pressure = clamp(Number(pressure.toFixed(1)), 55, 145);
+        vibration = clamp(Number(vibration.toFixed(2)), 0.2, 4.5);
+        sensorState.reading = { temperature: temperature, pressure: pressure, vibration: vibration };
+        sensorState.statuses = {
+          temperature: temperature > 197 ? 'CRITICAL' : temperature > 190 ? 'WARNING' : 'NORMAL',
+          pressure: pressure > 130 ? 'HIGH' : 'NORMAL',
+          vibration: vibration > 3.5 ? 'ALERT' : 'NORMAL'
+        };
+        ['temperature', 'pressure', 'vibration'].forEach(function (key) {
+          sensorState.sparkHistory[key].push(sensorState.reading[key]);
+          sensorState.sparkHistory[key] = sensorState.sparkHistory[key].slice(-12);
+        });
+        sensorState.dashboardHistory.temperature.push(temperature);
+        sensorState.dashboardHistory.temperature = sensorState.dashboardHistory.temperature.slice(-20);
+        sensorState.dashboardHistory.pressure.push(pressure);
+        sensorState.dashboardHistory.pressure = sensorState.dashboardHistory.pressure.slice(-10);
+        registerNewAlerts();
+        renderSensorUI();
+        renderIngestionTables();
+        renderOperatorDash();
+        updateLiveCharts();
+      }
+
+      function registerNewAlerts() {
+        const previous = sensorState.lastStatuses;
+        const current = sensorState.statuses;
+        function addAlert(sensor, type, value) {
+          const nextId = sensorState.operatorAlerts.length ? Math.max.apply(null, sensorState.operatorAlerts.map(function (row) { return row.id; })) + 1 : 1;
+          sensorState.operatorAlerts.unshift({ id: nextId, time: formatTime(), machine: 'M-01', sensor: sensor, type: type, value: value, resolved: false });
+          sensorState.operatorAlerts = sensorState.operatorAlerts.slice(0, 12);
+          sensorState.dashboardAlerts.unshift({ time: formatTime(), sensor: sensor, type: type, value: value, status: 'ACTIVE' });
+          sensorState.dashboardAlerts = sensorState.dashboardAlerts.slice(0, 8);
+        }
+        if (current.temperature !== 'NORMAL' && previous.temperature === 'NORMAL') addAlert('Temperature', current.temperature === 'CRITICAL' ? 'HIGH TEMP' : 'THERMAL WARNING', sensorState.reading.temperature.toFixed(1) + ' C');
+        if (current.pressure !== 'NORMAL' && previous.pressure === 'NORMAL') addAlert('Pressure', 'PRESSURE DRIFT', sensorState.reading.pressure.toFixed(1) + ' bar');
+        if (current.vibration !== 'NORMAL' && previous.vibration === 'NORMAL') addAlert('Vibration', 'VIBRATION SURGE', sensorState.reading.vibration.toFixed(2) + ' mm/s');
+        sensorState.lastStatuses = Object.assign({}, current);
+      }
+
+      function tickEventLog() {
+        const line = '[' + formatTime() + '] - Sensor reading received - temp ' + sensorState.reading.temperature.toFixed(1) + ' C | pressure ' + sensorState.reading.pressure.toFixed(1) + ' bar | vibration ' + sensorState.reading.vibration.toFixed(2) + ' mm/s';
+        sensorState.eventLog.unshift({ text: line, warn: false });
+        if (sensorState.statuses.temperature !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + formatTime() + '] - WARNING: Temperature exceeded 190 C threshold', warn: true });
+        if (sensorState.statuses.pressure !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + formatTime() + '] - WARNING: Pressure exceeded 130 bar threshold', warn: true });
+        if (sensorState.statuses.vibration !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + formatTime() + '] - WARNING: Vibration exceeded 3.5 mm/s threshold', warn: true });
+        sensorState.eventLog = sensorState.eventLog.slice(0, 15);
+        renderEventLog();
+      }
+
+      function tickDashboardAlertStatus() {
+        const row = sensorState.dashboardAlerts[0];
+        if (row && row.status === 'ACTIVE' && Math.random() > 0.5) row.status = 'RESOLVED';
+        renderDashboardAlerts();
+      }
+
+      function advanceCycle() {
+        sensorState.cycle += 1;
+        sensorState.remaining = Math.max(0, sensorState.remaining - 1);
+        if (sensorState.remaining === 0) sensorState.remaining = 48;
+        sensorState.shift = (sensorState.shift % 3) + 1;
+        renderOperatorDash();
+      }
+
+      function initApp() {
+        intervals.forEach(function (id) { clearInterval(id); });
+        intervals = [];
+        seedLogs();
+        renderNavbarLinks();
+        renderSensorUI();
+        renderEventLog();
+        renderIngestionTables();
+        renderDashboardAlerts();
+        renderOperatorDash();
+        renderAdminDash();
+        renderCharts();
+        syncDesignerControls();
+        applyCustomFonts();
+        setupRevealObserver();
+        updateActiveLinks();
+        animateCounters();
+        appStarted = true;
+        intervals.push(setInterval(updateTelemetry, 1500));
+        intervals.push(setInterval(tickEventLog, 3000));
+        intervals.push(setInterval(advanceCycle, 8000));
+        intervals.push(setInterval(tickDashboardAlertStatus, 12000));
+      }
+
+      function animateCounters() {
+        const counters = Array.from(document.querySelectorAll('[data-count]'));
+        if (document.body.classList.contains('no-counter-animation')) {
+          counters.forEach(function (counter) {
+            counter.textContent = counter.dataset.count + (counter.dataset.suffix || '');
+          });
+          return;
+        }
+        const start = performance.now();
+        const duration = 1800;
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          counters.forEach(function (counter) {
+            const target = Number(counter.dataset.count);
+            const suffix = counter.dataset.suffix || '';
+            const decimals = target % 1 === 0 ? 0 : 1;
+            counter.textContent = (target * progress).toFixed(decimals) + suffix;
+          });
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      roleSelector.addEventListener('click', function (event) {
+        const card = event.target.closest('.role-card');
+        if (!card) return;
+        selectRoleCard(card.dataset.role);
+      });
+
+      prefillButton.addEventListener('click', function () {
+        if (!selectedRole || !USERS[selectedRole]) {
+          loginError.textContent = 'Select a role card first.';
+          return;
+        }
+        autofillDemoCredentials(selectedRole);
+        passwordInput.focus();
+        passwordInput.select();
+      });
+
+      loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        doLogin(usernameInput.value.trim(), passwordInput.value.trim());
+      });
+
+      document.getElementById('logout-btn').addEventListener('click', doLogout);
+
+      document.getElementById('sidebar-toggle').addEventListener('click', function () {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle('mobile-open');
+        } else {
+          sidebar.classList.toggle('collapsed');
+        }
+      });
+
+      themeSwitcher.addEventListener('click', cycleTheme);
+
+      mainContent.addEventListener('scroll', updateActiveLinks, { passive: true });
+
+      document.addEventListener('click', function (event) {
+        const actionButton = event.target.closest('[data-scroll-target]');
+        if (actionButton) {
+          scrollToSection(actionButton.dataset.scrollTarget);
+        }
+        const navLink = event.target.closest('.nav-link, .sidebar-link');
+        if (navLink && navLink.dataset.target) {
+          scrollToSection(navLink.dataset.target);
+          if (window.innerWidth <= 768) sidebar.classList.remove('mobile-open');
+        }
+        const filterButton = event.target.closest('[data-operator-filter]');
+        if (filterButton) {
+          operatorFilter = filterButton.dataset.operatorFilter;
+          document.querySelectorAll('[data-operator-filter]').forEach(function (button) {
+            button.classList.toggle('active', button === filterButton);
+          });
+          renderOperatorDash();
+        }
+        const resolveButton = event.target.closest('[data-resolve-id]');
+        if (resolveButton) {
+          const id = Number(resolveButton.dataset.resolveId);
+          const alertRow = sensorState.operatorAlerts.find(function (row) { return row.id === id; });
+          if (alertRow) {
+            alertRow.resolved = true;
+            renderOperatorDash();
+            showToast('Alert marked as resolved.', 'success');
+          }
+        }
+        const quickButton = event.target.closest('.quick-action');
+        if (quickButton) showToast(quickButton.dataset.toast, 'success');
+        const editButton = event.target.closest('[data-edit-index]');
+        if (editButton) {
+          adminData.config[Number(editButton.dataset.editIndex)].editing = true;
+          renderAdminDash();
+        }
+        const saveButton = event.target.closest('[data-save-index]');
+        if (saveButton) {
+          const index = Number(saveButton.dataset.saveIndex);
+          adminData.config[index].min = Number(document.querySelector('[data-min-index="' + index + '"]').value);
+          adminData.config[index].max = Number(document.querySelector('[data-max-index="' + index + '"]').value);
+          adminData.config[index].editing = false;
+          renderAdminDash();
+          showToast('Sensor thresholds saved.', 'success');
+        }
+        const scheduleButton = event.target.closest('[data-schedule-index]');
+        if (scheduleButton) showToast('Maintenance scheduled.', 'success');
+        const userButton = event.target.closest('[data-user-index]');
+        if (userButton) {
+          const row = adminData.users[Number(userButton.dataset.userIndex)];
+          row.status = row.status === 'Active' ? 'Inactive' : 'Active';
+          renderAdminDash();
+          showToast('User status updated for ' + row.username + '.', 'warning');
+        }
+        const densityButton = event.target.closest('[data-density]');
+        if (densityButton) setDensity(densityButton.dataset.density);
+      });
+
+      document.getElementById('run-query').addEventListener('click', function () {
+        const key = document.getElementById('query-select').value;
+        if (!key) {
+          showToast('Select a query first.', 'warning');
+          return;
+        }
+        renderQueryPreview(key, document.getElementById('query-terminal'), document.getElementById('query-result'), 'admin');
+      });
+
+      publicRunQueryButton.addEventListener('click', function () {
+        const key = publicQuerySelect.value;
+        if (!key) {
+          showToast('Select a SQL preview first.', 'warning');
+          return;
+        }
+        setPublicQuerySelection(key);
+        renderQueryPreview(key, publicQueryTerminal, publicQueryResult, 'public');
+      });
+
+      publicQuerySelect.addEventListener('change', function () {
+        setPublicQuerySelection(this.value);
+      });
+
+      publicQueryShortcuts.addEventListener('click', function (event) {
+        const button = event.target.closest('[data-public-query]');
+        if (!button) return;
+        const key = button.dataset.publicQuery;
+        setPublicQuerySelection(key);
+        renderQueryPreview(key, publicQueryTerminal, publicQueryResult, 'public');
+      });
+
+      storageWindowControls.addEventListener('click', function (event) {
+        const button = event.target.closest('[data-storage-window]');
+        if (!button) return;
+        setStorageWindow(button.dataset.storageWindow);
+      });
+
+      ['base', 'a', 'b', 'c'].forEach(function (key) {
+        const input = document.getElementById('color-' + key);
+        input.addEventListener('input', function () {
+          const map = { base: '--bg-base', a: '--accent-a', b: '--accent-b', c: '--accent-c' };
+          document.body.style.setProperty(map[key], input.value);
+          syncDesignerControls();
+          if (appStarted) renderCharts();
+        });
+      });
+
+      document.getElementById('save-custom-theme').addEventListener('click', function () {
+        const customTheme = {
+          '--bg-base': document.getElementById('color-base').value,
+          '--accent-a': document.getElementById('color-a').value,
+          '--accent-b': document.getElementById('color-b').value,
+          '--accent-c': document.getElementById('color-c').value
+        };
+        localStorage.setItem('smiot_custom_theme', JSON.stringify(customTheme));
+        showToast('Custom theme saved locally.', 'success');
+      });
+
+      document.getElementById('reset-custom-theme').addEventListener('click', function () {
+        localStorage.removeItem('smiot_custom_theme');
+        ['--bg-base', '--accent-a', '--accent-b', '--accent-c'].forEach(function (key) {
+          document.body.style.removeProperty(key);
+        });
+        applyTheme(currentThemeIndex);
+        showToast('Custom theme reset.', 'warning');
+      });
+
+      document.getElementById('heading-font').addEventListener('change', applyCustomFonts);
+      document.getElementById('body-font').addEventListener('change', applyCustomFonts);
+      document.getElementById('toggle-pulse').addEventListener('change', function () { document.body.classList.toggle('no-pulse', !this.checked); });
+      document.getElementById('toggle-dots').addEventListener('change', function () { document.body.classList.toggle('no-dots', !this.checked); });
+      document.getElementById('toggle-reveal').addEventListener('change', function () {
+        document.body.classList.toggle('no-reveal', !this.checked);
+        if (!this.checked) document.querySelectorAll('.reveal').forEach(function (node) { node.classList.add('visible'); });
+        else setupRevealObserver();
+      });
+      document.getElementById('toggle-counters').addEventListener('change', function () {
+        document.body.classList.toggle('no-counter-animation', !this.checked);
+        animateCounters();
+      });
+
+      const storedThemeClass = localStorage.getItem('smiot_theme');
+      const storedThemeIndex = Math.max(0, THEMES.findIndex(function (theme) { return theme.className === storedThemeClass; }));
+      applyTheme(storedThemeIndex);
+      const customTheme = localStorage.getItem('smiot_custom_theme');
+      if (customTheme) {
+        try {
+          const parsed = JSON.parse(customTheme);
+          Object.keys(parsed).forEach(function (key) { document.body.style.setProperty(key, parsed[key]); });
+          syncDesignerControls();
+        } catch (error) {}
+      }
+      renderNavbarLinks();
+      seedLogs();
+      renderSensorUI();
+      renderEventLog();
+      renderIngestionTables();
+      renderDashboardAlerts();
+      renderOperatorDash();
+      renderAdminDash();
+      applyCustomFonts();
+      setDensity('standard');
+      selectRoleCard('operator');
+      setPublicQuerySelection('readings');
+      renderQueryPreview('readings', publicQueryTerminal, publicQueryResult, 'public');
+      renderStorageWindow();
+
+      const params = new URLSearchParams(window.location.search);
+      const demo = params.get('demo');
+      const view = params.get('view');
+      if (demo && USERS[demo]) {
+        setTimeout(function () {
+          selectRoleCard(demo);
+          doLogin(demo, USERS[demo].password);
+          if (view) {
+            setTimeout(function () { scrollToSection(view); }, 1200);
+          }
+        }, 80);
+      }
+    });
+  </script>
+</body>
+</html>

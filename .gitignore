@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+# Local browser/debug artifacts
+chrome-headless-profile/
+edge-headless-profile*/
+edge-two-screen-*/
+dom_dump.html
+
+# Local review screenshots
+*.png
+
+# Local backup pages
+index_before_two_screen_rebuild.html
+index_prev_rebuild_backup.html
