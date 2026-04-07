@@ -572,10 +572,7 @@
     }
 
     .nav-center {
-      flex: 1;
-      justify-content: center;
-      gap: 1.25rem;
-      overflow: hidden;
+      display: none;
     }
 
     .nav-right {
@@ -2486,9 +2483,7 @@
       }
 
       function renderNavbarLinks() {
-        navbarLinks.innerHTML = PUBLIC_LINKS.map(function (link) {
-          return '<span class="nav-link" data-target="' + link.id + '">' + link.label.replace('Project ', '') + '</span>';
-        }).join('');
+        navbarLinks.innerHTML = '';
       }
 
       function renderSidebarForRole(role) {
