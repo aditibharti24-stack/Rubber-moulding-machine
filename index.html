@@ -102,6 +102,13 @@
       transition: background-color 0.35s ease, color 0.35s ease;
     }
 
+    body.theme-steel {
+      background:
+        radial-gradient(circle at top right, rgba(240, 165, 0, 0.14), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(74, 158, 138, 0.1), transparent 22%),
+        linear-gradient(145deg, #0f0c08 0%, #17120d 42%, #221c14 100%);
+    }
+
     body::before {
       content: "";
       position: fixed;
@@ -163,6 +170,20 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-md);
+    }
+
+    body.theme-steel .panel,
+    body.theme-steel .card,
+    body.theme-steel .table-card,
+    body.theme-steel .chart-card,
+    body.theme-steel .stat-card,
+    body.theme-steel .role-card,
+    body.theme-steel .login-card,
+    body.theme-steel .dash-card,
+    body.theme-steel .entity-box,
+    body.theme-steel .member-card,
+    body.theme-steel .stack-card {
+      background: linear-gradient(180deg, rgba(240, 165, 0, 0.05), rgba(255, 248, 235, 0.01) 46%), var(--bg-card);
     }
 
     .btn,
@@ -267,6 +288,13 @@
       position: relative;
     }
 
+    body.theme-steel #login-screen .login-shell {
+      background:
+        linear-gradient(180deg, rgba(240, 165, 0, 0.04), transparent 30%),
+        linear-gradient(145deg, rgba(255, 248, 235, 0.015), transparent 60%),
+        var(--bg-card);
+    }
+
     #login-screen .login-shell::before {
       content: "";
       position: absolute;
@@ -298,11 +326,22 @@
       min-height: 560px;
     }
 
+    body.theme-steel #login-screen .login-left {
+      background:
+        radial-gradient(circle at top left, rgba(240, 165, 0, 0.12), transparent 34%),
+        linear-gradient(150deg, rgba(255, 248, 235, 0.02), transparent 56%),
+        #211911;
+    }
+
     #login-screen .login-right {
       display: grid;
       align-content: center;
       gap: 0.85rem;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%), var(--bg-card);
+    }
+
+    body.theme-steel #login-screen .login-right {
+      background: linear-gradient(180deg, rgba(240, 165, 0, 0.03), transparent 42%), var(--bg-card);
     }
 
     #login-screen .login-copy {
@@ -324,6 +363,26 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
+    }
+
+    body.theme-steel #login-screen .mini-card,
+    body.theme-steel #login-screen .role-card,
+    body.theme-steel details.credentials-panel,
+    body.theme-steel .text-input,
+    body.theme-steel .select-input,
+    body.theme-steel .table-wrap,
+    body.theme-steel .chart-shell,
+    body.theme-steel .sparkline,
+    body.theme-steel .event-row,
+    body.theme-steel .query-chip,
+    body.theme-steel .band-label,
+    body.theme-steel .protocol-pill,
+    body.theme-steel .result-box,
+    body.theme-steel .preview-card,
+    body.theme-steel .component-card,
+    body.theme-steel .control-card,
+    body.theme-steel .hero-visual {
+      background: rgba(255, 248, 235, 0.025);
     }
 
     #login-screen .chip-row {
@@ -1371,6 +1430,35 @@
       line-height: 1.55;
     }
 
+    .component-library-stack {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .component-card.compact {
+      display: grid;
+      grid-template-columns: minmax(130px, 170px) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+      min-height: 0;
+    }
+
+    .component-sample {
+      display: grid;
+      gap: 0.45rem;
+      align-content: start;
+    }
+
+    .component-sample .status-pill,
+    .component-sample .badge {
+      width: fit-content;
+    }
+
+    .component-copy {
+      display: grid;
+      gap: 0.45rem;
+    }
+
     .color-input {
       width: 100%;
       height: 52px;
@@ -1521,6 +1609,9 @@
       #login-screen .login-highlights {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+      .component-card.compact {
+        grid-template-columns: 1fr;
+      }
       .nav-center { display: none; }
       .hero-banner,
       .problem-solution,
@@ -1552,6 +1643,12 @@
       }
       #login-screen .login-highlights {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      #login-screen .login-title {
+        font-size: clamp(1.7rem, 7vw, 2.4rem);
+      }
+      #login-screen .role-select-grid {
+        grid-template-columns: 1fr;
       }
       #sidebar {
         width: 0;
@@ -2097,7 +2194,7 @@
               <div class="control-card reveal"><h3>Font Selector</h3><div class="field-group"><label class="field-label">Heading Font</label><select class="select-input" id="heading-font"><option value="Rajdhani">Rajdhani</option><option value="Orbitron">Orbitron</option><option value="Exo 2">Exo 2</option><option value="Bebas Neue">Bebas Neue</option></select></div><div class="field-group"><label class="field-label">Body Font</label><select class="select-input" id="body-font"><option value="DM Sans">DM Sans</option><option value="Inter">Inter</option><option value="Nunito">Nunito</option><option value="Source Sans 3">Source Sans 3</option></select></div><div class="preview-card" id="font-preview">SmartMold IoT keeps charts, dashboards, and data tables readable while the typography system changes live.</div></div>
               <div class="control-card reveal"><h3>Animation Controls</h3><div class="control-grid" style="grid-template-columns:1fr;"><div class="toggle-row"><span>Sensor pulse animations</span><input class="switch" id="toggle-pulse" type="checkbox" checked></div><div class="toggle-row"><span>Architecture dots</span><input class="switch" id="toggle-dots" type="checkbox" checked></div><div class="toggle-row"><span>Fade-in scroll</span><input class="switch" id="toggle-reveal" type="checkbox" checked></div><div class="toggle-row"><span>Counter animation</span><input class="switch" id="toggle-counters" type="checkbox" checked></div></div></div>
             </div>
-            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-grid"><div class="component-card"><div class="component-head"><span class="badge">Sensor Card</span><span class="status-pill status-normal">NORMAL</span></div><strong class="mono">184.1 C</strong><p class="component-note">Live telemetry tile for temperature, pressure, or vibration with instant condition feedback.</p><div class="component-use">Best for floor monitoring, threshold watch, and quick trend awareness.</div></div><div class="component-card"><div class="component-head"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong></div><p class="component-note">Compact KPI block for uptime, alerts, latency, energy, or production performance.</p><div class="component-use">Best for summaries, comparisons, and manager-facing dashboards.</div></div><div class="component-card"><div class="component-head"><span class="badge">Primary Action</span><button class="btn btn-primary" type="button">Primary</button></div><p class="component-note">Accent action button that guides the user to the most important next step.</p><div class="component-use">Best for login, save, query, acknowledge, and workflow confirmation.</div></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
+            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal"><h3>Component Library</h3><div class="component-library-stack"><div class="component-card compact"><div class="component-sample"><span class="badge">Sensor Card</span><strong class="mono">184.1 C</strong><span class="status-pill status-normal">NORMAL</span></div><div class="component-copy"><h4>Sensor Card</h4><p class="component-note">Live machine-value tile with immediate condition feedback.</p><div class="component-use">Used for temperature, pressure, and vibration monitoring.</div></div></div><div class="component-card compact"><div class="component-sample"><span class="badge">Stat Card</span><strong class="mono">99.2%</strong><span class="tiny-pill mono">KPI</span></div><div class="component-copy"><h4>Stat Card</h4><p class="component-note">Compact performance block for uptime, alerts, energy, or latency.</p><div class="component-use">Used for executive summaries and dashboard comparisons.</div></div></div><div class="component-card compact"><div class="component-sample"><span class="badge">Primary Action</span><button class="btn btn-primary" type="button">Primary</button></div><div class="component-copy"><h4>Primary Action</h4><p class="component-note">Main workflow button for save, query, access, or confirm actions.</p><div class="component-use">Used where the interface needs one clear next step.</div></div></div></div></div><div class="control-card reveal"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div></div></div>
           </div>
         </div>
       </main>
@@ -3386,17 +3483,7 @@
         animateCounters();
       });
 
-      const storedThemeClass = localStorage.getItem('smiot_theme');
-      const storedThemeIndex = THEMES.findIndex(function (theme) { return theme.className === storedThemeClass; });
-      applyTheme(storedThemeIndex >= 0 ? storedThemeIndex : 1);
-      const customTheme = localStorage.getItem('smiot_custom_theme');
-      if (customTheme) {
-        try {
-          const parsed = JSON.parse(customTheme);
-          Object.keys(parsed).forEach(function (key) { document.body.style.setProperty(key, parsed[key]); });
-          syncDesignerControls();
-        } catch (error) {}
-      }
+      applyTheme(1);
       renderNavbarLinks();
       seedLogs();
       renderSensorUI();
