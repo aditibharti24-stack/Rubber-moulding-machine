@@ -183,6 +183,7 @@
       justify-content: center;
       gap: 0.5rem;
       color: var(--text-1);
+      text-decoration: none;
     }
 
     .btn-primary {
@@ -1663,6 +1664,32 @@
               <div class="card reveal"><h3>Client</h3><p class="muted">PLC publishes temperature, pressure, and vibration topics and caches payloads locally during outages.</p></div>
               <div class="card reveal"><h3>Server</h3><p class="muted">Broker and central server subscribe, validate, store, and expose records to the analytics layer.</p></div>
             </div>
+            <div class="grid-3" style="margin-top:1rem;">
+              <div class="card reveal">
+                <h3>Protocol Comparison</h3>
+                <div class="attr-list">
+                  <span>MQTT: lightweight pub/sub for live telemetry and alerts</span>
+                  <span>OPC-UA: richer semantics but heavier for this compact IIoT prototype</span>
+                  <span>Modbus: simple field exchange, weaker for cloud-style event routing</span>
+                </div>
+              </div>
+              <div class="card reveal">
+                <h3>Integrity And Fault Tolerance</h3>
+                <div class="attr-list">
+                  <span>Sequence ordering and acknowledgments protect message continuity</span>
+                  <span>Client buffering supports reconnect and delayed broker delivery</span>
+                  <span>Checksums, retries, and QoS 2 reduce duplication or packet loss</span>
+                </div>
+              </div>
+              <div class="card reveal">
+                <h3>LAN, WAN, And HMI Scope</h3>
+                <div class="attr-list">
+                  <span>Industrial LAN handles machine-to-server transport at plant level</span>
+                  <span>WAN/cloud links extend reporting, dashboards, and remote supervision</span>
+                  <span>HMI, alert beacons, and mobile web clients consume the same server data</span>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section id="sec-sensors">
@@ -1703,6 +1730,31 @@
                 <div class="entity-box"><h3>ProductionBatch</h3><div class="attr-list"><span>batch_id PK</span><span>machine_id FK</span><span>quantity_produced</span><span>quality_score</span></div></div>
                 <div class="entity-box"><h3>MaintenanceRecord</h3><div class="attr-list"><span>maintenance_id PK</span><span>machine_id FK</span><span>technician_id FK</span><span>type</span></div></div>
                 <div class="entity-box"><h3>Technician</h3><div class="attr-list"><span>technician_id PK</span><span>name</span><span>specialization</span><span>contact</span></div></div>
+              </div>
+              <div class="grid-3" style="margin-top:1rem;">
+                <div class="card reveal">
+                  <h3>Structural Constraints</h3>
+                  <div class="attr-list">
+                    <span>Machine-Sensor: (1,1) to (1,N)</span>
+                    <span>Sensor-SensorReading: (1,1) to (0,N)</span>
+                    <span>Machine-MaintenanceRecord: (1,1) to (0,N)</span>
+                    <span>Machine-ProductionBatch: (1,1) to (0,N)</span>
+                    <span>Technician-MaintenanceRecord: (1,1) to (0,N)</span>
+                    <span>Sensor-Alert: (1,1) to (0,N)</span>
+                  </div>
+                </div>
+                <div class="card reveal">
+                  <h3>Weak Entity Logic</h3>
+                  <p class="muted">Conceptually, <span class="mono">SensorReading</span> behaves like a weak entity because its business meaning depends on its owner <span class="mono">Sensor</span> plus observation time. The SQL design still uses <span class="mono">reading_id</span> as a surrogate primary key for fast indexing and simpler joins.</p>
+                </div>
+                <div class="card reveal">
+                  <h3>Relationship And Key Logic</h3>
+                  <div class="attr-list">
+                    <span>Primary keys uniquely identify machines, sensors, batches, alerts, and technicians</span>
+                    <span>Foreign keys enforce referential integrity between machine, sensor, maintenance, and alert tables</span>
+                    <span>Views, triggers, and procedures support both real-time monitoring and historical analysis</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="band band-bottom reveal" style="margin-top:1rem;">
@@ -1787,11 +1839,15 @@
             <div class="section-head reveal">
               <span class="section-kicker">Statistical process intelligence</span>
               <h2 class="section-title-main">Inferential Statistics On The 30-Day Sensor Dataset</h2>
+              <p class="section-copy">The analytics layer combines estimation, hypothesis testing, ANOVA, regression, SPC control charts, anomaly detection, and reliability analysis to convert sensor histories into maintenance and quality decisions.</p>
             </div>
             <div class="grid-3">
               <div class="chart-card reveal"><h3>T-Test: Mean Temperature vs 180 C</h3><div class="chart-shell"><canvas id="ttest-chart"></canvas></div><div class="result-box">H0: mu = 180 C | H1: mu != 180 C<br>t = 2.14 | p = 0.032<br>Reject H0 at alpha = 0.05.</div></div>
               <div class="chart-card reveal"><h3>Regression: Quality vs Temperature</h3><div class="chart-shell"><canvas id="regression-chart"></canvas></div><div class="result-box">R2 = 0.74 | p &lt; 0.001<br>Quality = 142.3 - 0.68 x Temp.</div></div>
+              <div class="chart-card reveal"><h3>ANOVA: Pressure Across Machine Cycles</h3><div class="chart-shell"><canvas id="anova-chart"></canvas></div><div class="result-box">Cycles compared: pre-heat, compression, cooling<br>F = 18.6 | p &lt; 0.001<br>Mean pressure differs significantly by cycle.</div></div>
+              <div class="chart-card reveal"><h3>Control Chart: Temperature X-Bar</h3><div class="chart-shell"><canvas id="control-chart"></canvas></div><div class="result-box">Center line = 180.1 C | UCL = 186.2 C | LCL = 173.8 C<br>Out-of-control subgroups indicate process instability and maintenance attention.</div></div>
               <div class="chart-card reveal"><h3>Anomaly Detection: Vibration</h3><div class="chart-shell"><canvas id="anomaly-chart"></canvas></div><div class="result-box">120 points analysed | 14 anomalies detected | 5 require urgent inspection.</div></div>
+              <div class="chart-card reveal"><h3>Reliability: Time Between Failures</h3><div class="chart-shell"><canvas id="reliability-chart"></canvas></div><div class="result-box">Weibull beta &gt; 1 suggests an increasing failure rate (IFR).<br>Reliability drops as maintenance intervals lengthen, supporting preventive service windows.</div></div>
             </div>
           </section>
 
@@ -1811,6 +1867,48 @@
               <div class="chart-card reveal"><h3>Pressure - Last 10 Cycles</h3><div class="chart-shell"><canvas id="dashboard-pressure-chart"></canvas></div></div>
             </div>
             <div class="table-card reveal" style="margin-top:1rem;"><h3>Alert Log</h3><div class="table-wrap"><table><thead><tr><th>Time</th><th>Sensor</th><th>Alert Type</th><th>Value</th><th>Status</th></tr></thead><tbody id="dashboard-alert-body"></tbody></table></div></div>
+          </section>
+
+          <section id="sec-integration">
+            <div class="section-head reveal">
+              <span class="section-kicker">Integrated submission map</span>
+              <h2 class="section-title-main">CNDC To DBMS To Statistics Decision Pipeline</h2>
+              <p class="section-copy">The complete prototype follows the required workflow: define the industrial problem, move machine data through secure networking, store it in a relational database, analyze it with inferential statistics, and turn the results into maintenance and quality decisions.</p>
+            </div>
+            <div class="grid-4">
+              <div class="card reveal"><h3>1. Business Boundary</h3><p class="muted">Sensors monitor heat, pressure, vibration, machine health, and batch quality for a 4-pillar compression molding machine.</p></div>
+              <div class="card reveal"><h3>2. CNDC Flow</h3><p class="muted">Controller to broker to server communication uses MQTT over TCP/IP with fault tolerance, QoS, TLS, and plant LAN routing.</p></div>
+              <div class="card reveal"><h3>3. DBMS Layer</h3><p class="muted">Relational tables, foreign keys, views, indexes, triggers, and procedures support both live dashboards and historical analysis.</p></div>
+              <div class="card reveal"><h3>4. Statistical Decision</h3><p class="muted">Hypothesis tests, ANOVA, regression, control charts, anomaly flags, and reliability curves drive process optimization.</p></div>
+            </div>
+            <div class="grid-3" style="margin-top:1rem;">
+              <div class="card reveal">
+                <h3>Deliverables Coverage</h3>
+                <div class="attr-list">
+                  <span>IoT communication framework and fault tolerance</span>
+                  <span>ER model with keys, constraints, and weak-entity treatment</span>
+                  <span>SQL DDL, DML, queries, views, trigger, and procedure</span>
+                  <span>R-ready statistical models for stability and anomaly analysis</span>
+                  <span>Integrated technical narrative for data-driven maintenance</span>
+                </div>
+              </div>
+              <div class="card reveal">
+                <h3>Ethics And Data Privacy</h3>
+                <div class="attr-list">
+                  <span>Access control limits who can view or edit machine and worker-related records</span>
+                  <span>Secure transmission reduces the risk of tampering with maintenance decisions</span>
+                  <span>Predictive alerts should assist operators and technicians, not replace accountable human judgment</span>
+                </div>
+              </div>
+              <div class="card reveal">
+                <h3>Submission Assets</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.75rem;">
+                  <a class="btn btn-primary" href="deliverables/Synapse2026_Technical_Report.md" target="_blank" rel="noopener">Open Report</a>
+                  <a class="btn btn-secondary" href="deliverables/synapse2026_postgres.sql" target="_blank" rel="noopener">Open SQL</a>
+                  <a class="btn btn-secondary" href="deliverables/synapse2026_statistics.R" target="_blank" rel="noopener">Open R Script</a>
+                </div>
+              </div>
+            </div>
           </section>
 
           <div id="dash-operator" class="role-dash">
@@ -1874,7 +1972,8 @@
         { id: 'sec-sensors', icon: 'SN', label: 'Live Sensors' },
         { id: 'sec-database', icon: 'DB', label: 'Database' },
         { id: 'sec-analytics', icon: 'AN', label: 'Analytics' },
-        { id: 'sec-dashboard', icon: 'DS', label: 'Dashboard' }
+        { id: 'sec-dashboard', icon: 'DS', label: 'Dashboard' },
+        { id: 'sec-integration', icon: 'IN', label: 'Integration' }
       ];
 
       const ROLE_LINKS = {
@@ -1943,7 +2042,10 @@
       let charts = {
         ttest: null,
         regression: null,
+        anova: null,
+        control: null,
         anomaly: null,
+        reliability: null,
         dashboardTemp: null,
         dashboardPressure: null,
         adminTtest: null,
@@ -2075,14 +2177,30 @@
         const anomalyOnly = anomalyBase.map(function (value, index) {
           return anomalyIndices.indexOf(index) >= 0 ? value : null;
         });
+        const anovaValues = [82, 128, 71];
+        const controlMeans = [178.6, 179.8, 180.4, 181.2, 182.1, 183.4, 185.9, 181.1, 179.6, 180.2, 186.6, 182.4, 180.7, 179.4, 178.9, 180.5, 181.3, 174.1, 179.8, 180.4];
+        const controlUcl = controlMeans.map(function () { return 186.2; });
+        const controlCl = controlMeans.map(function () { return 180.1; });
+        const controlLcl = controlMeans.map(function () { return 173.8; });
+        const reliabilityCurve = [];
+        for (let week = 0; week <= 12; week += 1) {
+          const reliability = Math.exp(-Math.pow(week / 8.4, 1.7));
+          reliabilityCurve.push({ x: week, y: Number(reliability.toFixed(3)) });
+        }
         return {
           bell: bell,
           critical: critical,
           observedMean: 183.4,
           regression: regression,
           regressionLine: [{ x: 160, y: 142.3 - (0.68 * 160) }, { x: 200, y: 142.3 - (0.68 * 200) }],
+          anovaValues: anovaValues,
+          controlMeans: controlMeans,
+          controlUcl: controlUcl,
+          controlCl: controlCl,
+          controlLcl: controlLcl,
           anomalyBase: anomalyBase,
-          anomalyOnly: anomalyOnly
+          anomalyOnly: anomalyOnly,
+          reliabilityCurve: reliabilityCurve
         };
       }
 
@@ -2649,6 +2767,29 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { min: 160, max: 200, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 50, ticks: { color: text }, grid: { color: line } } } }
         });
 
+        charts.anova = new Chart(document.getElementById('anova-chart'), {
+          type: 'bar',
+          data: {
+            labels: ['Pre-heat', 'Compression', 'Cooling'],
+            datasets: [{ data: analyticsData.anovaValues, backgroundColor: [accentA + 'bb', accentB + 'bb', getCssVar('--accent-c') + 'bb'], borderRadius: 12 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { display: false } }, y: { min: 40, max: 150, ticks: { color: text }, grid: { color: line } } } }
+        });
+
+        charts.control = new Chart(document.getElementById('control-chart'), {
+          type: 'line',
+          data: {
+            labels: analyticsData.controlMeans.map(function (_, i) { return 'S' + (i + 1); }),
+            datasets: [
+              { data: analyticsData.controlMeans, borderColor: accentA, pointBackgroundColor: accentA, pointRadius: 3, tension: 0.22 },
+              { data: analyticsData.controlUcl, borderColor: accentB, pointRadius: 0, borderDash: [6, 6], tension: 0 },
+              { data: analyticsData.controlCl, borderColor: getCssVar('--accent-c'), pointRadius: 0, borderDash: [4, 4], tension: 0 },
+              { data: analyticsData.controlLcl, borderColor: accentB, pointRadius: 0, borderDash: [6, 6], tension: 0 }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { color: line } }, y: { min: 172, max: 188, ticks: { color: text }, grid: { color: line } } } }
+        });
+
         charts.anomaly = new Chart(document.getElementById('anomaly-chart'), {
           type: 'line',
           data: { labels: analyticsData.anomalyBase.map(function (_, i) { return 'D' + (i + 1); }), datasets: [
@@ -2656,6 +2797,14 @@
             { data: analyticsData.anomalyOnly, borderColor: accentB, pointRadius: 5, pointBackgroundColor: accentB, showLine: false }
           ] },
           options: baseChartOptions()
+        });
+
+        charts.reliability = new Chart(document.getElementById('reliability-chart'), {
+          type: 'line',
+          data: {
+            datasets: [{ data: analyticsData.reliabilityCurve, borderColor: accentA, backgroundColor: accentA + '18', fill: true, pointRadius: 3, tension: 0.24, parsing: false }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { type: 'linear', min: 0, max: 12, ticks: { color: text, callback: function (value) { return value + 'w'; } }, grid: { color: line } }, y: { min: 0, max: 1.05, ticks: { color: text }, grid: { color: line } } } }
         });
 
         charts.dashboardTemp = new Chart(document.getElementById('dashboard-temp-chart'), {
