@@ -1476,7 +1476,7 @@
     }
   </style>
 </head>
-<body class="theme-space">
+<body class="theme-steel">
   <div id="login-screen">
     <div class="login-shell" id="login-card">
       <div class="login-left">
@@ -1551,7 +1551,7 @@
       </div>
       <div class="nav-center" id="navbar-links"></div>
       <div class="nav-right">
-        <button class="theme-btn" id="theme-switcher" type="button">THEME: DEEP SPACE</button>
+        <button class="theme-btn" id="theme-switcher" type="button">THEME: STEEL FORGE</button>
         <span class="role-badge role-operator" id="nav-role-badge">OPERATOR</span>
         <span class="user-chip" id="nav-username">operator</span>
         <span class="live-chip"><span class="live-dot"></span>System Live</span>
@@ -1904,6 +1904,7 @@
                   <a class="btn btn-secondary" href="deliverables/synapse2026_postgres.sql" target="_blank" rel="noopener">Open SQL</a>
                   <a class="btn btn-secondary" href="deliverables/synapse2026_statistics.R" target="_blank" rel="noopener">Open R Script</a>
                 </div>
+                <p class="muted" style="margin-top:1rem;">Live demo uses simulated browser-side data for GitHub Pages. Full PostgreSQL integration is available in the local Flask prototype under <span class="mono">synapse_flask</span>.</p>
               </div>
             </div>
           </section>
@@ -3230,8 +3231,8 @@
       });
 
       const storedThemeClass = localStorage.getItem('smiot_theme');
-      const storedThemeIndex = Math.max(0, THEMES.findIndex(function (theme) { return theme.className === storedThemeClass; }));
-      applyTheme(storedThemeIndex);
+      const storedThemeIndex = THEMES.findIndex(function (theme) { return theme.className === storedThemeClass; });
+      applyTheme(storedThemeIndex >= 0 ? storedThemeIndex : 1);
       const customTheme = localStorage.getItem('smiot_custom_theme');
       if (customTheme) {
         try {
