@@ -626,7 +626,10 @@
     }
 
     .nav-center {
-      display: none;
+      flex: 1 1 auto;
+      justify-content: center;
+      gap: 1rem;
+      overflow: hidden;
     }
 
     .nav-right {
@@ -1480,6 +1483,140 @@
       line-height: 1.6;
     }
 
+    #sec-normalization {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .norm-title {
+      margin: 0;
+      font-size: 1.6rem;
+      color: var(--accent-a);
+      letter-spacing: 0.08em;
+    }
+
+    .norm-subtitle {
+      margin: 0.45rem 0 0;
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 76ch;
+    }
+
+    .norm-card {
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 34%), var(--bg-card);
+      box-shadow: var(--shadow-md);
+    }
+
+    .norm-left-a { border-left: 4px solid var(--accent-a); }
+    .norm-left-b { border-left: 4px solid var(--accent-b); }
+    .norm-left-c { border-left: 4px solid var(--accent-c); }
+
+    .norm-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .norm-key-stack,
+    .norm-table-stack {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+    }
+
+    .norm-stepper {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .norm-stepper::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-subtle);
+    }
+
+    .norm-step {
+      position: relative;
+      padding-left: 72px;
+    }
+
+    .norm-badge {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--bg-base);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .norm-badge.a { background: var(--accent-a); }
+    .norm-badge.b { background: var(--accent-b); }
+    .norm-badge.c { background: var(--accent-c); }
+
+    .norm-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .norm-compare {
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-panel);
+    }
+
+    .norm-compare.before { border-left: 4px solid var(--accent-b); }
+    .norm-compare.after { border-left: 4px solid var(--accent-a); }
+
+    .norm-label {
+      display: inline-flex;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-heading);
+      letter-spacing: 0.08em;
+      color: var(--text-1);
+    }
+
+    .norm-summary {
+      margin-top: 1rem;
+      border-top: 4px solid var(--accent-a);
+    }
+
+    .norm-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      background: var(--accent-a);
+      color: var(--bg-base);
+      font-family: var(--font-heading);
+      letter-spacing: 0.05em;
+      font-size: 0.78rem;
+    }
+
     .color-input {
       width: 100%;
       height: 52px;
@@ -1631,6 +1768,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .component-card.compact {
+        grid-template-columns: 1fr;
+      }
+      .norm-grid-2,
+      .norm-compare-grid {
         grid-template-columns: 1fr;
       }
       .nav-center { display: none; }
@@ -2093,6 +2234,270 @@
                 </div>
               </div>
             </div>
+
+            <div id="sec-normalization">
+              <div class="section-head reveal">
+                <h2 class="norm-title">Relational Schema Refinement &amp; Normal Forms</h2>
+                <p class="norm-subtitle">Organizing SmartMold IoT database to eliminate redundancy and ensure data integrity</p>
+              </div>
+
+              <div class="norm-card reveal">
+                <h3>What is Normalization?</h3>
+                <p class="muted"><strong style="color:var(--text-1);">What is Normalization?</strong> Normalization is the systematic process of organizing a relational database to reduce data redundancy, eliminate insertion, update, and deletion anomalies, and improve data integrity by decomposing tables into well-structured relations based on functional dependencies.</p>
+              </div>
+
+              <div class="norm-card norm-left-c reveal" style="margin-top:1rem;">
+                <h3>Functional Dependencies &amp; Relational Keys</h3>
+                <div class="norm-grid-2">
+                  <div class="norm-card norm-left-c reveal">
+                    <h3>Functional Dependencies</h3>
+                    <p class="muted">A functional dependency X → Y means attribute Y is functionally determined by attribute X. If two tuples agree on X, they must agree on Y.</p>
+                    <div class="table-wrap" style="margin-top:0.9rem;">
+                      <table>
+                        <thead>
+                          <tr><th>Table</th><th>Functional Dependency</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>SensorReading</td><td class="mono">reading_id → sensor_id, value, timestamp, status</td></tr>
+                          <tr><td>Sensor</td><td class="mono">sensor_id → machine_id, sensor_type, unit</td></tr>
+                          <tr><td>Machine</td><td class="mono">machine_id → name, location, model, installation_date</td></tr>
+                          <tr><td>MaintenanceRecord</td><td class="mono">maintenance_id → machine_id, technician_id, date, cost</td></tr>
+                          <tr><td>ProductionBatch</td><td class="mono">batch_id → machine_id, quality_score, defect_count</td></tr>
+                          <tr><td>Alert</td><td class="mono">alert_id → sensor_id, triggered_at, threshold, actual</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="norm-card norm-left-c reveal">
+                    <h3>Keys in the Relational Model</h3>
+                    <div class="norm-key-stack">
+                      <div class="norm-card norm-left-a">
+                        <h3>Super Key</h3>
+                        <p class="muted">A set of one or more attributes that uniquely identifies a tuple in a relation.</p>
+                        <p class="mono">Examples: {reading_id}, {reading_id, sensor_id}, {reading_id, timestamp}</p>
+                      </div>
+                      <div class="norm-card norm-left-c">
+                        <h3>Candidate Key</h3>
+                        <p class="muted">A minimal super key. No proper subset of it is also a super key.</p>
+                        <p class="mono">SensorReading: {reading_id}<br>Sensor: {sensor_id}<br>Machine: {machine_id}<br>MaintenanceRecord: {maintenance_id}</p>
+                      </div>
+                      <div class="norm-card norm-left-b">
+                        <h3>Primary Key</h3>
+                        <p class="muted">The chosen candidate key used to uniquely identify each row.</p>
+                        <p class="mono">reading_id, sensor_id, machine_id, maintenance_id, batch_id, alert_id, technician_id</p>
+                      </div>
+                      <div class="norm-card norm-left-a">
+                        <h3>Foreign Key</h3>
+                        <p class="muted">An attribute that references the primary key of another table, enforcing referential integrity.</p>
+                        <p class="mono">sensor_id FK → Sensor<br>machine_id FK → Machine<br>technician_id FK → Technician<br>sensor_id FK → Alert owner</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="norm-card reveal" style="margin-top:1rem;">
+                <h3>Normal Forms - Applied To SmartMold IoT Database</h3>
+                <div class="norm-stepper">
+                  <div class="norm-step reveal">
+                    <span class="norm-badge a">1NF</span>
+                    <div class="norm-card">
+                      <h3>First Normal Form (1NF)</h3>
+                      <ul class="detail-list">
+                        <li>All attributes contain only atomic values.</li>
+                        <li>No repeating groups or arrays appear in any column.</li>
+                        <li>Each row is unique and identified by a primary key.</li>
+                      </ul>
+                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> SmartMold stores one value per cell and one reading per row.</p>
+                      <div class="table-wrap" style="margin-top:0.9rem;">
+                        <table>
+                          <thead><tr><th>reading_id</th><th>sensor_id</th><th>timestamp</th><th>value</th><th>status</th></tr></thead>
+                          <tbody>
+                            <tr><td>1001</td><td>temp_sensor_01</td><td>2026-04-13 10:18:12</td><td>184.3</td><td>NORMAL</td></tr>
+                            <tr><td>1002</td><td>pres_sensor_01</td><td>2026-04-13 10:18:12</td><td>112.7</td><td>NORMAL</td></tr>
+                            <tr><td>1003</td><td>vib_sensor_01</td><td>2026-04-13 10:18:12</td><td>1.84</td><td>NORMAL</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <p class="result-box">Each cell holds exactly one atomic value. No sensor_type stores multiple values like "temp,pressure". The status column holds exactly one string. All rows are uniquely identified by reading_id.</p>
+                      <div class="norm-compare-grid">
+                        <div class="norm-compare before">
+                          <div class="norm-label">Before - Violation</div>
+                          <p class="mono">sensor_values = "184.3, 112.7, 1.84"</p>
+                          <p class="muted">Multiple readings stored in one cell violate atomicity.</p>
+                        </div>
+                        <div class="norm-compare after">
+                          <div class="norm-label">After - Compliant</div>
+                          <p class="mono">Three separate SensorReading rows, one reading per record.</p>
+                          <p class="muted">The relation becomes atomic and queryable.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="norm-step reveal">
+                    <span class="norm-badge c">2NF</span>
+                    <div class="norm-card">
+                      <h3>Second Normal Form (2NF)</h3>
+                      <ul class="detail-list">
+                        <li>Must already be in 1NF.</li>
+                        <li>Every non-key attribute depends on the entire primary key.</li>
+                        <li>No partial dependency on only part of a composite key.</li>
+                      </ul>
+                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> All SmartMold tables use single-column surrogate primary keys, so partial dependency cannot occur.</p>
+                      <div class="norm-compare-grid">
+                        <div class="norm-compare before">
+                          <div class="norm-label">Before - Violation</div>
+                          <p class="mono">SensorMachineReading(reading_id, machine_id, machine_name, value)</p>
+                          <p class="muted">machine_name depends only on machine_id, not on the full composite key.</p>
+                        </div>
+                        <div class="norm-compare after">
+                          <div class="norm-label">After - Compliant</div>
+                          <p class="mono">SensorReading(reading_id PK, sensor_id, value)<br>Machine(machine_id PK, machine_name)</p>
+                          <p class="muted">machine_name now depends only on Machine.machine_id in its own relation.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="norm-step reveal">
+                    <span class="norm-badge a">3NF</span>
+                    <div class="norm-card">
+                      <h3>Third Normal Form (3NF)</h3>
+                      <ul class="detail-list">
+                        <li>Must already be in 2NF.</li>
+                        <li>No transitive dependencies from one non-key attribute to another.</li>
+                        <li>Every non-key attribute depends directly on the primary key.</li>
+                      </ul>
+                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> SmartMold keeps technician details in Technician and sensor definitions in Sensor, preventing non-key chains.</p>
+                      <div class="table-wrap" style="margin-top:0.9rem;">
+                        <table>
+                          <thead><tr><th>Table</th><th>3NF Status</th></tr></thead>
+                          <tbody>
+                            <tr><td>SensorReading</td><td>✓ All attributes depend only on reading_id directly</td></tr>
+                            <tr><td>MaintenanceRecord</td><td>✓ technician_id is FK; technician details live in Technician</td></tr>
+                            <tr><td>ProductionBatch</td><td>✓ All attributes depend on batch_id</td></tr>
+                            <tr><td>Alert</td><td>✓ No non-key determines another non-key</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="norm-compare-grid">
+                        <div class="norm-compare before">
+                          <div class="norm-label">Before - Violation</div>
+                          <p class="mono">sensor_type → unit inside a wider reading table</p>
+                          <p class="muted">unit depends on sensor_type, not directly on the row key.</p>
+                        </div>
+                        <div class="norm-compare after">
+                          <div class="norm-label">After - Compliant</div>
+                          <p class="mono">Sensor(sensor_id, machine_id, sensor_type, unit)</p>
+                          <p class="muted">Both sensor_type and unit depend directly on sensor_id.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="norm-step reveal">
+                    <span class="norm-badge b">BCNF</span>
+                    <div class="norm-card">
+                      <h3>Boyce-Codd Normal Form (BCNF)</h3>
+                      <ul class="detail-list">
+                        <li>A stronger version of 3NF.</li>
+                        <li>For every non-trivial dependency X → Y, X must be a super key.</li>
+                        <li>Eliminates anomalies that 3NF may miss with overlapping candidate keys.</li>
+                      </ul>
+                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> SmartMold tables use a single candidate key, so 3NF and BCNF are effectively equivalent here.</p>
+                      <div class="norm-compare-grid">
+                        <div class="norm-compare before">
+                          <div class="norm-label">BCNF Violation Example</div>
+                          <p class="mono">SensorCalibration(sensor_id, calibration_lab, calibration_date)</p>
+                          <p class="muted">If calibration_lab → calibration_date, then calibration_lab is not a super key.</p>
+                        </div>
+                        <div class="norm-compare after">
+                          <div class="norm-label">BCNF Fix</div>
+                          <p class="mono">SensorCalibration(sensor_id, calibration_lab)<br>LabSchedule(calibration_lab, calibration_date)</p>
+                          <p class="muted">Every determinant becomes a key in its own relation.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="norm-step reveal">
+                    <span class="norm-badge c">4NF</span>
+                    <div class="norm-card">
+                      <h3>Fourth Normal Form (4NF)</h3>
+                      <ul class="detail-list">
+                        <li>Must already be in BCNF.</li>
+                        <li>No multi-valued dependencies other than those implied by a super key.</li>
+                        <li>Independent multi-valued facts should be separated into different tables.</li>
+                      </ul>
+                      <div class="norm-compare-grid">
+                        <div class="norm-compare before">
+                          <div class="norm-label">Before - 4NF Violation</div>
+                          <p class="mono">MachineFeatures(machine_id, sensor_type, maintenance_type)</p>
+                          <p class="muted">machine_id →→ sensor_type and machine_id →→ maintenance_type create spurious tuples.</p>
+                        </div>
+                        <div class="norm-compare after">
+                          <div class="norm-label">After - 4NF Compliant</div>
+                          <p class="mono">Sensor(sensor_id, machine_id, sensor_type)<br>MaintenanceRecord(maintenance_id, machine_id, type)</p>
+                          <p class="muted">Each table stores one multi-valued fact, so 4NF is satisfied.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="norm-step reveal">
+                    <span class="norm-badge b">5NF</span>
+                    <div class="norm-card">
+                      <h3>Fifth Normal Form (5NF) - Project-Join Normal Form</h3>
+                      <ul class="detail-list">
+                        <li>Must already be in 4NF.</li>
+                        <li>No join dependencies that are not implied by candidate keys.</li>
+                        <li>All decompositions remain lossless when the original relation is rebuilt.</li>
+                      </ul>
+                      <p class="muted">The SmartMold database avoids 5NF violations by design. All many-to-many behavior is resolved through dedicated relations, and no three-way join dependency creates spurious tuples.</p>
+                      <div class="result-box">Lossless join verification: <span class="mono">Machine ⋈ Sensor ⋈ SensorReading</span> reconstructs the original relation exactly through foreign-key joins, confirming 5NF compliance for the operational data flow.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="norm-card norm-left-c reveal" style="margin-top:1rem;">
+                <h3>Inclusion Dependencies</h3>
+                <p class="muted">An inclusion dependency states that the set of values appearing in one column or set of columns of a relation must be a subset of the values in another column or set of columns. Referential integrity constraints are a special case of inclusion dependencies.</p>
+                <div class="table-wrap" style="margin-top:0.9rem;">
+                  <table>
+                    <thead><tr><th>Source</th><th>Included In</th></tr></thead>
+                    <tbody>
+                      <tr><td>SensorReading.sensor_id</td><td class="mono">⊆ Sensor.sensor_id</td></tr>
+                      <tr><td>Sensor.machine_id</td><td class="mono">⊆ Machine.machine_id</td></tr>
+                      <tr><td>MaintenanceRecord.machine_id</td><td class="mono">⊆ Machine.machine_id</td></tr>
+                      <tr><td>MaintenanceRecord.technician_id</td><td class="mono">⊆ Technician.technician_id</td></tr>
+                      <tr><td>ProductionBatch.machine_id</td><td class="mono">⊆ Machine.machine_id</td></tr>
+                      <tr><td>Alert.sensor_id</td><td class="mono">⊆ Sensor.sensor_id</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="result-box">All inclusion dependencies in SmartMold are enforced via FOREIGN KEY constraints in MySQL, ensuring referential integrity across all seven tables.</p>
+              </div>
+
+              <div class="norm-card norm-summary reveal">
+                <h3>SmartMold IoT Database - Normalization Compliance Summary</h3>
+                <div class="table-wrap" style="margin-top:0.9rem;">
+                  <table>
+                    <thead><tr><th>Form</th><th>Rule</th><th>Status</th><th>Evidence in SmartMold</th></tr></thead>
+                    <tbody>
+                      <tr><td>1NF</td><td>Atomic values, no repeat</td><td><span class="norm-status">✓ Met</span></td><td>All columns hold single values</td></tr>
+                      <tr><td>2NF</td><td>No partial dependency</td><td><span class="norm-status">✓ Met</span></td><td>Single-column surrogate PKs</td></tr>
+                      <tr><td>3NF</td><td>No transitive dependency</td><td><span class="norm-status">✓ Met</span></td><td>All non-keys depend on PK only</td></tr>
+                      <tr><td>BCNF</td><td>Every determinant = key</td><td><span class="norm-status">✓ Met</span></td><td>One candidate key per table</td></tr>
+                      <tr><td>4NF</td><td>No multi-valued dependency</td><td><span class="norm-status">✓ Met</span></td><td>MVDs resolved by decomposition</td></tr>
+                      <tr><td>5NF</td><td>No join dependency</td><td><span class="norm-status">✓ Met</span></td><td>All joins are lossless</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section id="sec-analytics">
@@ -2232,6 +2637,7 @@
         { id: 'sec-architecture', icon: 'AR', label: 'Architecture' },
         { id: 'sec-sensors', icon: 'SN', label: 'Live Sensors' },
         { id: 'sec-database', icon: 'DB', label: 'Database' },
+        { id: 'sec-normalization', icon: '🔬', label: 'Normalization' },
         { id: 'sec-analytics', icon: 'AN', label: 'Analytics' },
         { id: 'sec-dashboard', icon: 'DS', label: 'Dashboard' },
         { id: 'sec-integration', icon: 'IN', label: 'Integration' }
@@ -2747,7 +3153,9 @@
       }
 
       function renderNavbarLinks() {
-        navbarLinks.innerHTML = '';
+        navbarLinks.innerHTML = PUBLIC_LINKS.map(function (link) {
+          return '<div class="nav-link" data-target="' + link.id + '">' + link.label + '</div>';
+        }).join('');
       }
 
       function renderSidebarForRole(role) {
