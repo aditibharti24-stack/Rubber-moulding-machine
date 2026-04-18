@@ -1617,6 +1617,278 @@
       font-size: 0.78rem;
     }
 
+    section {
+      padding-bottom: 3rem;
+    }
+
+    .card,
+    .table-card,
+    .chart-card,
+    .stat-card,
+    .dash-card,
+    .control-card,
+    .member-card,
+    .entity-box,
+    .subsection-card,
+    .automation-card {
+      padding: 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      box-shadow: none;
+    }
+
+    .accent-a-card,
+    .solution-card {
+      border-left: 3px solid var(--accent-a);
+    }
+
+    .accent-b-card,
+    .problem-card {
+      border-left: 3px solid var(--accent-b);
+    }
+
+    .accent-c-card {
+      border-left: 3px solid var(--accent-c);
+    }
+
+    .section-head {
+      display: grid;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-title-main,
+    .norm-title {
+      font-size: 1.4rem;
+      color: var(--accent-a);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .section-copy,
+    .norm-subtitle,
+    .muted,
+    body {
+      font-size: 14px;
+    }
+
+    .rubric-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 3px 12px;
+      border-radius: 99px;
+      background: var(--bg-panel);
+      border: 1px solid var(--accent-a);
+      color: var(--accent-a);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.4;
+      margin-right: 0.45rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .subsection-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-a);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .subsection-card {
+      margin-top: 1rem;
+    }
+
+    .subsection-card h3,
+    .table-card h3,
+    .chart-card h3,
+    .card h3,
+    .member-card h3,
+    .dash-card h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1rem;
+    }
+
+    .rubric-list-grid,
+    .query-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .query-card-span {
+      grid-column: 1 / -1;
+    }
+
+    .compact-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .flow-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      margin-top: 0.8rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 56px;
+      padding: 0 16px;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text-2);
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--accent-a);
+    }
+
+    .nav-link.active::after,
+    .nav-link:hover::after {
+      bottom: 0;
+      height: 2px;
+      background: var(--accent-a);
+    }
+
+    .sidebar-link {
+      min-height: 42px;
+      padding: 10px 18px;
+      font-size: 13px;
+      gap: 10px;
+    }
+
+    .sidebar-icon {
+      min-width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .sidebar-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      background: var(--bg-panel);
+      color: var(--accent-a);
+      font-weight: 600;
+    }
+
+    th,
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: var(--bg-card);
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--bg-panel);
+    }
+
+    .selected-row td {
+      background: rgba(0, 229, 204, 0.08);
+    }
+
+    .sql-block {
+      position: relative;
+      background: #0a0f1a;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin-top: 0.9rem;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .copy-btn {
+      min-height: 28px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-panel);
+      color: var(--accent-a);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .mini-code-stack {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .compact-result {
+      line-height: 1.8;
+      font-size: 13px;
+    }
+
+    .dashboard-alert-card tbody tr:nth-child(odd) {
+      background: var(--bg-card);
+    }
+
+    .dashboard-alert-card tbody tr:nth-child(even) {
+      background: var(--bg-panel);
+    }
+
+    .clean-team-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .team-note {
+      margin: 1rem 0 0;
+      text-align: center;
+    }
+
+    #main-content::-webkit-scrollbar,
+    #sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #main-content::-webkit-scrollbar-thumb,
+    #sidebar::-webkit-scrollbar-thumb {
+      background: var(--accent-a);
+      border-radius: 2px;
+    }
+
     .color-input {
       width: 100%;
       height: 52px;
@@ -1684,6 +1956,7 @@
       text-align: center;
     }
 
+    .member-avatar,
     .avatar {
       width: 56px;
       height: 56px;
@@ -1696,6 +1969,10 @@
       color: var(--accent-a);
       border: 1px solid var(--border-subtle);
       background: rgba(255, 255, 255, 0.04);
+    }
+
+    .avatar {
+      margin-bottom: 0.8rem;
     }
 
     #toast-container {
@@ -1751,9 +2028,9 @@
 
     .shake { animation: shake 0.35s ease; }
 
-    *::-webkit-scrollbar { width: 10px; height: 10px; }
+    *::-webkit-scrollbar { width: 4px; height: 4px; }
     *::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
-    *::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 999px; }
+    *::-webkit-scrollbar-thumb { background: var(--accent-a); border-radius: 2px; }
 
     @media (max-width: 1180px) {
       #login-screen .login-shell {
@@ -1771,10 +2048,12 @@
         grid-template-columns: 1fr;
       }
       .norm-grid-2,
-      .norm-compare-grid {
+      .norm-compare-grid,
+      .rubric-list-grid,
+      .query-grid,
+      .clean-team-grid {
         grid-template-columns: 1fr;
       }
-      .nav-center { display: none; }
       .hero-banner,
       .problem-solution,
       .grid-2,
@@ -1811,6 +2090,9 @@
       }
       #login-screen .role-select-grid {
         grid-template-columns: 1fr;
+      }
+      .nav-center {
+        display: none;
       }
       #sidebar {
         width: 0;
@@ -1918,66 +2200,50 @@
       <main id="main-content">
         <div class="content-wrap">
           <section id="sec-overview">
-            <div class="hero-banner reveal">
-              <div>
-                <span class="badge">Industrial precision project portfolio</span>
-                <h2 class="hero-title">SmartMold IoT</h2>
-                <p class="hero-subtitle">Data-Driven Digital Transformation of an IoT-Enabled 4-Pillar Compression Type Rubber Molding Machine</p>
-                <div class="counter-grid">
-                  <div class="stat-card"><span class="counter-label">System uptime</span><strong class="counter-value mono" data-count="99.2" data-suffix="%">0%</strong></div>
-                  <div class="stat-card"><span class="counter-label">Energy saved</span><strong class="counter-value mono" data-count="37" data-suffix="%">0%</strong></div>
-                  <div class="stat-card"><span class="counter-label">Data latency</span><strong class="counter-value mono" data-count="0.4" data-suffix="s">0s</strong></div>
-                </div>
-                <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
-                  <button class="btn btn-primary" type="button" data-scroll-target="sec-architecture">Explore Architecture</button>
-                  <button class="btn btn-secondary" type="button" data-scroll-target="sec-dashboard">View Dashboard</button>
-                </div>
+            <div class="section-head reveal">
+              <span class="rubric-badge">CNDC — 2 marks: Problem Understanding &amp; CNDC Relevance</span>
+              <h2 class="section-title-main">SmartMold IoT Project Overview</h2>
+              <p class="section-copy">This overview states the industrial problem clearly, introduces the SmartMold IoT solution, and shows where CNDC concepts directly support the project.</p>
+            </div>
+            <div class="grid-3">
+              <div class="card reveal problem-card">
+                <h3>The Problem</h3>
+                <p class="muted">Traditional 4-pillar rubber molding machines have no real-time monitoring, no predictive maintenance, and no data-driven control, causing poor quality, energy waste, and unplanned downtime.</p>
               </div>
-              <div class="hero-visual">
-                <svg class="machine-svg" viewBox="0 0 560 520" aria-hidden="true">
-                  <path class="machine-stroke" d="M170 100h220a18 18 0 0 1 18 18v24H152v-24a18 18 0 0 1 18-18Z"></path>
-                  <path class="machine-stroke" d="M152 142h256"></path>
-                  <path class="machine-stroke" d="M188 142v206"></path>
-                  <path class="machine-stroke" d="M238 142v206"></path>
-                  <path class="machine-stroke" d="M322 142v206"></path>
-                  <path class="machine-stroke" d="M372 142v206"></path>
-                  <path class="machine-stroke" d="M150 224h260"></path>
-                  <path class="machine-stroke" d="M142 348h276a16 16 0 0 1 16 16v22H126v-22a16 16 0 0 1 16-16Z"></path>
-                  <path class="machine-stroke" d="M162 386h236a16 16 0 0 1 16 16v12H146v-12a16 16 0 0 1 16-16Z"></path>
-                  <circle class="machine-stroke" cx="168" cy="446" r="18"></circle>
-                  <circle class="machine-stroke" cx="392" cy="446" r="18"></circle>
-                </svg>
-                <div class="ripple-dot pulse-1"></div>
-                <div class="ripple-dot pulse-2"></div>
-                <div class="ripple-dot pulse-3"></div>
-                <span class="tag-chip tag-1">temperature</span>
-                <span class="tag-chip tag-2">pressure</span>
-                <span class="tag-chip tag-3">vibration</span>
+              <div class="card reveal solution-card">
+                <h3>The Solution</h3>
+                <p class="muted">SmartMold IoT deploys temperature, pressure, and vibration sensors on the machine and sends telemetry by MQTT over TCP/IP through an Industrial LAN to a central server and MySQL database for visualization, predictive maintenance, and statistical process control.</p>
+              </div>
+              <div class="card reveal accent-c-card">
+                <h3>CNDC Concepts Applied</h3>
+                <div class="rubric-list-grid">
+                  <div class="attr-list compact">
+                    <span>Networking model: Client-Server over Industrial LAN</span>
+                    <span>Protocol: MQTT (pub/sub) over TCP/IP</span>
+                    <span>Real-time communication: 1.5s sensor polling</span>
+                  </div>
+                  <div class="attr-list compact">
+                    <span>Distributed systems: PLC + Server + Dashboard</span>
+                    <span>Fault tolerance: PLC local buffering on disconnect</span>
+                    <span>Data integrity: TLS 1.3 + QoS Level 2</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="problem-solution">
-              <div class="reveal">
-                <div class="section-kicker">Traditional machines</div>
-                <div class="card problem-card"><h3>Inconsistent Quality</h3><p class="muted">Fixed cycles offer no real-time adaptation to changing mold conditions.</p></div>
-                <div class="card problem-card" style="margin-top:1rem;"><h3>Energy Waste</h3><p class="muted">No feedback loop means power losses remain invisible during operation.</p></div>
-                <div class="card problem-card" style="margin-top:1rem;"><h3>Reactive Maintenance</h3><p class="muted">Breakdown signatures are noticed only after downtime has already begun.</p></div>
-                <div class="card problem-card" style="margin-top:1rem;"><h3>Zero Visibility</h3><p class="muted">Operators cannot see live health, alert trends, or machine history.</p></div>
-              </div>
-              <div class="reveal">
-                <div class="section-kicker">SmartMold IoT</div>
-                <div class="card solution-card"><h3>Adaptive Control</h3><p class="muted">Live sensor data supports condition-aware decision making for each cycle.</p></div>
-                <div class="card solution-card" style="margin-top:1rem;"><h3>Energy Optimization</h3><p class="muted">Operational visibility makes cycle tuning and load balancing practical.</p></div>
-                <div class="card solution-card" style="margin-top:1rem;"><h3>Predictive Maintenance</h3><p class="muted">Threshold breaches and anomaly patterns surface before failure escalates.</p></div>
-                <div class="card solution-card" style="margin-top:1rem;"><h3>Full Observability</h3><p class="muted">All machine intelligence lives in one role-aware workspace.</p></div>
-              </div>
+            <div class="counter-grid compact-row" style="margin-top:1rem;">
+              <div class="stat-card reveal"><span class="counter-label">System uptime</span><strong class="counter-value mono" data-count="99.2" data-suffix="%">0%</strong></div>
+              <div class="stat-card reveal"><span class="counter-label">Energy saved</span><strong class="counter-value mono" data-count="37" data-suffix="%">0%</strong></div>
+              <div class="stat-card reveal"><span class="counter-label">Data latency</span><strong class="counter-value mono" data-count="0.4" data-suffix="s">0s</strong></div>
             </div>
           </section>
 
           <section id="sec-architecture">
             <div class="section-head reveal">
-              <span class="section-kicker">Communication architecture</span>
-              <h2 class="section-title-main">3-Layer Industrial IoT Framework - Client/Server Over MQTT</h2>
-              <p class="section-copy">The machine controller publishes sensor data through the network layer to a central server and database, enabling a live analytics dashboard with fault-tolerant messaging.</p>
+              <span class="rubric-badge">CNDC — 2 marks: System Architecture &amp; Design Clarity</span>
+              <span class="rubric-badge">CNDC — 2 marks: Protocol Selection &amp; Justification</span>
+              <span class="rubric-badge">CNDC — 2 marks: Implementation &amp; Technical Depth</span>
+              <h2 class="section-title-main">Industrial IoT Communication Architecture</h2>
+              <p class="section-copy">This section explains how telemetry travels through the SmartMold communication stack and why MQTT is selected for the industrial networking layer.</p>
             </div>
             <div class="band band-top reveal">
               <span class="band-label">SERVER &amp; APPLICATION LAYER</span>
@@ -2006,39 +2272,57 @@
               </div>
               <div class="card" style="margin-top:1rem;"><h3>PLC / ESP32 - MQTT Client</h3><p class="muted">Publishes to <span class="mono">/machine/*</span> topics, buffers on disconnect, and reconnects automatically.</p></div>
             </div>
-            <div class="info-grid" style="margin-top:1rem;">
-              <div class="card reveal"><h3>Why MQTT</h3><p class="muted">Lightweight publish-subscribe behavior suits high-frequency machine telemetry better than polling-driven HTTP.</p></div>
-              <div class="card reveal"><h3>Fault Tolerance</h3><p class="muted">Client buffering, retries, acknowledgments, and QoS 2 protect against message loss.</p></div>
-              <div class="card reveal"><h3>Security IEC 62443</h3><p class="muted">TLS, authenticated broker access, and secure transport align with industrial cybersecurity practices.</p></div>
+            <div class="subsection-card reveal">
+              <div class="subsection-kicker">SYSTEM ARCHITECTURE</div>
+              <h3>Machine-To-Server Data Flow</h3>
+              <p class="muted">Sensors → PLC (MQTT Client) → Industrial LAN → MQTT Broker → Central Server → MySQL DB → Dashboard</p>
+              <div class="flow-strip mono">
+                <span>Sensors</span><span>→</span><span>PLC</span><span>→</span><span>LAN</span><span>→</span><span>Broker</span><span>→</span><span>Server</span><span>→</span><span>MySQL</span><span>→</span><span>Dashboard</span>
+              </div>
             </div>
-            <div class="grid-2" style="margin-top:1rem;">
-              <div class="card reveal"><h3>Client</h3><p class="muted">PLC publishes temperature, pressure, and vibration topics and caches payloads locally during outages.</p></div>
-              <div class="card reveal"><h3>Server</h3><p class="muted">Broker and central server subscribe, validate, store, and expose records to the analytics layer.</p></div>
+            <div class="subsection-card reveal">
+              <div class="subsection-kicker">PROTOCOL SELECTION &amp; JUSTIFICATION</div>
+              <h3>Protocol Comparison</h3>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Protocol</th><th>Latency</th><th>Reliability</th><th>Our Choice</th></tr></thead>
+                  <tbody>
+                    <tr class="selected-row"><td>MQTT</td><td>Very Low</td><td>QoS 0/1/2</td><td><span class="norm-status">✓ SELECTED</span></td></tr>
+                    <tr><td>HTTP</td><td>High</td><td>No QoS</td><td>✗</td></tr>
+                    <tr><td>UDP</td><td>Low</td><td>Unreliable</td><td>✗</td></tr>
+                    <tr><td>TCP Raw</td><td>Medium</td><td>Reliable</td><td>✗</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="muted">MQTT is selected for its lightweight pub/sub model, QoS Level 2 exactly-once delivery, TLS 1.3 security, and low overhead on LAN communication, making it ideal for continuous industrial sensor streams.</p>
             </div>
-            <div class="grid-3" style="margin-top:1rem;">
-              <div class="card reveal">
-                <h3>Protocol Comparison</h3>
-                <div class="attr-list">
-                  <span>MQTT: lightweight pub/sub for live telemetry and alerts</span>
-                  <span>OPC-UA: richer semantics but heavier for this compact IIoT prototype</span>
-                  <span>Modbus: simple field exchange, weaker for cloud-style event routing</span>
+            <div class="subsection-card reveal">
+              <div class="subsection-kicker">IMPLEMENTATION DEPTH</div>
+              <h3>Client And Server Responsibilities</h3>
+              <div class="grid-2">
+                <div class="card accent-a-card">
+                  <h3>Client Side (PLC / ESP32)</h3>
+                  <div class="attr-list compact">
+                    <span>Publishes to /smartmold/temperature, /smartmold/pressure, /smartmold/vibration</span>
+                    <span>QoS Level 2 for exactly-once delivery</span>
+                    <span>Buffers locally when disconnected and flushes on reconnect</span>
+                    <span>Broker authentication with username and password</span>
+                  </div>
+                </div>
+                <div class="card accent-c-card">
+                  <h3>Server Side</h3>
+                  <div class="attr-list compact">
+                    <span>MQTT broker subscribes to /smartmold/# wildcard</span>
+                    <span>Central server validates and processes payloads</span>
+                    <span>Readings are stored in MySQL with timestamps</span>
+                    <span>Dashboard uses the same broker stream for live updates</span>
+                  </div>
                 </div>
               </div>
-              <div class="card reveal">
-                <h3>Integrity And Fault Tolerance</h3>
-                <div class="attr-list">
-                  <span>Sequence ordering and acknowledgments protect message continuity</span>
-                  <span>Client buffering supports reconnect and delayed broker delivery</span>
-                  <span>Checksums, retries, and QoS 2 reduce duplication or packet loss</span>
-                </div>
-              </div>
-              <div class="card reveal">
-                <h3>LAN, WAN, And HMI Scope</h3>
-                <div class="attr-list">
-                  <span>Industrial LAN handles machine-to-server transport at plant level</span>
-                  <span>WAN/cloud links extend reporting, dashboards, and remote supervision</span>
-                  <span>HMI, alert beacons, and mobile web clients consume the same server data</span>
-                </div>
+              <div class="info-grid" style="margin-top:1rem;">
+                <div class="card reveal"><h3>Fault Tolerance</h3><p class="muted">Client buffering, retries, acknowledgments, and QoS 2 protect against message loss during disconnect events.</p></div>
+                <div class="card reveal"><h3>Security</h3><p class="muted">TLS 1.3, authenticated broker access, and secure transport align with IEC 62443 industrial cybersecurity guidance.</p></div>
+                <div class="card reveal"><h3>Scalability</h3><p class="muted">The publish/subscribe model supports more sensors, dashboards, and services without redesigning the network path.</p></div>
               </div>
             </div>
           </section>
@@ -2061,8 +2345,19 @@
 
           <section id="sec-database">
             <div class="section-head reveal">
-              <span class="section-kicker">Database architecture</span>
-              <h2 class="section-title-main">3-Level Data Management - MySQL Relational System</h2>
+              <span class="rubric-badge">DBMS — 1.5 marks: SQL Schema Design &amp; Constraints</span>
+              <span class="rubric-badge">DBMS — 1 mark: Data Population</span>
+              <span class="rubric-badge">DBMS — 2 marks: Query Demonstration</span>
+              <h2 class="section-title-main">Database Design And SQL Implementation</h2>
+              <p class="section-copy">The SmartMold schema is organized as a relational MySQL design with enforced keys, realistic sample data, query evidence, automation logic, and normalization proof.</p>
+            </div>
+            <div class="subsection-card reveal">
+              <div class="subsection-kicker">DATA POPULATION</div>
+              <h3>Sample Data Coverage</h3>
+              <div class="card accent-a-card">
+                <p class="muted">All 7 tables are populated with 20 to 30 realistic test records each. SensorReading contains 30 rows simulating temperature (155–198°C), pressure (58–145 bar), and vibration (0.2–4.4 mm/s) readings across 7 days.</p>
+                <p class="muted">Total records inserted: approximately 200 rows across all tables.</p>
+              </div>
             </div>
             <div class="band band-mid reveal">
               <span class="band-label">REAL-TIME INGESTION</span>
@@ -2070,6 +2365,11 @@
                 <div class="table-card"><h3>SensorReading</h3><div class="table-wrap"><table><thead><tr><th>Sensor</th><th>Timestamp</th><th>Value</th><th>Status</th></tr></thead><tbody id="ingestion-body"></tbody></table></div></div>
                 <div class="table-card"><h3>Alert</h3><div class="table-wrap"><table><thead><tr><th>Alert</th><th>Sensor</th><th>Threshold</th><th>Actual</th></tr></thead><tbody id="alert-ingestion-body"></tbody></table></div></div>
               </div>
+            </div>
+            <div class="subsection-card reveal" style="margin-top:1rem;">
+              <div class="subsection-kicker">ER DIAGRAM &amp; SCHEMA DESIGN</div>
+              <h3>Entity Relationships And Constraints</h3>
+              <p class="muted">All tables use surrogate primary keys, enforced foreign keys, NOT NULL and CHECK constraints, and suitable data types including TIMESTAMP, DECIMAL, VARCHAR, and BOOLEAN.</p>
             </div>
             <div class="band band-top reveal" style="margin-top:1rem;">
               <span class="band-label">CORE RELATIONAL STORE</span>
@@ -2107,6 +2407,20 @@
                   </div>
                 </div>
               </div>
+              <div class="table-wrap" style="margin-top:1rem;">
+                <table>
+                  <thead><tr><th>Table</th><th>Key Constraints Applied</th></tr></thead>
+                  <tbody>
+                    <tr><td>Machine</td><td>PK: machine_id, NOT NULL: name, location</td></tr>
+                    <tr><td>Sensor</td><td>PK: sensor_id, FK: machine_id</td></tr>
+                    <tr><td>SensorReading</td><td>PK: reading_id, FK: sensor_id, CHECK value &gt; 0</td></tr>
+                    <tr><td>Alert</td><td>PK: alert_id, FK: sensor_id, DEFAULT resolved = FALSE</td></tr>
+                    <tr><td>MaintenanceRecord</td><td>PK: maintenance_id, FK: machine_id, technician_id</td></tr>
+                    <tr><td>ProductionBatch</td><td>PK: batch_id, FK: machine_id, CHECK defect_count &gt;= 0</td></tr>
+                    <tr><td>Technician</td><td>PK: technician_id, UNIQUE: contact</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="band band-bottom reveal" style="margin-top:1rem;">
               <span class="band-label">ANALYTICS &amp; AUTOMATION</span>
@@ -2126,6 +2440,80 @@
     <span class="sql-key">VALUES</span> (NEW.sensor_id, NEW.timestamp, <span class="sql-value">'HIGH_TEMP'</span>, <span class="sql-value">200</span>, NEW.value, <span class="sql-value">FALSE</span>);
   <span class="sql-key">END IF</span>;
 <span class="sql-key">END</span>;</code></pre>
+              <div class="subsection-card reveal" style="margin-top:1rem;">
+                <div class="subsection-kicker">QUERY DEMONSTRATION</div>
+                <h3>Core SQL Evidence</h3>
+                <div class="query-grid">
+                  <div class="table-card">
+                    <div class="code-header"><span class="tiny-pill mono">SELECT + WHERE</span><button class="copy-btn" type="button" data-copy-text="SELECT reading_id, sensor_id, value, timestamp, status&#10;FROM SensorReading&#10;WHERE value &gt; 190 AND status = 'WARNING';">Copy</button></div>
+                    <h3>Critical Temperature Readings</h3>
+                    <p class="muted">Retrieve all warning temperature readings above 190°C.</p>
+                    <pre class="sql-block sql-code"><code><span class="sql-key">SELECT</span> reading_id, sensor_id, value, timestamp, status
+<span class="sql-key">FROM</span> SensorReading
+<span class="sql-key">WHERE</span> value &gt; <span class="sql-value">190</span> <span class="sql-key">AND</span> status = <span class="sql-value">'WARNING'</span>;</code></pre>
+                  </div>
+                  <div class="table-card">
+                    <div class="code-header"><span class="tiny-pill mono">INNER JOIN</span><button class="copy-btn" type="button" data-copy-text="SELECT m.name, s.sensor_type, r.value, r.timestamp&#10;FROM Machine m&#10;INNER JOIN Sensor s ON m.machine_id = s.machine_id&#10;INNER JOIN SensorReading r ON s.sensor_id = r.sensor_id&#10;ORDER BY r.timestamp DESC LIMIT 10;">Copy</button></div>
+                    <h3>Machine, Sensor, And Reading Join</h3>
+                    <p class="muted">Get machine name, sensor type, and reading value together.</p>
+                    <pre class="sql-block sql-code"><code><span class="sql-key">SELECT</span> m.name, s.sensor_type, r.value, r.timestamp
+<span class="sql-key">FROM</span> Machine m
+<span class="sql-key">INNER JOIN</span> Sensor s <span class="sql-key">ON</span> m.machine_id = s.machine_id
+<span class="sql-key">INNER JOIN</span> SensorReading r <span class="sql-key">ON</span> s.sensor_id = r.sensor_id
+<span class="sql-key">ORDER BY</span> r.timestamp <span class="sql-key">DESC LIMIT</span> <span class="sql-value">10</span>;</code></pre>
+                  </div>
+                  <div class="table-card">
+                    <div class="code-header"><span class="tiny-pill mono">GROUP BY + HAVING</span><button class="copy-btn" type="button" data-copy-text="SELECT sensor_id, AVG(value) AS avg_temp, COUNT(*) AS total_readings&#10;FROM SensorReading&#10;WHERE sensor_type = 'temperature'&#10;GROUP BY sensor_id&#10;HAVING AVG(value) &gt; 180;">Copy</button></div>
+                    <h3>Average Temperature By Sensor</h3>
+                    <p class="muted">Show sensors whose average temperature is above 180°C.</p>
+                    <pre class="sql-block sql-code"><code><span class="sql-key">SELECT</span> sensor_id, <span class="sql-key">AVG</span>(value) <span class="sql-key">AS</span> avg_temp, <span class="sql-key">COUNT</span>(*) <span class="sql-key">AS</span> total_readings
+<span class="sql-key">FROM</span> SensorReading
+<span class="sql-key">WHERE</span> sensor_type = <span class="sql-value">'temperature'</span>
+<span class="sql-key">GROUP BY</span> sensor_id
+<span class="sql-key">HAVING</span> <span class="sql-key">AVG</span>(value) &gt; <span class="sql-value">180</span>;</code></pre>
+                  </div>
+                  <div class="table-card">
+                    <div class="code-header"><span class="tiny-pill mono">SUBQUERY</span><button class="copy-btn" type="button" data-copy-text="SELECT name FROM Machine&#10;WHERE machine_id IN (&#10;  SELECT DISTINCT s.machine_id FROM Sensor s&#10;  INNER JOIN Alert a ON s.sensor_id = a.sensor_id&#10;  WHERE a.triggered_at &gt;= NOW() - INTERVAL 7 DAY&#10;);">Copy</button></div>
+                    <h3>Machines With Recent Alerts</h3>
+                    <p class="muted">Find machines that produced at least one alert in the last 7 days.</p>
+                    <pre class="sql-block sql-code"><code><span class="sql-key">SELECT</span> name <span class="sql-key">FROM</span> Machine
+<span class="sql-key">WHERE</span> machine_id <span class="sql-key">IN</span> (
+  <span class="sql-key">SELECT DISTINCT</span> s.machine_id <span class="sql-key">FROM</span> Sensor s
+  <span class="sql-key">INNER JOIN</span> Alert a <span class="sql-key">ON</span> s.sensor_id = a.sensor_id
+  <span class="sql-key">WHERE</span> a.triggered_at &gt;= <span class="sql-key">NOW</span>() - <span class="sql-key">INTERVAL</span> <span class="sql-value">7 DAY</span>
+);</code></pre>
+                  </div>
+                  <div class="table-card query-card-span">
+                    <div class="code-header"><span class="tiny-pill mono">VIEWS / TRIGGER / PROCEDURE</span><button class="copy-btn" type="button" data-copy-text="CREATE VIEW live_sensor_status AS&#10;SELECT s.sensor_type, r.value, r.status, r.timestamp&#10;FROM Sensor s JOIN SensorReading r ON s.sensor_id = r.sensor_id&#10;WHERE r.timestamp = (SELECT MAX(timestamp) FROM SensorReading);&#10;&#10;CREATE TRIGGER auto_alert AFTER INSERT ON SensorReading&#10;FOR EACH ROW&#10;BEGIN&#10;  IF NEW.value &gt; 200 THEN&#10;    INSERT INTO Alert(sensor_id, triggered_at, alert_type, actual_value, resolved)&#10;    VALUES (NEW.sensor_id, NOW(), 'CRITICAL_TEMP', NEW.value, FALSE);&#10;  END IF;&#10;END;&#10;&#10;CREATE PROCEDURE get_maintenance_due()&#10;BEGIN&#10;  SELECT machine_id, MAX(date) AS last_maintenance&#10;  FROM MaintenanceRecord&#10;  GROUP BY machine_id&#10;  HAVING DATEDIFF(NOW(), MAX(date)) &gt; 30;&#10;END;">Copy</button></div>
+                    <h3>Database Automation Layer</h3>
+                    <p class="muted">View, trigger, and stored procedure support live status, automatic alerts, and maintenance due checks.</p>
+                    <div class="mini-code-stack">
+                      <pre class="sql-block sql-code"><code><span class="sql-comment">-- View</span>
+<span class="sql-key">CREATE VIEW</span> live_sensor_status <span class="sql-key">AS</span>
+<span class="sql-key">SELECT</span> s.sensor_type, r.value, r.status, r.timestamp
+<span class="sql-key">FROM</span> Sensor s <span class="sql-key">JOIN</span> SensorReading r <span class="sql-key">ON</span> s.sensor_id = r.sensor_id
+<span class="sql-key">WHERE</span> r.timestamp = (<span class="sql-key">SELECT MAX</span>(timestamp) <span class="sql-key">FROM</span> SensorReading);</code></pre>
+                      <pre class="sql-block sql-code"><code><span class="sql-comment">-- Trigger</span>
+<span class="sql-key">CREATE TRIGGER</span> auto_alert <span class="sql-key">AFTER INSERT ON</span> SensorReading
+<span class="sql-key">FOR EACH ROW</span>
+<span class="sql-key">BEGIN</span>
+  <span class="sql-key">IF</span> NEW.value &gt; <span class="sql-value">200</span> <span class="sql-key">THEN</span>
+    <span class="sql-key">INSERT INTO</span> Alert(sensor_id, triggered_at, alert_type, actual_value, resolved)
+    <span class="sql-key">VALUES</span> (NEW.sensor_id, <span class="sql-key">NOW</span>(), <span class="sql-value">'CRITICAL_TEMP'</span>, NEW.value, FALSE);
+  <span class="sql-key">END IF</span>;
+<span class="sql-key">END</span>;</code></pre>
+                      <pre class="sql-block sql-code"><code><span class="sql-comment">-- Stored Procedure</span>
+<span class="sql-key">CREATE PROCEDURE</span> get_maintenance_due()
+<span class="sql-key">BEGIN</span>
+  <span class="sql-key">SELECT</span> machine_id, <span class="sql-key">MAX</span>(date) <span class="sql-key">AS</span> last_maintenance
+  <span class="sql-key">FROM</span> MaintenanceRecord
+  <span class="sql-key">GROUP BY</span> machine_id
+  <span class="sql-key">HAVING</span> <span class="sql-key">DATEDIFF</span>(<span class="sql-key">NOW</span>(), <span class="sql-key">MAX</span>(date)) &gt; <span class="sql-value">30</span>;
+<span class="sql-key">END</span>;</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="table-card reveal sql-workspace">
                 <div class="query-meta">
                   <div>
@@ -2237,235 +2625,44 @@
 
             <div id="sec-normalization">
               <div class="section-head reveal">
-                <h2 class="norm-title">Relational Schema Refinement &amp; Normal Forms</h2>
-                <p class="norm-subtitle">Organizing SmartMold IoT database to eliminate redundancy and ensure data integrity</p>
+                <span class="rubric-badge">DBMS — 1.5 marks: Normalisation to highest suitable form</span>
+                <h2 class="section-title-main">Normalization Compliance</h2>
+                <p class="section-copy">The SmartMold relational schema is normalized to remove redundancy and preserve data integrity while still remaining practical for monitoring and analytics.</p>
               </div>
-
               <div class="norm-card reveal">
-                <h3>What is Normalization?</h3>
-                <p class="muted"><strong style="color:var(--text-1);">What is Normalization?</strong> Normalization is the systematic process of organizing a relational database to reduce data redundancy, eliminate insertion, update, and deletion anomalies, and improve data integrity by decomposing tables into well-structured relations based on functional dependencies.</p>
+                <h3>What Is Normalization?</h3>
+                <p class="muted">Normalization is the process of organizing relational tables to reduce redundancy, remove update anomalies, and improve consistency through proper functional dependency handling.</p>
               </div>
-
               <div class="norm-card norm-left-c reveal" style="margin-top:1rem;">
-                <h3>Functional Dependencies &amp; Relational Keys</h3>
-                <div class="norm-grid-2">
-                  <div class="norm-card norm-left-c reveal">
-                    <h3>Functional Dependencies</h3>
-                    <p class="muted">A functional dependency X → Y means attribute Y is functionally determined by attribute X. If two tuples agree on X, they must agree on Y.</p>
-                    <div class="table-wrap" style="margin-top:0.9rem;">
-                      <table>
-                        <thead>
-                          <tr><th>Table</th><th>Functional Dependency</th></tr>
-                        </thead>
-                        <tbody>
-                          <tr><td>SensorReading</td><td class="mono">reading_id → sensor_id, value, timestamp, status</td></tr>
-                          <tr><td>Sensor</td><td class="mono">sensor_id → machine_id, sensor_type, unit</td></tr>
-                          <tr><td>Machine</td><td class="mono">machine_id → name, location, model, installation_date</td></tr>
-                          <tr><td>MaintenanceRecord</td><td class="mono">maintenance_id → machine_id, technician_id, date, cost</td></tr>
-                          <tr><td>ProductionBatch</td><td class="mono">batch_id → machine_id, quality_score, defect_count</td></tr>
-                          <tr><td>Alert</td><td class="mono">alert_id → sensor_id, triggered_at, threshold, actual</td></tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <div class="norm-card norm-left-c reveal">
-                    <h3>Keys in the Relational Model</h3>
-                    <div class="norm-key-stack">
-                      <div class="norm-card norm-left-a">
-                        <h3>Super Key</h3>
-                        <p class="muted">A set of one or more attributes that uniquely identifies a tuple in a relation.</p>
-                        <p class="mono">Examples: {reading_id}, {reading_id, sensor_id}, {reading_id, timestamp}</p>
-                      </div>
-                      <div class="norm-card norm-left-c">
-                        <h3>Candidate Key</h3>
-                        <p class="muted">A minimal super key. No proper subset of it is also a super key.</p>
-                        <p class="mono">SensorReading: {reading_id}<br>Sensor: {sensor_id}<br>Machine: {machine_id}<br>MaintenanceRecord: {maintenance_id}</p>
-                      </div>
-                      <div class="norm-card norm-left-b">
-                        <h3>Primary Key</h3>
-                        <p class="muted">The chosen candidate key used to uniquely identify each row.</p>
-                        <p class="mono">reading_id, sensor_id, machine_id, maintenance_id, batch_id, alert_id, technician_id</p>
-                      </div>
-                      <div class="norm-card norm-left-a">
-                        <h3>Foreign Key</h3>
-                        <p class="muted">An attribute that references the primary key of another table, enforcing referential integrity.</p>
-                        <p class="mono">sensor_id FK → Sensor<br>machine_id FK → Machine<br>technician_id FK → Technician<br>sensor_id FK → Alert owner</p>
-                      </div>
-                    </div>
-                  </div>
+                <h3>Functional Dependencies</h3>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Table</th><th>Functional Dependency</th></tr></thead>
+                    <tbody>
+                      <tr><td>SensorReading</td><td class="mono">reading_id → sensor_id, value, timestamp, status</td></tr>
+                      <tr><td>Sensor</td><td class="mono">sensor_id → machine_id, sensor_type, unit</td></tr>
+                      <tr><td>Machine</td><td class="mono">machine_id → name, location, model, installation_date</td></tr>
+                      <tr><td>MaintenanceRecord</td><td class="mono">maintenance_id → machine_id, technician_id, date, cost</td></tr>
+                      <tr><td>ProductionBatch</td><td class="mono">batch_id → machine_id, quality_score, defect_count</td></tr>
+                      <tr><td>Alert</td><td class="mono">alert_id → sensor_id, triggered_at, threshold, actual</td></tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-
               <div class="norm-card reveal" style="margin-top:1rem;">
-                <h3>Normal Forms - Applied To SmartMold IoT Database</h3>
+                <h3>Normal Forms Applied To SmartMold</h3>
                 <div class="norm-stepper">
-                  <div class="norm-step reveal">
-                    <span class="norm-badge a">1NF</span>
-                    <div class="norm-card">
-                      <h3>First Normal Form (1NF)</h3>
-                      <ul class="detail-list">
-                        <li>All attributes contain only atomic values.</li>
-                        <li>No repeating groups or arrays appear in any column.</li>
-                        <li>Each row is unique and identified by a primary key.</li>
-                      </ul>
-                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> SmartMold stores one value per cell and one reading per row.</p>
-                      <div class="table-wrap" style="margin-top:0.9rem;">
-                        <table>
-                          <thead><tr><th>reading_id</th><th>sensor_id</th><th>timestamp</th><th>value</th><th>status</th></tr></thead>
-                          <tbody>
-                            <tr><td>1001</td><td>temp_sensor_01</td><td>2026-04-13 10:18:12</td><td>184.3</td><td>NORMAL</td></tr>
-                            <tr><td>1002</td><td>pres_sensor_01</td><td>2026-04-13 10:18:12</td><td>112.7</td><td>NORMAL</td></tr>
-                            <tr><td>1003</td><td>vib_sensor_01</td><td>2026-04-13 10:18:12</td><td>1.84</td><td>NORMAL</td></tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <p class="result-box">Each cell holds exactly one atomic value. No sensor_type stores multiple values like "temp,pressure". The status column holds exactly one string. All rows are uniquely identified by reading_id.</p>
-                      <div class="norm-compare-grid">
-                        <div class="norm-compare before">
-                          <div class="norm-label">Before - Violation</div>
-                          <p class="mono">sensor_values = "184.3, 112.7, 1.84"</p>
-                          <p class="muted">Multiple readings stored in one cell violate atomicity.</p>
-                        </div>
-                        <div class="norm-compare after">
-                          <div class="norm-label">After - Compliant</div>
-                          <p class="mono">Three separate SensorReading rows, one reading per record.</p>
-                          <p class="muted">The relation becomes atomic and queryable.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="norm-step reveal">
-                    <span class="norm-badge c">2NF</span>
-                    <div class="norm-card">
-                      <h3>Second Normal Form (2NF)</h3>
-                      <ul class="detail-list">
-                        <li>Must already be in 1NF.</li>
-                        <li>Every non-key attribute depends on the entire primary key.</li>
-                        <li>No partial dependency on only part of a composite key.</li>
-                      </ul>
-                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> All SmartMold tables use single-column surrogate primary keys, so partial dependency cannot occur.</p>
-                      <div class="norm-compare-grid">
-                        <div class="norm-compare before">
-                          <div class="norm-label">Before - Violation</div>
-                          <p class="mono">SensorMachineReading(reading_id, machine_id, machine_name, value)</p>
-                          <p class="muted">machine_name depends only on machine_id, not on the full composite key.</p>
-                        </div>
-                        <div class="norm-compare after">
-                          <div class="norm-label">After - Compliant</div>
-                          <p class="mono">SensorReading(reading_id PK, sensor_id, value)<br>Machine(machine_id PK, machine_name)</p>
-                          <p class="muted">machine_name now depends only on Machine.machine_id in its own relation.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="norm-step reveal">
-                    <span class="norm-badge a">3NF</span>
-                    <div class="norm-card">
-                      <h3>Third Normal Form (3NF)</h3>
-                      <ul class="detail-list">
-                        <li>Must already be in 2NF.</li>
-                        <li>No transitive dependencies from one non-key attribute to another.</li>
-                        <li>Every non-key attribute depends directly on the primary key.</li>
-                      </ul>
-                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> SmartMold keeps technician details in Technician and sensor definitions in Sensor, preventing non-key chains.</p>
-                      <div class="table-wrap" style="margin-top:0.9rem;">
-                        <table>
-                          <thead><tr><th>Table</th><th>3NF Status</th></tr></thead>
-                          <tbody>
-                            <tr><td>SensorReading</td><td>✓ All attributes depend only on reading_id directly</td></tr>
-                            <tr><td>MaintenanceRecord</td><td>✓ technician_id is FK; technician details live in Technician</td></tr>
-                            <tr><td>ProductionBatch</td><td>✓ All attributes depend on batch_id</td></tr>
-                            <tr><td>Alert</td><td>✓ No non-key determines another non-key</td></tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="norm-compare-grid">
-                        <div class="norm-compare before">
-                          <div class="norm-label">Before - Violation</div>
-                          <p class="mono">sensor_type → unit inside a wider reading table</p>
-                          <p class="muted">unit depends on sensor_type, not directly on the row key.</p>
-                        </div>
-                        <div class="norm-compare after">
-                          <div class="norm-label">After - Compliant</div>
-                          <p class="mono">Sensor(sensor_id, machine_id, sensor_type, unit)</p>
-                          <p class="muted">Both sensor_type and unit depend directly on sensor_id.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="norm-step reveal">
-                    <span class="norm-badge b">BCNF</span>
-                    <div class="norm-card">
-                      <h3>Boyce-Codd Normal Form (BCNF)</h3>
-                      <ul class="detail-list">
-                        <li>A stronger version of 3NF.</li>
-                        <li>For every non-trivial dependency X → Y, X must be a super key.</li>
-                        <li>Eliminates anomalies that 3NF may miss with overlapping candidate keys.</li>
-                      </ul>
-                      <p class="muted"><strong style="color:var(--accent-a);">✓ COMPLIANT</strong> SmartMold tables use a single candidate key, so 3NF and BCNF are effectively equivalent here.</p>
-                      <div class="norm-compare-grid">
-                        <div class="norm-compare before">
-                          <div class="norm-label">BCNF Violation Example</div>
-                          <p class="mono">SensorCalibration(sensor_id, calibration_lab, calibration_date)</p>
-                          <p class="muted">If calibration_lab → calibration_date, then calibration_lab is not a super key.</p>
-                        </div>
-                        <div class="norm-compare after">
-                          <div class="norm-label">BCNF Fix</div>
-                          <p class="mono">SensorCalibration(sensor_id, calibration_lab)<br>LabSchedule(calibration_lab, calibration_date)</p>
-                          <p class="muted">Every determinant becomes a key in its own relation.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="norm-step reveal">
-                    <span class="norm-badge c">4NF</span>
-                    <div class="norm-card">
-                      <h3>Fourth Normal Form (4NF)</h3>
-                      <ul class="detail-list">
-                        <li>Must already be in BCNF.</li>
-                        <li>No multi-valued dependencies other than those implied by a super key.</li>
-                        <li>Independent multi-valued facts should be separated into different tables.</li>
-                      </ul>
-                      <div class="norm-compare-grid">
-                        <div class="norm-compare before">
-                          <div class="norm-label">Before - 4NF Violation</div>
-                          <p class="mono">MachineFeatures(machine_id, sensor_type, maintenance_type)</p>
-                          <p class="muted">machine_id →→ sensor_type and machine_id →→ maintenance_type create spurious tuples.</p>
-                        </div>
-                        <div class="norm-compare after">
-                          <div class="norm-label">After - 4NF Compliant</div>
-                          <p class="mono">Sensor(sensor_id, machine_id, sensor_type)<br>MaintenanceRecord(maintenance_id, machine_id, type)</p>
-                          <p class="muted">Each table stores one multi-valued fact, so 4NF is satisfied.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="norm-step reveal">
-                    <span class="norm-badge b">5NF</span>
-                    <div class="norm-card">
-                      <h3>Fifth Normal Form (5NF) - Project-Join Normal Form</h3>
-                      <ul class="detail-list">
-                        <li>Must already be in 4NF.</li>
-                        <li>No join dependencies that are not implied by candidate keys.</li>
-                        <li>All decompositions remain lossless when the original relation is rebuilt.</li>
-                      </ul>
-                      <p class="muted">The SmartMold database avoids 5NF violations by design. All many-to-many behavior is resolved through dedicated relations, and no three-way join dependency creates spurious tuples.</p>
-                      <div class="result-box">Lossless join verification: <span class="mono">Machine ⋈ Sensor ⋈ SensorReading</span> reconstructs the original relation exactly through foreign-key joins, confirming 5NF compliance for the operational data flow.</div>
-                    </div>
-                  </div>
+                  <div class="norm-step reveal"><span class="norm-badge a">1NF</span><div class="norm-card"><h3>First Normal Form</h3><ul class="detail-list"><li>All values are atomic.</li><li>No repeating groups exist.</li></ul><p class="muted">Compliant: one reading value and one status are stored in each row.</p></div></div>
+                  <div class="norm-step reveal"><span class="norm-badge c">2NF</span><div class="norm-card"><h3>Second Normal Form</h3><ul class="detail-list"><li>Already in 1NF.</li><li>No partial dependency on composite keys.</li></ul><p class="muted">Compliant: SmartMold uses single-column surrogate primary keys, so partial dependency cannot occur.</p></div></div>
+                  <div class="norm-step reveal"><span class="norm-badge a">3NF</span><div class="norm-card"><h3>Third Normal Form</h3><ul class="detail-list"><li>No transitive dependency.</li><li>Non-key attributes depend directly on the primary key.</li></ul><p class="muted">Compliant: technician details and sensor metadata are stored in their own tables.</p></div></div>
+                  <div class="norm-step reveal"><span class="norm-badge b">BCNF</span><div class="norm-card"><h3>BCNF</h3><ul class="detail-list"><li>Every determinant is a super key.</li><li>Stronger form of 3NF.</li></ul><p class="muted">Compliant: each core SmartMold table uses a single candidate key.</p></div></div>
+                  <div class="norm-step reveal"><span class="norm-badge c">4NF</span><div class="norm-card"><h3>Fourth Normal Form</h3><ul class="detail-list"><li>No unwanted multi-valued dependency.</li><li>Independent facts stay in separate tables.</li></ul><p class="muted">Compliant: sensor types and maintenance types are not mixed into one multi-valued relation.</p></div></div>
+                  <div class="norm-step reveal"><span class="norm-badge b">5NF</span><div class="norm-card"><h3>Fifth Normal Form</h3><ul class="detail-list"><li>No join dependency beyond keys.</li><li>Decomposition remains lossless.</li></ul><p class="muted">Compliant: Machine, Sensor, and SensorReading rejoin cleanly through foreign keys.</p></div></div>
                 </div>
               </div>
-
               <div class="norm-card norm-left-c reveal" style="margin-top:1rem;">
                 <h3>Inclusion Dependencies</h3>
-                <p class="muted">An inclusion dependency states that the set of values appearing in one column or set of columns of a relation must be a subset of the values in another column or set of columns. Referential integrity constraints are a special case of inclusion dependencies.</p>
-                <div class="table-wrap" style="margin-top:0.9rem;">
+                <div class="table-wrap">
                   <table>
                     <thead><tr><th>Source</th><th>Included In</th></tr></thead>
                     <tbody>
@@ -2478,12 +2675,10 @@
                     </tbody>
                   </table>
                 </div>
-                <p class="result-box">All inclusion dependencies in SmartMold are enforced via FOREIGN KEY constraints in MySQL, ensuring referential integrity across all seven tables.</p>
               </div>
-
               <div class="norm-card norm-summary reveal">
-                <h3>SmartMold IoT Database - Normalization Compliance Summary</h3>
-                <div class="table-wrap" style="margin-top:0.9rem;">
+                <h3>Normalization Compliance Summary</h3>
+                <div class="table-wrap">
                   <table>
                     <thead><tr><th>Form</th><th>Rule</th><th>Status</th><th>Evidence in SmartMold</th></tr></thead>
                     <tbody>
@@ -2502,24 +2697,20 @@
 
           <section id="sec-analytics">
             <div class="section-head reveal">
-              <span class="section-kicker">Statistical process intelligence</span>
-              <h2 class="section-title-main">Inferential Statistics On The 30-Day Sensor Dataset</h2>
-              <p class="section-copy">The analytics layer combines estimation, hypothesis testing, ANOVA, regression, SPC control charts, anomaly detection, and reliability analysis to convert sensor histories into maintenance and quality decisions.</p>
+              <h2 class="section-title-main">Statistical Process Intelligence</h2>
+              <p class="section-copy">These charts summarize the most important inferential statistics used in the SmartMold analysis workflow.</p>
             </div>
             <div class="grid-3">
-              <div class="chart-card reveal"><h3>T-Test: Mean Temperature vs 180 C</h3><div class="chart-shell"><canvas id="ttest-chart"></canvas></div><div class="result-box">H0: mu = 180 C | H1: mu != 180 C<br>t = 2.14 | p = 0.032<br>Reject H0 at alpha = 0.05.</div></div>
-              <div class="chart-card reveal"><h3>Regression: Quality vs Temperature</h3><div class="chart-shell"><canvas id="regression-chart"></canvas></div><div class="result-box">R2 = 0.74 | p &lt; 0.001<br>Quality = 142.3 - 0.68 x Temp.</div></div>
-              <div class="chart-card reveal"><h3>ANOVA: Pressure Across Machine Cycles</h3><div class="chart-shell"><canvas id="anova-chart"></canvas></div><div class="result-box">Cycles compared: pre-heat, compression, cooling<br>F = 18.6 | p &lt; 0.001<br>Mean pressure differs significantly by cycle.</div></div>
-              <div class="chart-card reveal"><h3>Control Chart: Temperature X-Bar</h3><div class="chart-shell"><canvas id="control-chart"></canvas></div><div class="result-box">Center line = 180.1 C | UCL = 186.2 C | LCL = 173.8 C<br>Out-of-control subgroups indicate process instability and maintenance attention.</div></div>
-              <div class="chart-card reveal"><h3>Anomaly Detection: Vibration</h3><div class="chart-shell"><canvas id="anomaly-chart"></canvas></div><div class="result-box">120 points analysed | 14 anomalies detected | 5 require urgent inspection.</div></div>
-              <div class="chart-card reveal"><h3>Reliability: Time Between Failures</h3><div class="chart-shell"><canvas id="reliability-chart"></canvas></div><div class="result-box">Weibull beta &gt; 1 suggests an increasing failure rate (IFR).<br>Reliability drops as maintenance intervals lengthen, supporting preventive service windows.</div></div>
+              <div class="chart-card reveal"><h3>T-Test: Mean Temperature vs 180 C</h3><div class="chart-shell"><canvas id="ttest-chart"></canvas></div><div class="result-box compact-result">Test: One-sample t-test<br>Result: t = 2.14, p = 0.032<br>Conclusion: Mean temperature differs significantly from 180 C.</div></div>
+              <div class="chart-card reveal"><h3>Regression: Quality vs Temperature</h3><div class="chart-shell"><canvas id="regression-chart"></canvas></div><div class="result-box compact-result">Test: Linear regression<br>Result: R² = 0.74, p &lt; 0.001<br>Conclusion: Temperature strongly explains quality variation.</div></div>
+              <div class="chart-card reveal"><h3>Anomaly Detection: Vibration</h3><div class="chart-shell"><canvas id="anomaly-chart"></canvas></div><div class="result-box compact-result">Test: Z-score anomaly detection<br>Result: 14 anomalies, 5 urgent<br>Conclusion: Vibration spikes indicate maintenance risk.</div></div>
             </div>
           </section>
 
           <section id="sec-dashboard">
             <div class="section-head reveal">
-              <span class="section-kicker">Real-time monitoring dashboard</span>
-              <h2 class="section-title-main">Operational Dashboard View</h2>
+              <h2 class="section-title-main">Real-Time Machine Monitoring</h2>
+              <p class="section-copy">A live dashboard view for machine condition, rolling charts, and current alert status.</p>
             </div>
             <div class="metric-grid">
               <div class="stat-card reveal"><span class="counter-label">Temperature</span><strong class="metric-value mono" id="dash-temp-metric">184.3 C</strong><span class="status-pill status-normal" id="dash-temp-status">NORMAL</span></div>
@@ -2534,47 +2725,18 @@
             <div class="table-card reveal" style="margin-top:1rem;"><h3>Alert Log</h3><div class="table-wrap"><table><thead><tr><th>Time</th><th>Sensor</th><th>Alert Type</th><th>Value</th><th>Status</th></tr></thead><tbody id="dashboard-alert-body"></tbody></table></div></div>
           </section>
 
-          <section id="sec-integration">
+          <section id="sec-team">
             <div class="section-head reveal">
-              <span class="section-kicker">Integrated submission map</span>
-              <h2 class="section-title-main">CNDC To DBMS To Statistics Decision Pipeline</h2>
-              <p class="section-copy">The complete prototype follows the required workflow: define the industrial problem, move machine data through secure networking, store it in a relational database, analyze it with inferential statistics, and turn the results into maintenance and quality decisions.</p>
+              <h2 class="section-title-main">Project Team</h2>
+              <p class="section-copy">The SmartMold IoT webpage brings together networking, database design, statistics, and dashboard engineering in one academic prototype.</p>
             </div>
-            <div class="grid-4">
-              <div class="card reveal"><h3>1. Business Boundary</h3><p class="muted">Sensors monitor heat, pressure, vibration, machine health, and batch quality for a 4-pillar compression molding machine.</p></div>
-              <div class="card reveal"><h3>2. CNDC Flow</h3><p class="muted">Controller to broker to server communication uses MQTT over TCP/IP with fault tolerance, QoS, TLS, and plant LAN routing.</p></div>
-              <div class="card reveal"><h3>3. DBMS Layer</h3><p class="muted">Relational tables, foreign keys, views, indexes, triggers, and procedures support both live dashboards and historical analysis.</p></div>
-              <div class="card reveal"><h3>4. Statistical Decision</h3><p class="muted">Hypothesis tests, ANOVA, regression, control charts, anomaly flags, and reliability curves drive process optimization.</p></div>
+            <div class="member-grid clean-team-grid">
+              <div class="member-card reveal"><div class="member-avatar">AB</div><h3>Aditi Bharti</h3><p class="muted">Systems Integrator</p></div>
+              <div class="member-card reveal"><div class="member-avatar">PB</div><h3>Parth Bhoyar</h3><p class="muted">IoT &amp; Network Engineer</p></div>
+              <div class="member-card reveal"><div class="member-avatar">DA</div><h3>Data Analyst</h3><p class="muted">Inferential Statistics</p></div>
+              <div class="member-card reveal"><div class="member-avatar">DB</div><h3>Database Architect</h3><p class="muted">Schema &amp; SQL Design</p></div>
             </div>
-            <div class="grid-3" style="margin-top:1rem;">
-              <div class="card reveal">
-                <h3>Deliverables Coverage</h3>
-                <div class="attr-list">
-                  <span>IoT communication framework and fault tolerance</span>
-                  <span>ER model with keys, constraints, and weak-entity treatment</span>
-                  <span>SQL DDL, DML, queries, views, trigger, and procedure</span>
-                  <span>R-ready statistical models for stability and anomaly analysis</span>
-                  <span>Integrated technical narrative for data-driven maintenance</span>
-                </div>
-              </div>
-              <div class="card reveal">
-                <h3>Ethics And Data Privacy</h3>
-                <div class="attr-list">
-                  <span>Access control limits who can view or edit machine and worker-related records</span>
-                  <span>Secure transmission reduces the risk of tampering with maintenance decisions</span>
-                  <span>Predictive alerts should assist operators and technicians, not replace accountable human judgment</span>
-                </div>
-              </div>
-              <div class="card reveal">
-                <h3>Submission Assets</h3>
-                <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.75rem;">
-                  <a class="btn btn-primary" href="deliverables/Synapse2026_Technical_Report.md" target="_blank" rel="noopener">Open Report</a>
-                  <a class="btn btn-secondary" href="deliverables/synapse2026_postgres.sql" target="_blank" rel="noopener">Open SQL</a>
-                  <a class="btn btn-secondary" href="deliverables/synapse2026_statistics.R" target="_blank" rel="noopener">Open R Script</a>
-                </div>
-                <p class="muted" style="margin-top:1rem;">Live demo uses simulated browser-side data for GitHub Pages. Full PostgreSQL integration is available in the local Flask prototype under <span class="mono">synapse_flask</span>.</p>
-              </div>
-            </div>
+            <p class="team-note muted reveal">SmartMold IoT is a clean academic demonstration of CNDC communication design, DBMS implementation, and statistical process intelligence for a rubber molding machine.</p>
           </section>
 
           <div id="dash-operator" class="role-dash">
@@ -2633,37 +2795,33 @@
       ];
 
       const PUBLIC_LINKS = [
-        { id: 'sec-overview', icon: 'OV', label: 'Project Overview' },
-        { id: 'sec-architecture', icon: 'AR', label: 'Architecture' },
-        { id: 'sec-sensors', icon: 'SN', label: 'Live Sensors' },
-        { id: 'sec-database', icon: 'DB', label: 'Database' },
+        { id: 'sec-overview', icon: '🏠', label: 'Overview' },
+        { id: 'sec-architecture', icon: '📡', label: 'CNDC' },
+        { id: 'sec-database', icon: '🗄', label: 'Database' },
+        { id: 'sec-analytics', icon: '📊', label: 'Statistics' },
+        { id: 'sec-dashboard', icon: '🖥', label: 'Dashboard' },
         { id: 'sec-normalization', icon: '🔬', label: 'Normalization' },
-        { id: 'sec-analytics', icon: 'AN', label: 'Analytics' },
-        { id: 'sec-dashboard', icon: 'DS', label: 'Dashboard' },
-        { id: 'sec-integration', icon: 'IN', label: 'Integration' }
+        { id: 'sec-team', icon: '👥', label: 'Team' }
       ];
 
       const ROLE_LINKS = {
         operator: [
-          { id: 'dash-operator', icon: 'LM', label: 'Live Monitor' },
-          { id: 'dash-operator', icon: 'AL', label: 'Alert History' },
-          { id: 'dash-operator', icon: 'MS', label: 'Machine Status' },
-          { id: 'dash-operator', icon: 'PF', label: 'My Profile' }
+          { id: 'dash-operator', icon: '⚡', label: 'Live Monitor' },
+          { id: 'dash-operator', icon: '🔔', label: 'Alerts' },
+          { id: 'dash-operator', icon: '⚙', label: 'Machine Status' }
         ],
         admin: [
-          { id: 'dash-admin', icon: 'SO', label: 'System Overview' },
-          { id: 'dash-admin', icon: 'SC', label: 'Sensor Config' },
-          { id: 'dash-admin', icon: 'MT', label: 'Maintenance' },
-          { id: 'dash-admin', icon: 'UM', label: 'User Management' },
-          { id: 'dash-admin', icon: 'FA', label: 'Full Analytics' },
-          { id: 'dash-admin', icon: 'QS', label: 'Query Simulator' }
+          { id: 'dash-admin', icon: '📋', label: 'System Stats' },
+          { id: 'dash-admin', icon: '🔧', label: 'Sensor Config' },
+          { id: 'dash-admin', icon: '🛠', label: 'Maintenance' },
+          { id: 'dash-admin', icon: '👥', label: 'Users' },
+          { id: 'dash-admin', icon: '🗃', label: 'Query Tool' }
         ],
         designer: [
-          { id: 'dash-designer', icon: 'TS', label: 'Theme Studio' },
-          { id: 'dash-designer', icon: 'FS', label: 'Font Selector' },
-          { id: 'dash-designer', icon: 'CL', label: 'Component Library' },
-          { id: 'dash-designer', icon: 'LP', label: 'Layout Preview' },
-          { id: 'dash-designer', icon: 'AC', label: 'Animation Controls' }
+          { id: 'dash-designer', icon: '🎨', label: 'Theme Studio' },
+          { id: 'dash-designer', icon: '🔤', label: 'Fonts' },
+          { id: 'dash-designer', icon: '🧩', label: 'Components' },
+          { id: 'dash-designer', icon: '✨', label: 'Animations' }
         ]
       };
 
@@ -3414,8 +3572,20 @@
         const accentB = getCssVar('--accent-b');
         const text = getCssVar('--text-2');
         const line = getCssVar('--line');
+        const ttestCanvas = document.getElementById('ttest-chart');
+        const regressionCanvas = document.getElementById('regression-chart');
+        const anovaCanvas = document.getElementById('anova-chart');
+        const controlCanvas = document.getElementById('control-chart');
+        const anomalyCanvas = document.getElementById('anomaly-chart');
+        const reliabilityCanvas = document.getElementById('reliability-chart');
+        const dashboardTempCanvas = document.getElementById('dashboard-temp-chart');
+        const dashboardPressureCanvas = document.getElementById('dashboard-pressure-chart');
+        const adminTtestCanvas = document.getElementById('admin-ttest-chart');
+        const adminRegressionCanvas = document.getElementById('admin-regression-chart');
+        const adminAnomalyCanvas = document.getElementById('admin-anomaly-chart');
+        const storageTrendCanvas = document.getElementById('storage-trend-chart');
 
-        charts.ttest = new Chart(document.getElementById('ttest-chart'), {
+        if (ttestCanvas) charts.ttest = new Chart(ttestCanvas, {
           type: 'line',
           data: { datasets: [
             { data: analyticsData.bell, borderColor: accentA, pointRadius: 0, tension: 0.3, parsing: false },
@@ -3425,7 +3595,7 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { type: 'linear', min: 165, max: 195, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 1.1, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.regression = new Chart(document.getElementById('regression-chart'), {
+        if (regressionCanvas) charts.regression = new Chart(regressionCanvas, {
           type: 'scatter',
           data: { datasets: [
             { data: analyticsData.regression, backgroundColor: accentA, pointRadius: 4 },
@@ -3434,7 +3604,7 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { min: 160, max: 200, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 50, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.anova = new Chart(document.getElementById('anova-chart'), {
+        if (anovaCanvas) charts.anova = new Chart(anovaCanvas, {
           type: 'bar',
           data: {
             labels: ['Pre-heat', 'Compression', 'Cooling'],
@@ -3443,7 +3613,7 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { display: false } }, y: { min: 40, max: 150, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.control = new Chart(document.getElementById('control-chart'), {
+        if (controlCanvas) charts.control = new Chart(controlCanvas, {
           type: 'line',
           data: {
             labels: analyticsData.controlMeans.map(function (_, i) { return 'S' + (i + 1); }),
@@ -3457,7 +3627,7 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { color: line } }, y: { min: 172, max: 188, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.anomaly = new Chart(document.getElementById('anomaly-chart'), {
+        if (anomalyCanvas) charts.anomaly = new Chart(anomalyCanvas, {
           type: 'line',
           data: { labels: analyticsData.anomalyBase.map(function (_, i) { return 'D' + (i + 1); }), datasets: [
             { data: analyticsData.anomalyBase, borderColor: accentA, pointRadius: 2, pointBackgroundColor: accentA, tension: 0.24 },
@@ -3466,7 +3636,7 @@
           options: baseChartOptions()
         });
 
-        charts.reliability = new Chart(document.getElementById('reliability-chart'), {
+        if (reliabilityCanvas) charts.reliability = new Chart(reliabilityCanvas, {
           type: 'line',
           data: {
             datasets: [{ data: analyticsData.reliabilityCurve, borderColor: accentA, backgroundColor: accentA + '18', fill: true, pointRadius: 3, tension: 0.24, parsing: false }]
@@ -3474,19 +3644,19 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { type: 'linear', min: 0, max: 12, ticks: { color: text, callback: function (value) { return value + 'w'; } }, grid: { color: line } }, y: { min: 0, max: 1.05, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.dashboardTemp = new Chart(document.getElementById('dashboard-temp-chart'), {
+        if (dashboardTempCanvas) charts.dashboardTemp = new Chart(dashboardTempCanvas, {
           type: 'line',
           data: { labels: sensorState.dashboardHistory.temperature.map(function (_, i) { return 'R' + (i + 1); }), datasets: [{ data: sensorState.dashboardHistory.temperature, borderColor: accentA, backgroundColor: accentA + '22', fill: true, pointRadius: 2, tension: 0.3 }] },
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { color: line } }, y: { min: 150, max: 200, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.dashboardPressure = new Chart(document.getElementById('dashboard-pressure-chart'), {
+        if (dashboardPressureCanvas) charts.dashboardPressure = new Chart(dashboardPressureCanvas, {
           type: 'bar',
           data: { labels: sensorState.dashboardHistory.pressure.map(function (_, i) { return 'C' + (i + 1); }), datasets: [{ data: sensorState.dashboardHistory.pressure, backgroundColor: sensorState.dashboardHistory.pressure.map(function (value) { return value >= 100 ? accentB + 'bb' : accentA + 'bb'; }), borderRadius: 10 }] },
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { display: false } }, y: { min: 50, max: 150, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.adminTtest = new Chart(document.getElementById('admin-ttest-chart'), {
+        if (adminTtestCanvas) charts.adminTtest = new Chart(adminTtestCanvas, {
           type: 'line',
           data: { datasets: [
             { data: analyticsData.bell, borderColor: accentA, pointRadius: 0, tension: 0.3, parsing: false },
@@ -3496,7 +3666,7 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { type: 'linear', min: 165, max: 195, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 1.1, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.adminRegression = new Chart(document.getElementById('admin-regression-chart'), {
+        if (adminRegressionCanvas) charts.adminRegression = new Chart(adminRegressionCanvas, {
           type: 'scatter',
           data: { datasets: [
             { data: analyticsData.regression, backgroundColor: accentA, pointRadius: 4 },
@@ -3505,7 +3675,7 @@
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { min: 160, max: 200, ticks: { color: text }, grid: { color: line } }, y: { min: 0, max: 50, ticks: { color: text }, grid: { color: line } } } }
         });
 
-        charts.adminAnomaly = new Chart(document.getElementById('admin-anomaly-chart'), {
+        if (adminAnomalyCanvas) charts.adminAnomaly = new Chart(adminAnomalyCanvas, {
           type: 'line',
           data: { labels: analyticsData.anomalyBase.map(function (_, i) { return 'D' + (i + 1); }), datasets: [
             { data: analyticsData.anomalyBase, borderColor: accentA, pointRadius: 2, pointBackgroundColor: accentA, tension: 0.24 },
@@ -3514,7 +3684,7 @@
           options: baseChartOptions()
         });
 
-        charts.storageTrend = new Chart(document.getElementById('storage-trend-chart'), {
+        if (storageTrendCanvas) charts.storageTrend = new Chart(storageTrendCanvas, {
           type: 'bar',
           data: {
             labels: storageHistoryData[currentStorageWindow].labels,
@@ -3764,6 +3934,20 @@
       mainContent.addEventListener('scroll', updateActiveLinks, { passive: true });
 
       document.addEventListener('click', function (event) {
+        const copyButton = event.target.closest('[data-copy-text]');
+        if (copyButton) {
+          const raw = copyButton.getAttribute('data-copy-text') || '';
+          const text = raw.replace(/&#10;/g, '\n').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+              showToast('SQL copied to clipboard.', 'success');
+            }).catch(function () {
+              showToast('Copy failed on this browser.', 'warning');
+            });
+          } else {
+            showToast('Clipboard API not available.', 'warning');
+          }
+        }
         const actionButton = event.target.closest('[data-scroll-target]');
         if (actionButton) {
           scrollToSection(actionButton.dataset.scrollTarget);
