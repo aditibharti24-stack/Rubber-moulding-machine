@@ -632,6 +632,33 @@
       overflow: hidden;
     }
 
+    .nav-overview-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 38px;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      max-width: 100%;
+    }
+
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-2);
+      white-space: nowrap;
+    }
+
+    .nav-section-indicator {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-a);
+      white-space: nowrap;
+    }
+
     .nav-right {
       flex: 0 0 auto;
       justify-content: flex-end;
@@ -1742,6 +1769,55 @@
       font-size: 12px;
     }
 
+    .overview-story-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .implementation-stack {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 0.85rem;
+    }
+
+    .implementation-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0.8rem;
+      align-items: start;
+      padding: 0.85rem 0.95rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-panel);
+    }
+
+    .step-index {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--accent-a);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .step-copy strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.98rem;
+    }
+
+    .step-copy p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
     .nav-link {
       display: inline-flex;
       align-items: center;
@@ -1869,13 +1945,27 @@
     }
 
     .clean-team-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 1rem;
     }
 
     .team-note {
       margin: 1rem 0 0;
       text-align: center;
+    }
+
+    .team-role {
+      margin: 0;
+      font-weight: 600;
+      color: var(--accent-a);
+      font-size: 0.9rem;
+    }
+
+    .team-id {
+      margin-top: 0.3rem;
+      color: var(--text-2);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
     }
 
     #main-content::-webkit-scrollbar,
@@ -2050,8 +2140,7 @@
       .norm-grid-2,
       .norm-compare-grid,
       .rubric-list-grid,
-      .query-grid,
-      .clean-team-grid {
+      .query-grid {
         grid-template-columns: 1fr;
       }
       .hero-banner,
@@ -2119,6 +2208,31 @@
       .logout-btn {
         font-size: 0.72rem;
         padding: 0.4rem 0.55rem;
+      }
+    }
+
+    @media (max-width: 1320px) {
+      .clean-team-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 960px) {
+      .clean-team-grid,
+      .overview-story-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .clean-team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .clean-team-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -2203,7 +2317,61 @@
             <div class="section-head reveal">
               <span class="rubric-badge">CNDC — 2 marks: Problem Understanding &amp; CNDC Relevance</span>
               <h2 class="section-title-main">SmartMold IoT Project Overview</h2>
-              <p class="section-copy">This overview states the industrial problem clearly, introduces the SmartMold IoT solution, and shows where CNDC concepts directly support the project.</p>
+              <p class="section-copy">This overview now explains what the SmartMold product is, why it matters for a 4-pillar rubber molding machine, and how the full implementation moves from sensors to decisions.</p>
+            </div>
+            <div class="overview-story-grid">
+              <div class="card reveal accent-a-card">
+                <div class="subsection-kicker">Product Snapshot</div>
+                <h3>What SmartMold IoT Delivers</h3>
+                <p class="muted">SmartMold IoT converts a conventional rubber molding machine into a connected industrial product that senses process temperature, hydraulic pressure, and mechanical vibration in real time, stores machine history, and supports better production, maintenance, and quality decisions.</p>
+                <div class="attr-list compact" style="margin-top:0.8rem;">
+                  <span>Real-time telemetry visibility for operators and supervisors</span>
+                  <span>Predictive fault awareness before breakdown and downtime</span>
+                  <span>Historical storage for short-term and long-term trend comparison</span>
+                  <span>Actionable dashboards for process control, health review, and reporting</span>
+                </div>
+              </div>
+              <div class="card reveal accent-c-card">
+                <div class="subsection-kicker">Implementation Path</div>
+                <h3>How We Will Implement The Product</h3>
+                <div class="implementation-stack">
+                  <div class="implementation-step">
+                    <span class="step-index">01</span>
+                    <div class="step-copy">
+                      <strong>Instrument the machine</strong>
+                      <p>Install temperature, pressure, and vibration sensors on the heater zone, hydraulic line, and machine frame.</p>
+                    </div>
+                  </div>
+                  <div class="implementation-step">
+                    <span class="step-index">02</span>
+                    <div class="step-copy">
+                      <strong>Connect the controller</strong>
+                      <p>Interface sensors with a PLC or ESP32 so readings are sampled, validated, and prepared for transmission.</p>
+                    </div>
+                  </div>
+                  <div class="implementation-step">
+                    <span class="step-index">03</span>
+                    <div class="step-copy">
+                      <strong>Send data through MQTT</strong>
+                      <p>Publish secure MQTT messages over the Industrial LAN to move live machine data to the broker and server.</p>
+                    </div>
+                  </div>
+                  <div class="implementation-step">
+                    <span class="step-index">04</span>
+                    <div class="step-copy">
+                      <strong>Store and organize history</strong>
+                      <p>Write timestamped readings, alerts, maintenance records, and production quality data into MySQL for comparison and reporting.</p>
+                    </div>
+                  </div>
+                  <div class="implementation-step">
+                    <span class="step-index">05</span>
+                    <div class="step-copy">
+                      <strong>Visualize and decide</strong>
+                      <p>Use the dashboard, SQL insights, and statistics layer to detect faults, compare trends, and improve reliability.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="grid-3">
               <div class="card reveal problem-card">
@@ -2728,15 +2896,21 @@
           <section id="sec-team">
             <div class="section-head reveal">
               <h2 class="section-title-main">Project Team</h2>
-              <p class="section-copy">The SmartMold IoT webpage brings together networking, database design, statistics, and dashboard engineering in one academic prototype.</p>
+              <p class="section-copy">This is the full SmartMold IoT team mapped to the roles shared in your project roster.</p>
             </div>
             <div class="member-grid clean-team-grid">
-              <div class="member-card reveal"><div class="member-avatar">AB</div><h3>Aditi Bharti</h3><p class="muted">Systems Integrator</p></div>
-              <div class="member-card reveal"><div class="member-avatar">PB</div><h3>Parth Bhoyar</h3><p class="muted">IoT &amp; Network Engineer</p></div>
-              <div class="member-card reveal"><div class="member-avatar">DA</div><h3>Data Analyst</h3><p class="muted">Inferential Statistics</p></div>
-              <div class="member-card reveal"><div class="member-avatar">DB</div><h3>Database Architect</h3><p class="muted">Schema &amp; SQL Design</p></div>
+              <div class="member-card reveal"><div class="member-avatar">PS</div><h3>Parth Surendra Bhoyar</h3><p class="team-role">Project Manager</p><div class="team-id mono">BT24GCS091</div></div>
+              <div class="member-card reveal"><div class="member-avatar">BS</div><h3>Bhavaya Sehrawat</h3><p class="team-role">Critical Thinker</p><div class="team-id mono">BT24GCS664</div></div>
+              <div class="member-card reveal"><div class="member-avatar">PB</div><h3>Parth Bhatt</h3><p class="team-role">Critical Thinker</p><div class="team-id mono">BT24GCS085</div></div>
+              <div class="member-card reveal"><div class="member-avatar">AS</div><h3>Ashu</h3><p class="team-role">Researcher</p><div class="team-id mono">BT24GCS130</div></div>
+              <div class="member-card reveal"><div class="member-avatar">RP</div><h3>Rudra Pratap</h3><p class="team-role">Researcher</p><div class="team-id mono">BT24GCS126</div></div>
+              <div class="member-card reveal"><div class="member-avatar">AB</div><h3>Aditi Bharti</h3><p class="team-role">Product Manager</p><div class="team-id mono">BT24GCS125</div></div>
+              <div class="member-card reveal"><div class="member-avatar">SC</div><h3>Siddharth Choudhary</h3><p class="team-role">Product Manager</p><div class="team-id mono">BT24GCS097</div></div>
+              <div class="member-card reveal"><div class="member-avatar">KT</div><h3>Kunga Tsepak</h3><p class="team-role">Developing Head</p><div class="team-id mono">BT24GCS064</div></div>
+              <div class="member-card reveal"><div class="member-avatar">SP</div><h3>Savla Pratham Jayanti</h3><p class="team-role">Developing Head</p><div class="team-id mono">BT24GAD059</div></div>
+              <div class="member-card reveal"><div class="member-avatar">NY</div><h3>Nikhil Yadav</h3><p class="team-role">Documentator &amp; Communicator</p><div class="team-id mono">BT24GCS401</div></div>
             </div>
-            <p class="team-note muted reveal">SmartMold IoT is a clean academic demonstration of CNDC communication design, DBMS implementation, and statistical process intelligence for a rubber molding machine.</p>
+            <p class="team-note muted reveal">SmartMold IoT combines CNDC communication design, relational database implementation, and inferential statistics into one industrial IoT academic prototype for a 4-pillar rubber molding machine.</p>
           </section>
 
           <div id="dash-operator" class="role-dash">
@@ -3311,9 +3485,7 @@
       }
 
       function renderNavbarLinks() {
-        navbarLinks.innerHTML = PUBLIC_LINKS.map(function (link) {
-          return '<div class="nav-link" data-target="' + link.id + '">' + link.label + '</div>';
-        }).join('');
+        navbarLinks.innerHTML = '<div class="nav-overview-pill"><span class="nav-section-label">Active Section</span><span class="nav-section-indicator" id="nav-section-indicator">Overview</span></div>';
       }
 
       function renderSidebarForRole(role) {
@@ -3415,6 +3587,11 @@
         document.querySelectorAll('.nav-link, .sidebar-link').forEach(function (link) {
           link.classList.toggle('active', link.dataset.target === current);
         });
+        const navSectionIndicator = document.getElementById('nav-section-indicator');
+        if (navSectionIndicator) {
+          const currentPublic = PUBLIC_LINKS.find(function (item) { return item.id === current; });
+          navSectionIndicator.textContent = currentPublic ? currentPublic.label : (currentRole ? USERS[currentRole].label + ' Workspace' : 'Overview');
+        }
       }
 
       function setupRevealObserver() {
