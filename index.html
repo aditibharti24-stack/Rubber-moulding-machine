@@ -757,6 +757,22 @@
       overflow: hidden;
     }
 
+    .nav-summary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-2);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
     .nav-right {
       flex: 0 0 auto;
       justify-content: flex-end;
@@ -1020,6 +1036,62 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1rem;
+    }
+
+    .overview-stack,
+    .implementation-list,
+    .deliverable-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .implementation-step,
+    .deliverable-link {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .implementation-step {
+      display: grid;
+      gap: 0.25rem;
+      padding: 0.9rem 1rem;
+    }
+
+    .implementation-step strong,
+    .deliverable-link strong {
+      font-size: 0.95rem;
+    }
+
+    .deliverable-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.9rem 1rem;
+      color: var(--text-1);
+      text-decoration: none;
+    }
+
+    .deliverable-link:hover {
+      border-color: var(--accent-a);
+      color: var(--accent-a);
+    }
+
+    .deliverable-copy {
+      display: grid;
+      gap: 0.18rem;
+    }
+
+    .deliverable-copy small {
+      color: var(--text-2);
+      font-size: 0.84rem;
+    }
+
+    .deliverable-arrow {
+      font-family: var(--font-mono);
+      color: var(--accent-a);
+      flex-shrink: 0;
     }
 
     .metric-label {
@@ -1882,6 +1954,10 @@
         grid-template-columns: 1fr;
       }
 
+      .nav-center {
+        display: none;
+      }
+
       #sidebar {
         width: 0;
         transform: translateX(-100%);
@@ -1957,7 +2033,7 @@
           <span class="chip">Real-Time Monitoring</span>
           <span class="chip">Predictive Maintenance</span>
           <span class="chip">MQTT over TCP/IP</span>
-          <span class="chip">MySQL Relational Design</span>
+          <span class="chip">PostgreSQL SQL Design</span>
           <span class="chip">Statistical Process Control</span>
         </div>
         <div class="login-metrics">
@@ -2087,17 +2163,17 @@
             <div class="section-head reveal">
               <span class="section-label">Project Overview</span>
               <h2 class="section-title">SmartMold IoT</h2>
-              <p class="section-subtitle">Transforming a 4-pillar compression rubber molding machine into an intelligent industrial asset with sensor networking, historical storage, and decision-ready dashboards.</p>
+              <p class="section-subtitle">A compact industrial monitoring portfolio for turning a 4-pillar compression rubber molding machine into a real-time, data-driven production system.</p>
             </div>
 
-            <div class="hero-grid">
-              <div class="section-card reveal">
+            <div class="grid-2">
+              <div class="section-card accent-a reveal overview-stack">
                 <div class="chip-row">
-                  <span class="chip">Industrial IoT Portfolio</span>
-                  <span class="chip">Client-Server Architecture</span>
+                  <span class="chip">Industrial IoT Product</span>
+                  <span class="chip">Predictive Monitoring</span>
                 </div>
-                <h1 class="hero-title">Real-Time Monitoring. Predictive Maintenance. Data-Driven Control.</h1>
-                <p class="hero-subtitle">SmartMold IoT combines sensors, PLC or ESP32 control, MQTT messaging, MySQL storage, and statistical analysis so operators and managers can see what the machine is doing now, what happened before, and what action should be taken next.</p>
+                <h3>What The Product Delivers</h3>
+                <p class="muted">SmartMold IoT gives operators and managers live visibility into machine temperature, pressure, vibration, alert history, and process stability so decisions can be taken before downtime or quality loss occurs.</p>
                 <div class="hero-actions">
                   <button class="btn btn-primary" type="button" data-target="sec-cndc">Explore Architecture</button>
                   <button class="ghost-btn" type="button" data-target="sec-dashboard">View Dashboard</button>
@@ -2118,49 +2194,80 @@
                 </div>
               </div>
 
-              <div class="hero-visual reveal">
-                <svg class="machine-svg" viewBox="0 0 620 420" aria-hidden="true">
-                  <path class="machine-stroke" d="M135 70h350"></path>
-                  <path class="machine-stroke" d="M165 70v90"></path>
-                  <path class="machine-stroke" d="M455 70v90"></path>
-                  <path class="machine-stroke" d="M185 160h250"></path>
-                  <path class="machine-stroke" d="M200 160v125"></path>
-                  <path class="machine-stroke" d="M420 160v125"></path>
-                  <path class="machine-stroke" d="M170 285h280"></path>
-                  <path class="machine-stroke" d="M145 315h330"></path>
-                  <path class="machine-stroke" d="M135 315v42"></path>
-                  <path class="machine-stroke" d="M485 315v42"></path>
-                  <path class="machine-stroke" d="M105 357h410"></path>
-                  <path class="machine-stroke" d="M310 120v46"></path>
-                  <path class="machine-stroke" d="M270 210h80"></path>
-                </svg>
-                <span class="pulse-node pulse-temp"></span>
-                <span class="pulse-node pulse-pressure"></span>
-                <span class="pulse-node pulse-vibration"></span>
-                <span class="sensor-tag temp">Temperature</span>
-                <span class="sensor-tag pressure">Pressure</span>
-                <span class="sensor-tag vibration">Vibration</span>
+              <div class="section-card accent-c reveal">
+                <span class="tiny-chip mono">Implementation Flow</span>
+                <h3>How We Implement SmartMold</h3>
+                <div class="implementation-list">
+                  <div class="implementation-step">
+                    <strong>1. Instrument The Machine</strong>
+                    <span class="muted">Install temperature, pressure, and vibration sensing points on the molding press.</span>
+                  </div>
+                  <div class="implementation-step">
+                    <strong>2. Collect Through PLC / ESP32</strong>
+                    <span class="muted">Read field values locally and package the telemetry as MQTT messages.</span>
+                  </div>
+                  <div class="implementation-step">
+                    <strong>3. Transmit To Server Storage</strong>
+                    <span class="muted">Push readings through Industrial LAN to broker, server, and PostgreSQL-backed records.</span>
+                  </div>
+                  <div class="implementation-step">
+                    <strong>4. Analyze And Act</strong>
+                    <span class="muted">Convert stored history into dashboards, alerts, and statistical maintenance insight.</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="problem-solution">
+            <div class="problem-solution" style="margin-top:1rem;">
               <div class="section-card accent-b reveal">
-                <h3>Traditional Machine Limitations</h3>
-                <ul class="detail-list">
-                  <li>Inconsistent quality caused by fixed cycles and no live adaptation.</li>
-                  <li>Energy waste due to zero feedback on heating, pressure, and idle time.</li>
-                  <li>Reactive maintenance where faults are seen only after failure occurs.</li>
-                  <li>No live visibility of machine health or long-term process history.</li>
-                </ul>
+                <h3>Why The Upgrade Matters</h3>
+                <p class="muted">Traditional rubber molding machines run with fixed cycles and low visibility, which leads to inconsistent quality, delayed fault detection, energy waste, and reactive maintenance.</p>
               </div>
               <div class="section-card accent-a reveal">
-                <h3>SmartMold Implementation Strategy</h3>
-                <ul class="detail-list">
-                  <li>Install temperature, pressure, and vibration sensing points on the press.</li>
-                  <li>Use PLC or ESP32 logic to collect and publish machine data over MQTT.</li>
-                  <li>Transmit readings across Industrial LAN to broker, server, and MySQL storage.</li>
-                  <li>Drive dashboards, alerts, and statistical insight for process optimization.</li>
-                </ul>
+                <h3>What Makes This Different</h3>
+                <p class="muted">The SmartMold stack connects sensing, secure networking, relational storage, and inferential statistics into one workflow so the machine can be monitored, compared historically, and improved using evidence.</p>
+              </div>
+            </div>
+
+            <div class="grid-3" style="margin-top:1rem;">
+              <div class="section-card accent-c reveal">
+                <span class="tiny-chip mono">Project File</span>
+                <h3>Technical Report</h3>
+                <div class="deliverable-list">
+                  <a class="deliverable-link" href="deliverables/Synapse2026_Technical_Report.md" target="_blank" rel="noopener">
+                    <span class="deliverable-copy">
+                      <strong>Open Report</strong>
+                      <small>Integrated project narrative and system explanation</small>
+                    </span>
+                    <span class="deliverable-arrow">↗</span>
+                  </a>
+                </div>
+              </div>
+              <div class="section-card accent-c reveal">
+                <span class="tiny-chip mono">Project File</span>
+                <h3>PostgreSQL SQL</h3>
+                <div class="deliverable-list">
+                  <a class="deliverable-link" href="deliverables/synapse2026_postgres.sql" target="_blank" rel="noopener">
+                    <span class="deliverable-copy">
+                      <strong>Open SQL Script</strong>
+                      <small>DDL, DML, views, trigger, and procedure implementation</small>
+                    </span>
+                    <span class="deliverable-arrow">↗</span>
+                  </a>
+                </div>
+              </div>
+              <div class="section-card accent-c reveal">
+                <span class="tiny-chip mono">Project File</span>
+                <h3>R Statistics Script</h3>
+                <div class="deliverable-list">
+                  <a class="deliverable-link" href="deliverables/synapse2026_statistics.R" target="_blank" rel="noopener">
+                    <span class="deliverable-copy">
+                      <strong>Open R Script</strong>
+                      <small>Simulation, hypothesis testing, regression, and anomaly code</small>
+                    </span>
+                    <span class="deliverable-arrow">↗</span>
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -2181,7 +2288,7 @@
                     <p class="muted">Receives MQTT payloads, validates machine data, and coordinates processing for downstream services.</p>
                   </div>
                   <div class="card">
-                    <h3>MySQL Database</h3>
+                    <h3>PostgreSQL Database</h3>
                     <p class="muted">Stores sensor readings, alerts, maintenance cycles, and production quality records.</p>
                   </div>
                   <div class="card">
@@ -2253,9 +2360,9 @@
 
             <div class="section-card accent-a reveal" style="margin-top:1rem;">
               <h3>Client–Server Data Flow</h3>
-              <p class="muted">Sensors → PLC (MQTT Client) → Industrial LAN → MQTT Broker → Central Server → MySQL DB → Dashboard</p>
+              <p class="muted">Sensors → PLC (MQTT Client) → Industrial LAN → MQTT Broker → Central Server → PostgreSQL DB → Dashboard</p>
               <div class="flow-line mono">
-                <span>Sensors</span><span>→</span><span>PLC</span><span>→</span><span>LAN</span><span>→</span><span>Broker</span><span>→</span><span>Server</span><span>→</span><span>MySQL</span><span>→</span><span>Dashboard</span>
+                <span>Sensors</span><span>→</span><span>PLC</span><span>→</span><span>LAN</span><span>→</span><span>Broker</span><span>→</span><span>Server</span><span>→</span><span>PostgreSQL</span><span>→</span><span>Dashboard</span>
               </div>
             </div>
 
@@ -2274,7 +2381,7 @@
                 <ul class="detail-list">
                   <li>MQTT broker subscribes to <span class="mono">/machine/#</span> wildcard topics</li>
                   <li>Central server validates incoming values and timestamps</li>
-                  <li>MySQL stores the normalized relational record set</li>
+                  <li>PostgreSQL stores the normalized relational record set</li>
                   <li>Dashboard consumes the live stream for monitoring and alerts</li>
                 </ul>
               </div>
@@ -2357,7 +2464,7 @@
             <div class="section-head reveal">
               <span class="section-label">DBMS · 3-Level Data Architecture</span>
               <h2 class="section-title">Database Architecture</h2>
-              <p class="section-subtitle">A MySQL relational design with live ingestion, normalized entity relationships, and automation logic for views, triggers, and stored procedures.</p>
+              <p class="section-subtitle">A PostgreSQL relational design with live ingestion, normalized entity relationships, and automation logic for views, triggers, and stored procedures.</p>
             </div>
 
             <div class="db-levels">
@@ -2607,15 +2714,6 @@
                 </table>
               </div>
             </div>
-          </section>
-
-          <section id="sec-team" class="section-block">
-            <div class="section-head reveal">
-              <span class="section-label">Project Team</span>
-              <h2 class="section-title">SmartMold Delivery Team</h2>
-              <p class="section-subtitle">The team combines project management, critical thinking, research, product strategy, development, and documentation to build the SmartMold IoT portfolio.</p>
-            </div>
-            <div class="team-grid" id="team-grid"></div>
           </section>
 
           <div id="dash-operator" class="role-dash">
@@ -3004,8 +3102,7 @@
         { id: 'sec-sensors', label: 'Sensors', icon: '📈' },
         { id: 'sec-database', label: 'Database', icon: '🗄' },
         { id: 'sec-statistics', label: 'Statistics', icon: '📊' },
-        { id: 'sec-dashboard', label: 'Dashboard', icon: '🖥' },
-        { id: 'sec-team', label: 'Team', icon: '👥' }
+        { id: 'sec-dashboard', label: 'Dashboard', icon: '🖥' }
       ];
 
       const ROLE_LINKS = {
@@ -3029,19 +3126,6 @@
           { id: 'designer-animations', label: 'Animations', icon: '✨' }
         ]
       };
-
-      const TEAM_MEMBERS = [
-        { initials: 'PS', name: 'Parth Surendra Bhoyar', role: 'Project Manager', id: 'BT24GCS091' },
-        { initials: 'BS', name: 'Bhavaya Sehrawat', role: 'Critical Thinker', id: 'BT24GCS664' },
-        { initials: 'PB', name: 'Parth Bhatt', role: 'Critical Thinker', id: 'BT24GCS085' },
-        { initials: 'AS', name: 'Ashu', role: 'Researcher', id: 'BT24GCS130' },
-        { initials: 'RP', name: 'Rudra Pratap', role: 'Researcher', id: 'BT24GCS126' },
-        { initials: 'AB', name: 'Aditi Bharti', role: 'Product Manager', id: 'BT24GCS125' },
-        { initials: 'SC', name: 'Siddharth Choudhary', role: 'Product Manager', id: 'BT24GCS097' },
-        { initials: 'KT', name: 'Kunga Tsepak', role: 'Developing Head', id: 'BT24GCS064' },
-        { initials: 'SP', name: 'Savla Pratham Jayanti', role: 'Developing Head', id: 'BT24GAD059' },
-        { initials: 'NY', name: 'Nikhil Yadav', role: 'Documentator & Communicator', id: 'BT24GCS401' }
-      ];
 
       const ADMIN_QUERY_RESULTS = {
         readings: {
@@ -3190,7 +3274,6 @@
         navUsername: document.getElementById('nav-username'),
         sidebarToggle: document.getElementById('sidebar-toggle'),
         logoutBtn: document.getElementById('logout-btn'),
-        teamGrid: document.getElementById('team-grid'),
         querySelect: document.getElementById('query-select'),
         runQueryButton: document.getElementById('run-query'),
         adminQueryTerminal: document.getElementById('admin-query-terminal'),
@@ -3277,9 +3360,7 @@
       }
 
       function renderNavbar() {
-        dom.navbarLinks.innerHTML = PUBLIC_LINKS.map(function (link) {
-          return '<div class="nav-link" data-target="' + link.id + '">' + link.label + '</div>';
-        }).join('');
+        dom.navbarLinks.innerHTML = '<div class="nav-summary mono">Use the sidebar to navigate sections</div>';
       }
 
       function renderSidebar(role) {
@@ -3306,18 +3387,6 @@
           '</div>' +
           '<div class="sidebar-group"><div class="sidebar-group-title">PUBLIC</div>' + publicLinks + '</div>' +
           '<div class="sidebar-group"><div class="sidebar-group-title">' + roleTitle + '</div>' + roleLinks + '</div>';
-      }
-
-      function renderTeam() {
-        dom.teamGrid.innerHTML = TEAM_MEMBERS.map(function (member) {
-          return '' +
-            '<div class="team-card reveal">' +
-              '<div class="avatar">' + member.initials + '</div>' +
-              '<h3>' + member.name + '</h3>' +
-              '<p class="team-role">' + member.role + '</p>' +
-              '<div class="team-id mono">' + member.id + '</div>' +
-            '</div>';
-        }).join('');
       }
 
       function setRole(role, username) {
@@ -4396,7 +4465,6 @@
 
         renderNavbar();
         renderSidebar(state.currentRole);
-        renderTeam();
         renderLiveReadings();
         refreshSparklines();
         renderDatabaseTables();
@@ -4423,7 +4491,6 @@
       }
 
       bindEvents();
-      renderTeam();
       renderNavbar();
       loadTheme();
       loadSavedCustomTheme();
