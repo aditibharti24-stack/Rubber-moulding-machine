@@ -273,7 +273,7 @@
       background: var(--bg-base);
       z-index: 1000;
       transition: opacity 0.4s ease;
-      padding: 1rem;
+      padding: 1.5rem;
     }
 
     body.theme-steel #login-screen {
@@ -284,7 +284,7 @@
     }
 
     #login-screen .login-shell {
-      width: min(1000px, calc(100vw - 2rem));
+      width: min(940px, calc(100vw - 3rem));
       display: grid;
       grid-template-columns: minmax(0, 1.02fr) minmax(380px, 0.98fr);
       border-radius: 30px;
@@ -293,7 +293,7 @@
       box-shadow: var(--shadow-lg);
       overflow: hidden;
       position: relative;
-      max-height: calc(100vh - 2rem);
+      max-height: calc(100vh - 3rem);
     }
 
     body.theme-steel #login-screen .login-shell {
@@ -317,7 +317,7 @@
 
     #login-screen .login-left,
     #login-screen .login-right {
-      padding: 1.2rem 1.25rem;
+      padding: 1.05rem 1.1rem;
       position: relative;
       z-index: 1;
     }
@@ -330,8 +330,8 @@
         var(--bg-panel);
       display: grid;
       align-content: center;
-      gap: 0.75rem;
-      min-height: 500px;
+      gap: 0.65rem;
+      min-height: 430px;
     }
 
     body.theme-steel #login-screen .login-left {
@@ -356,18 +356,18 @@
       margin: 0;
       line-height: 1.58;
       color: var(--text-2);
-      max-width: 44ch;
-      font-size: 0.98rem;
+      max-width: 39ch;
+      font-size: 0.94rem;
     }
 
     #login-screen .login-highlights {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.7rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
     }
 
     #login-screen .mini-card {
-      padding: 0.8rem 0.75rem;
+      padding: 0.7rem 0.7rem;
       border-radius: var(--radius-lg);
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
@@ -400,7 +400,7 @@
 
     #login-screen .login-title {
       margin: 0;
-      font-size: clamp(1.9rem, 4.5vw, 3.25rem);
+      font-size: clamp(1.75rem, 4.2vw, 3rem);
       line-height: 0.98;
       text-align: left;
     }
@@ -428,8 +428,8 @@
     }
 
     #login-screen .role-card {
-      min-height: 84px;
-      padding: 0.75rem;
+      min-height: 76px;
+      padding: 0.7rem;
       text-align: left;
     }
 
@@ -448,12 +448,12 @@
     #login-screen .login-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.65rem;
+      gap: 0.6rem;
     }
 
     #login-screen .btn.btn-primary,
     #login-screen .btn.btn-secondary {
-      flex: 1 1 180px;
+      flex: 1 1 160px;
     }
 
     .login-card {
@@ -1441,14 +1441,21 @@
 
     .component-library-stack {
       display: grid;
-      gap: 0.7rem;
+      gap: 0.6rem;
+    }
+
+    .designer-bottom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.9fr);
+      gap: 1rem;
+      align-items: start;
     }
 
     .component-card.compact {
       display: grid;
-      grid-template-columns: 124px minmax(0, 1fr);
-      gap: 0.9rem;
-      align-items: center;
+      grid-template-columns: 156px minmax(0, 1fr);
+      gap: 0.8rem;
+      align-items: start;
       min-height: 0;
       padding: 0.85rem 0.95rem;
     }
@@ -1458,6 +1465,11 @@
       gap: 0.4rem;
       align-content: start;
       justify-items: start;
+      min-width: 0;
+      padding: 0.75rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--bg-panel);
     }
 
     .component-sample .status-pill,
@@ -1484,6 +1496,19 @@
       width: fit-content;
     }
 
+    .sample-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .component-value {
+      display: block;
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
     .component-copy {
       display: grid;
       gap: 0.35rem;
@@ -1499,15 +1524,60 @@
       align-self: start;
     }
 
+    .layout-preview-card {
+      display: grid;
+      gap: 0.85rem;
+    }
+
     .layout-preview-card .layout-grid {
-      margin-bottom: 0.8rem;
+      margin-bottom: 0;
+    }
+
+    .layout-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .preview-tile {
+      padding: 0.8rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--bg-panel);
+      display: grid;
+      gap: 0.45rem;
+      align-content: start;
+      min-height: 118px;
+    }
+
+    .preview-title {
+      font-family: var(--font-heading);
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      color: var(--text-1);
+      text-transform: uppercase;
+    }
+
+    .preview-bar {
+      display: block;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .preview-bar.short { width: 42%; }
+    .preview-bar.medium { width: 68%; }
+    .preview-bar.long { width: 100%; }
+
+    body.theme-arctic .preview-bar {
+      background: rgba(13, 21, 38, 0.08);
     }
 
     .layout-note {
       margin: 0;
       color: var(--text-2);
-      font-size: 0.9rem;
-      line-height: 1.6;
+      font-size: 0.86rem;
+      line-height: 1.55;
     }
 
     #sec-normalization {
@@ -2134,6 +2204,9 @@
       #login-screen .login-highlights {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+      .designer-bottom-grid {
+        grid-template-columns: 1fr;
+      }
       .component-card.compact {
         grid-template-columns: 1fr;
       }
@@ -2160,7 +2233,8 @@
       .metric-grid,
       .counter-grid,
       .role-select-grid,
-      .entity-grid { grid-template-columns: 1fr; }
+      .entity-grid,
+      .layout-preview-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -2243,18 +2317,17 @@
       <div class="login-left">
         <span class="badge">Industrial Access Workspace</span>
         <h1 class="login-title">Access SmartMold IoT.</h1>
-        <p class="login-copy">Open the live command interface for the IoT-enabled 4-pillar compression rubber molding machine.</p>
+        <p class="login-copy">Sign in to monitor, analyze, and manage the IoT-enabled 4-pillar compression rubber molding machine from one industrial dashboard.</p>
         <div class="chip-row">
           <span class="pill">Live Monitoring</span>
           <span class="pill">MQTT + TCP/IP</span>
           <span class="pill">MySQL Storage</span>
-          <span class="pill">Statistical Insight</span>
+          <span class="pill">Predictive Insight</span>
         </div>
         <div class="login-highlights">
           <div class="mini-card"><strong class="mono">99.2%</strong><div class="muted">Uptime</div></div>
           <div class="mini-card"><strong class="mono">0.4s</strong><div class="muted">Latency</div></div>
-          <div class="mini-card"><strong class="mono">37%</strong><div class="muted">Energy saved</div></div>
-          <div class="mini-card"><strong class="mono">QoS 2</strong><div class="muted">Reliable delivery</div></div>
+          <div class="mini-card"><strong class="mono">30 Days</strong><div class="muted">History</div></div>
         </div>
       </div>
       <div class="login-right">
@@ -2304,7 +2377,7 @@
         <button class="theme-btn" id="theme-switcher" type="button">THEME: STEEL FORGE</button>
         <span class="role-badge role-operator" id="nav-role-badge">OPERATOR</span>
         <span class="user-chip" id="nav-username">operator</span>
-        <span class="live-chip"><span class="live-dot"></span>System Live</span>
+        <span class="live-chip" id="connection-status">● CONNECTING</span>
         <button class="logout-btn" id="logout-btn" type="button">Logout</button>
       </div>
     </nav>
@@ -2501,9 +2574,9 @@
               <h2 class="section-title-main">Real-Time Machine Signals</h2>
             </div>
             <div class="sensor-grid">
-              <div class="card reveal"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Temperature</h3><div class="muted">Target 150-200 C</div></div><span class="status-pill status-normal" id="temp-status">NORMAL</span></div><strong class="sensor-value mono" id="temp-value">184.3 C</strong><div class="sparkline" id="temp-spark"></div></div>
-              <div class="card reveal"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Pressure</h3><div class="muted">Target 50-150 bar</div></div><span class="status-pill status-normal" id="pressure-status">NORMAL</span></div><strong class="sensor-value mono" id="pressure-value">112.7 bar</strong><div class="sparkline" id="pressure-spark"></div></div>
-              <div class="card reveal"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Vibration</h3><div class="muted">Target 0.1-5.0 mm/s</div></div><span class="status-pill status-normal" id="vibration-status">NORMAL</span></div><strong class="sensor-value mono" id="vibration-value">1.84 mm/s</strong><div class="sparkline" id="vibration-spark"></div></div>
+              <div class="card reveal" id="sensor-card-temperature"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Temperature</h3><div class="muted">Target 150-200 C</div></div><span class="status-pill status-normal sensor-status" id="temp-status">LOADING...</span></div><strong class="sensor-value mono" id="temp-value">-- °C</strong><div class="muted sensor-source">● CONNECTING</div><div class="sparkline" id="temp-spark"></div></div>
+              <div class="card reveal" id="sensor-card-pressure"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Pressure</h3><div class="muted">Target 50-150 bar</div></div><span class="status-pill status-normal sensor-status" id="pressure-status">LOADING...</span></div><strong class="sensor-value mono" id="pressure-value">-- bar</strong><div class="muted sensor-source">● CONNECTING</div><div class="sparkline" id="pressure-spark"></div></div>
+              <div class="card reveal" id="sensor-card-vibration"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;"><div><h3>Vibration</h3><div class="muted">Target 0.1-5.0 mm/s</div></div><span class="status-pill status-normal sensor-status" id="vibration-status">LOADING...</span></div><strong class="sensor-value mono" id="vibration-value">-- mm/s</strong><div class="muted sensor-source">● CONNECTING</div><div class="sparkline" id="vibration-spark"></div></div>
             </div>
             <div class="table-card reveal" style="margin-top:1rem;">
               <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:0.8rem;"><div><h3>Event Log</h3><div class="muted">Updates every 3 seconds, max 15 rows</div></div><span class="tiny-pill mono" id="event-log-count">0 rows</span></div>
@@ -2879,6 +2952,7 @@
             <div class="section-head reveal">
               <h2 class="section-title-main">Real-Time Machine Monitoring</h2>
               <p class="section-copy">A live dashboard view for machine condition, rolling charts, and current alert status.</p>
+              <div style="margin-top:0.75rem;"><span class="live-chip" id="db-record-count">0 readings stored</span></div>
             </div>
             <div class="metric-grid">
               <div class="stat-card reveal"><span class="counter-label">Temperature</span><strong class="metric-value mono" id="dash-temp-metric">184.3 C</strong><span class="status-pill status-normal" id="dash-temp-status">NORMAL</span></div>
@@ -2890,7 +2964,7 @@
               <div class="chart-card reveal"><h3>Temperature - Last 20 Readings</h3><div class="chart-shell"><canvas id="dashboard-temp-chart"></canvas></div></div>
               <div class="chart-card reveal"><h3>Pressure - Last 10 Cycles</h3><div class="chart-shell"><canvas id="dashboard-pressure-chart"></canvas></div></div>
             </div>
-            <div class="table-card reveal" style="margin-top:1rem;"><h3>Alert Log</h3><div class="table-wrap"><table><thead><tr><th>Time</th><th>Sensor</th><th>Alert Type</th><th>Value</th><th>Status</th></tr></thead><tbody id="dashboard-alert-body"></tbody></table></div></div>
+            <div class="table-card reveal" style="margin-top:1rem;"><h3>Alert Log</h3><div class="table-wrap"><table><thead><tr><th>Time</th><th>Sensor</th><th>Alert Type</th><th>Value</th><th>Status</th></tr></thead><tbody id="alert-log-body"></tbody></table></div></div>
           </section>
 
           <section id="sec-team">
@@ -2945,7 +3019,77 @@
               <div class="control-card reveal"><h3>Font Selector</h3><div class="field-group"><label class="field-label">Heading Font</label><select class="select-input" id="heading-font"><option value="Rajdhani">Rajdhani</option><option value="Orbitron">Orbitron</option><option value="Exo 2">Exo 2</option><option value="Bebas Neue">Bebas Neue</option></select></div><div class="field-group"><label class="field-label">Body Font</label><select class="select-input" id="body-font"><option value="DM Sans">DM Sans</option><option value="Inter">Inter</option><option value="Nunito">Nunito</option><option value="Source Sans 3">Source Sans 3</option></select></div><div class="preview-card" id="font-preview">SmartMold IoT keeps charts, dashboards, and data tables readable while the typography system changes live.</div></div>
               <div class="control-card reveal"><h3>Animation Controls</h3><div class="control-grid" style="grid-template-columns:1fr;"><div class="toggle-row"><span>Sensor pulse animations</span><input class="switch" id="toggle-pulse" type="checkbox" checked></div><div class="toggle-row"><span>Architecture dots</span><input class="switch" id="toggle-dots" type="checkbox" checked></div><div class="toggle-row"><span>Fade-in scroll</span><input class="switch" id="toggle-reveal" type="checkbox" checked></div><div class="toggle-row"><span>Counter animation</span><input class="switch" id="toggle-counters" type="checkbox" checked></div></div></div>
             </div>
-            <div class="grid-2" style="margin-top:1rem;"><div class="control-card reveal component-library-card"><h3>Component Library</h3><div class="component-library-stack"><div class="component-card compact"><div class="component-sample"><span class="badge">Sensor</span><strong class="mono">184.1 C</strong><span class="status-pill status-normal">NORMAL</span></div><div class="component-copy"><h4>Sensor Card</h4><p class="component-note">Live machine-value tile with immediate condition feedback.</p><div class="component-use">Used for temperature, pressure, and vibration monitoring.</div></div></div><div class="component-card compact"><div class="component-sample"><span class="tiny-pill mono">KPI</span><strong class="mono">99.2%</strong><span class="tiny-pill mono">STAT</span></div><div class="component-copy"><h4>Stat Card</h4><p class="component-note">Compact performance block for uptime, alerts, energy, or latency.</p><div class="component-use">Used for executive summaries and dashboard comparisons.</div></div></div><div class="component-card compact"><div class="component-sample"><span class="badge">Action</span><button class="btn btn-primary" type="button">Run</button></div><div class="component-copy"><h4>Primary Action</h4><p class="component-note">Main workflow button for save, query, access, or confirm actions.</p><div class="component-use">Used where the interface needs one clear next step.</div></div></div></div></div><div class="control-card reveal layout-preview-card"><h3>Layout Preview</h3><div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));"><button class="layout-btn active" type="button" data-density="standard">Standard</button><button class="layout-btn" type="button" data-density="compact">Compact</button><button class="layout-btn" type="button" data-density="expanded">Expanded</button></div><p class="layout-note">Switches spacing density across the interface so the same dashboard can feel compact, standard, or expanded without changing content structure.</p></div></div>
+            <div class="designer-bottom-grid" style="margin-top:1rem;">
+              <div class="control-card reveal component-library-card">
+                <h3>Component Library</h3>
+                <div class="component-library-stack">
+                  <div class="component-card compact">
+                    <div class="component-sample">
+                      <span class="badge">Sensor Card</span>
+                      <strong class="mono component-value">184.1 C</strong>
+                      <div class="sample-row"><span class="status-pill status-normal">NORMAL</span></div>
+                    </div>
+                    <div class="component-copy">
+                      <h4>Sensor Card</h4>
+                      <p class="component-note">Live machine reading with quick condition feedback.</p>
+                      <div class="component-use">Used for temperature, pressure, and vibration monitoring.</div>
+                    </div>
+                  </div>
+                  <div class="component-card compact">
+                    <div class="component-sample">
+                      <span class="badge">Stat Card</span>
+                      <strong class="mono component-value">99.2%</strong>
+                      <div class="sample-row"><span class="tiny-pill mono">KPI</span></div>
+                    </div>
+                    <div class="component-copy">
+                      <h4>Stat Card</h4>
+                      <p class="component-note">Compact KPI block for uptime, output, energy, or alerts.</p>
+                      <div class="component-use">Used for summary panels and management comparisons.</div>
+                    </div>
+                  </div>
+                  <div class="component-card compact">
+                    <div class="component-sample">
+                      <span class="badge">Primary Action</span>
+                      <div class="sample-row"><button class="btn btn-primary" type="button">Primary</button></div>
+                    </div>
+                    <div class="component-copy">
+                      <h4>Primary Action</h4>
+                      <p class="component-note">Main button for access, save, query, or workflow confirmation.</p>
+                      <div class="component-use">Used where one next action should stand out clearly.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="control-card reveal layout-preview-card">
+                <h3>Layout Preview</h3>
+                <div class="layout-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+                  <button class="layout-btn active" type="button" data-density="standard">Standard</button>
+                  <button class="layout-btn" type="button" data-density="compact">Compact</button>
+                  <button class="layout-btn" type="button" data-density="expanded">Expanded</button>
+                </div>
+                <div class="layout-preview-grid">
+                  <div class="preview-tile">
+                    <span class="preview-title">Compact</span>
+                    <span class="preview-bar long"></span>
+                    <span class="preview-bar medium"></span>
+                    <span class="preview-bar short"></span>
+                  </div>
+                  <div class="preview-tile">
+                    <span class="preview-title">Standard</span>
+                    <span class="preview-bar long"></span>
+                    <span class="preview-bar long"></span>
+                    <span class="preview-bar medium"></span>
+                  </div>
+                  <div class="preview-tile">
+                    <span class="preview-title">Expanded</span>
+                    <span class="preview-bar long"></span>
+                    <span class="preview-bar medium"></span>
+                    <span class="preview-bar medium"></span>
+                  </div>
+                </div>
+                <p class="layout-note">Choose a spacing mode to make the dashboard feel compact, balanced, or presentation-ready without changing its content.</p>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -2956,6 +3100,40 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      /*
+        ╔══════════════════════════════════════════╗
+        ║   THINGSPEAK SETUP — EDIT THESE VALUES   ║
+        ╠══════════════════════════════════════════╣
+        ║ 1. Go to thingspeak.com                  ║
+        ║ 2. Create a free channel with 3 fields:  ║
+        ║    Field 1 = Temperature (°C)            ║
+        ║    Field 2 = Pressure (bar)              ║
+        ║    Field 3 = Vibration (mm/s)            ║
+        ║ 3. Copy your Channel ID and Read API Key ║
+        ║ 4. Paste them above and save             ║
+        ╚══════════════════════════════════════════╝
+      */
+      const THINGSPEAK = {
+        CHANNEL_ID: 'YOUR_CHANNEL_ID_HERE',
+        READ_API_KEY: 'YOUR_READ_API_KEY_HERE',
+        FIELD_MAP: {
+          temperature: 'field1',
+          pressure: 'field2',
+          vibration: 'field3'
+        },
+        POLL_MS: 5000,
+        BASE_URL: 'https://api.thingspeak.com'
+      };
+
+      const THRESHOLDS = {
+        temperature: { warning: 190, critical: 197 },
+        pressure: { warning: 135, critical: 145 },
+        vibration: { warning: 3.5, critical: 4.2 }
+      };
+
+      const DB_KEY = 'smartmold_readings';
+      const DB_MAX = 200;
+
       const USERS = {
         operator: { password: 'mold123', role: 'operator', label: 'Operator' },
         admin: { password: 'admin456', role: 'admin', label: 'Admin' },
@@ -3037,6 +3215,9 @@
       let queryTimer = null;
       let publicQueryTimer = null;
       let currentStorageWindow = '2h';
+      let pollingInterval = null;
+      let pollCount = 0;
+      let pollingBusy = false;
 
       let charts = {
         ttest: null,
@@ -3055,7 +3236,9 @@
 
       const sensorState = {
         tick: 0,
+        timestamp: new Date().toISOString(),
         reading: { temperature: 184.3, pressure: 112.7, vibration: 1.84 },
+        source: 'SIMULATION',
         statuses: { temperature: 'NORMAL', pressure: 'NORMAL', vibration: 'NORMAL' },
         lastStatuses: { temperature: 'NORMAL', pressure: 'NORMAL', vibration: 'NORMAL' },
         sparkHistory: {
@@ -3149,6 +3332,237 @@
         const parts = value.match(/\d+/g);
         if (!parts) return '#000000';
         return '#' + parts.slice(0, 3).map(function (part) { return Number(part).toString(16).padStart(2, '0'); }).join('');
+      }
+
+      function getStatus(type, value) {
+        if (value >= THRESHOLDS[type].critical) return 'CRITICAL';
+        if (value >= THRESHOLDS[type].warning) return 'WARNING';
+        return 'NORMAL';
+      }
+
+      function formatSensorValue(type, value) {
+        if (type === 'temperature') return Number(value).toFixed(1) + '°C';
+        if (type === 'pressure') return Number(value).toFixed(1) + ' bar';
+        return Number(value).toFixed(2) + ' mm/s';
+      }
+
+      function isThingSpeakConfigured() {
+        return THINGSPEAK.CHANNEL_ID &&
+          THINGSPEAK.READ_API_KEY &&
+          THINGSPEAK.CHANNEL_ID !== 'YOUR_CHANNEL_ID_HERE' &&
+          THINGSPEAK.READ_API_KEY !== 'YOUR_READ_API_KEY_HERE';
+      }
+
+      async function fetchFromThingSpeak() {
+        if (!isThingSpeakConfigured()) return generateFallback();
+        const url = THINGSPEAK.BASE_URL + '/channels/' + THINGSPEAK.CHANNEL_ID + '/feeds.json?api_key=' + encodeURIComponent(THINGSPEAK.READ_API_KEY) + '&results=1';
+        try {
+          const res = await fetch(url, { cache: 'no-store' });
+          if (!res.ok) throw new Error('ThingSpeak response not OK');
+          const data = await res.json();
+          if (!data.feeds || !data.feeds.length) throw new Error('No feeds');
+          const feed = data.feeds[0];
+          const readings = {
+            temperature: parseFloat(feed[THINGSPEAK.FIELD_MAP.temperature]),
+            pressure: parseFloat(feed[THINGSPEAK.FIELD_MAP.pressure]),
+            vibration: parseFloat(feed[THINGSPEAK.FIELD_MAP.vibration]),
+            timestamp: feed.created_at || new Date().toISOString(),
+            source: 'THINGSPEAK'
+          };
+          if (isNaN(readings.temperature) || isNaN(readings.pressure) || isNaN(readings.vibration)) {
+            throw new Error('Invalid field values');
+          }
+          return readings;
+        } catch (err) {
+          return generateFallback();
+        }
+      }
+
+      function generateFallback() {
+        let temp = +(155 + Math.random() * 45).toFixed(1);
+        let pres = +(55 + Math.random() * 90).toFixed(1);
+        let vib = +(0.2 + Math.random() * 4.3).toFixed(2);
+        if (Math.random() < 0.07) temp = +(196 + Math.random() * 3).toFixed(1);
+        if (Math.random() < 0.05) pres = +(142 + Math.random() * 6).toFixed(1);
+        if (Math.random() < 0.06) vib = +(3.8 + Math.random() * 1.2).toFixed(2);
+        return {
+          temperature: temp,
+          pressure: pres,
+          vibration: vib,
+          timestamp: new Date().toISOString(),
+          source: 'SIMULATION'
+        };
+      }
+
+      function dbGetAll() {
+        try { return JSON.parse(localStorage.getItem(DB_KEY)) || []; }
+        catch (err) { return []; }
+      }
+
+      function dbSave(reading) {
+        let all = dbGetAll();
+        all.push({
+          id: all.length ? all[all.length - 1].id + 1 : 1,
+          timestamp: reading.timestamp,
+          temperature: reading.temperature,
+          pressure: reading.pressure,
+          vibration: reading.vibration,
+          temp_status: getStatus('temperature', reading.temperature),
+          pres_status: getStatus('pressure', reading.pressure),
+          vib_status: getStatus('vibration', reading.vibration),
+          source: reading.source
+        });
+        if (all.length > DB_MAX) all = all.slice(all.length - DB_MAX);
+        localStorage.setItem(DB_KEY, JSON.stringify(all));
+      }
+
+      function dbGetLast(count, field) {
+        const recent = dbGetAll().slice(-count);
+        return field ? recent.map(function (row) { return row[field]; }) : recent;
+      }
+
+      function dbClear() {
+        localStorage.removeItem(DB_KEY);
+      }
+
+      function dbPreSeed() {
+        if (dbGetAll().length > 0) return;
+        const seed = [];
+        for (let i = 50; i >= 1; i -= 1) {
+          const timestamp = new Date(Date.now() - i * 5 * 60 * 1000).toISOString();
+          const temperature = +(165 + Math.random() * 30).toFixed(1);
+          const pressure = +(65 + Math.random() * 70).toFixed(1);
+          const vibration = +(0.5 + Math.random() * 3.5).toFixed(2);
+          seed.push({
+            id: 51 - i,
+            timestamp: timestamp,
+            temperature: temperature,
+            pressure: pressure,
+            vibration: vibration,
+            temp_status: getStatus('temperature', temperature),
+            pres_status: getStatus('pressure', pressure),
+            vib_status: getStatus('vibration', vibration),
+            source: 'SEED'
+          });
+        }
+        localStorage.setItem(DB_KEY, JSON.stringify(seed));
+      }
+
+      function buildBellCurve(mean) {
+        const bell = [];
+        const critical = [];
+        for (let x = 165; x <= 195; x += 1) {
+          const y = Math.exp(-0.5 * Math.pow((x - mean) / 4.5, 2));
+          bell.push({ x: x, y: Number(y.toFixed(4)) });
+          critical.push({ x: x, y: x >= THRESHOLDS.temperature.warning ? Number(y.toFixed(4)) : null });
+        }
+        return { bell: bell, critical: critical };
+      }
+
+      function calculateRegressionLine(points) {
+        if (!points.length) return [{ x: 160, y: 34 }, { x: 200, y: 6 }];
+        const n = points.length;
+        const sumX = points.reduce(function (sum, point) { return sum + point.x; }, 0);
+        const sumY = points.reduce(function (sum, point) { return sum + point.y; }, 0);
+        const sumXY = points.reduce(function (sum, point) { return sum + (point.x * point.y); }, 0);
+        const sumXX = points.reduce(function (sum, point) { return sum + (point.x * point.x); }, 0);
+        const denominator = (n * sumXX) - (sumX * sumX);
+        const slope = denominator ? ((n * sumXY) - (sumX * sumY)) / denominator : -0.68;
+        const intercept = n ? (sumY - slope * sumX) / n : 142.3;
+        const minX = Math.min.apply(null, points.map(function (point) { return point.x; }));
+        const maxX = Math.max.apply(null, points.map(function (point) { return point.x; }));
+        return [
+          { x: Number(minX.toFixed(1)), y: Number((intercept + slope * minX).toFixed(1)) },
+          { x: Number(maxX.toFixed(1)), y: Number((intercept + slope * maxX).toFixed(1)) }
+        ];
+      }
+
+      function updateStatCharts(scatterData, anomalyData, mean) {
+        const curve = buildBellCurve(mean);
+        [
+          { chart: charts.ttest, pointY: 0.78 },
+          { chart: charts.adminTtest, pointY: 0.78 }
+        ].forEach(function (entry) {
+          if (!entry.chart) return;
+          entry.chart.data.datasets[0].data = curve.bell;
+          entry.chart.data.datasets[1].data = curve.critical;
+          entry.chart.data.datasets[2].data = [{ x: Number(mean.toFixed(1)), y: entry.pointY }];
+          entry.chart.update('none');
+        });
+
+        const regressionLine = calculateRegressionLine(scatterData);
+        [charts.regression, charts.adminRegression].forEach(function (chart) {
+          if (!chart) return;
+          chart.data.datasets[0].data = scatterData;
+          chart.data.datasets[1].data = regressionLine;
+          chart.update('none');
+        });
+
+        const labels = anomalyData.map(function (_, index) { return 'D' + (index + 1); });
+        const series = anomalyData.map(function (point) { return point.y; });
+        const anomalies = anomalyData.map(function (point) { return point.isAnomaly ? point.y : null; });
+        [charts.anomaly, charts.adminAnomaly].forEach(function (chart) {
+          if (!chart) return;
+          chart.data.labels = labels;
+          chart.data.datasets[0].data = series;
+          chart.data.datasets[1].data = anomalies;
+          chart.update('none');
+        });
+      }
+
+      function loadStatisticsFromDB() {
+        const all = dbGetLast(50);
+        if (!all.length) return;
+        const temperatures = all.map(function (row) { return row.temperature; });
+        const vibrations = all.map(function (row) { return row.vibration; });
+        const mean = temperatures.reduce(function (sum, value) { return sum + value; }, 0) / temperatures.length;
+        const scatterData = temperatures.slice(-30).map(function (temperature) {
+          return {
+            x: temperature,
+            y: +(Math.max(0, 142.3 - (0.68 * temperature) + (Math.random() * 8 - 4))).toFixed(1)
+          };
+        });
+        const vibrationRows = all.slice(-60);
+        const anomalyData = vibrationRows.map(function (row, index) {
+          return {
+            x: index,
+            y: row.vibration,
+            isAnomaly: row.vib_status !== 'NORMAL'
+          };
+        });
+        updateStatCharts(scatterData, anomalyData.length ? anomalyData : vibrations.map(function (value, index) {
+          return { x: index, y: value, isAnomaly: value >= THRESHOLDS.vibration.warning };
+        }), mean);
+      }
+
+      function renderDatabaseCounter() {
+        const counter = document.getElementById('db-record-count');
+        if (counter) counter.textContent = dbGetAll().length + ' readings stored';
+      }
+
+      function syncStateFromDatabase() {
+        const all = dbGetAll();
+        if (!all.length) return;
+        const latest = all[all.length - 1];
+        sensorState.timestamp = latest.timestamp;
+        sensorState.reading = {
+          temperature: latest.temperature,
+          pressure: latest.pressure,
+          vibration: latest.vibration
+        };
+        sensorState.source = latest.source === 'THINGSPEAK' ? 'THINGSPEAK' : 'SIMULATION';
+        sensorState.statuses = {
+          temperature: latest.temp_status,
+          pressure: latest.pres_status,
+          vibration: latest.vib_status
+        };
+        sensorState.lastStatuses = Object.assign({}, sensorState.statuses);
+        sensorState.sparkHistory.temperature = dbGetLast(12, 'temperature');
+        sensorState.sparkHistory.pressure = dbGetLast(12, 'pressure');
+        sensorState.sparkHistory.vibration = dbGetLast(12, 'vibration');
+        sensorState.dashboardHistory.temperature = dbGetLast(20, 'temperature');
+        sensorState.dashboardHistory.pressure = dbGetLast(10, 'pressure');
+        renderDatabaseCounter();
       }
 
       function buildAnalyticsData() {
@@ -3530,7 +3944,9 @@
           appShell.style.display = 'flex';
           mainContent.scrollTop = 0;
           setRole(user.role, username.toLowerCase());
+          dbPreSeed();
           initApp();
+          startPolling();
         }, 400);
         return true;
       }
@@ -3545,6 +3961,7 @@
       function doLogout() {
         intervals.forEach(function (id) { clearInterval(id); });
         intervals = [];
+        stopPolling();
         if (queryTimer) {
           clearInterval(queryTimer);
           queryTimer = null;
@@ -3598,17 +4015,23 @@
         if (revealObserver) revealObserver.disconnect();
         revealObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              if (entry.target.id === 'sec-analytics') loadStatisticsFromDB();
+            }
           });
         }, { root: mainContent, threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(function (node) {
           node.classList.remove('visible');
           revealObserver.observe(node);
         });
+        const analyticsSection = document.getElementById('sec-analytics');
+        if (analyticsSection) revealObserver.observe(analyticsSection);
       }
 
       function renderSparkline(containerId, values, color) {
         const container = document.getElementById(containerId);
+        if (!container || !values || values.length < 2) return;
         const width = 260;
         const height = 70;
         const min = Math.min.apply(null, values);
@@ -3623,25 +4046,118 @@
       }
 
       function sensorClass(sensorType, status) {
-        if (sensorType === 'temperature') return status === 'CRITICAL' ? 'status-critical' : status === 'WARNING' ? 'status-warning' : 'status-normal';
-        if (sensorType === 'pressure') return status === 'HIGH' ? 'status-warning' : 'status-normal';
-        return status === 'ALERT' ? 'status-critical' : 'status-normal';
+        if (status === 'CRITICAL' || status === 'ALERT') return 'status-critical';
+        if (status === 'WARNING' || status === 'HIGH' || status === 'ACTIVE') return 'status-warning';
+        return 'status-normal';
+      }
+
+      function drawSparkline(el, values) {
+        if (!el || !values || values.length < 2) return;
+        const W = 120;
+        const H = 36;
+        const min = Math.min.apply(null, values);
+        const max = Math.max.apply(null, values);
+        const range = max - min || 1;
+        const pts = values.map(function (value, index) {
+          const x = (index / Math.max(values.length - 1, 1)) * W;
+          const y = H - (((value - min) / range) * (H - 4)) - 2;
+          return x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ');
+        el.innerHTML = '<svg viewBox="0 0 120 36" preserveAspectRatio="none"><polyline fill="none" stroke="' + getCssVar('--accent-a') + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="' + pts + '"></polyline></svg>';
+      }
+
+      function updateSensorCard(type, value, status, source) {
+        const card = document.getElementById('sensor-card-' + type);
+        if (!card) return;
+        const valueEl = card.querySelector('.sensor-value');
+        const statusEl = card.querySelector('.sensor-status');
+        const sourceEl = card.querySelector('.sensor-source');
+        const unit = type === 'temperature' ? '°C' : type === 'pressure' ? ' bar' : ' mm/s';
+        if (valueEl) valueEl.textContent = value + unit;
+        if (statusEl) {
+          statusEl.textContent = status;
+          statusEl.className = 'status-pill sensor-status ' + sensorClass(type, status);
+          statusEl.style.background =
+            status === 'CRITICAL' ? 'rgba(232,69,69,0.2)' :
+              status === 'WARNING' ? 'rgba(240,165,0,0.2)' :
+                'rgba(0,229,204,0.2)';
+          statusEl.style.color =
+            status === 'CRITICAL' ? '#E84545' :
+              status === 'WARNING' ? '#F0A500' : 'var(--accent-a)';
+        }
+        if (sourceEl) {
+          sourceEl.textContent = source === 'THINGSPEAK' ? '● THINGSPEAK LIVE' : '● SIMULATION';
+          sourceEl.style.color = source === 'THINGSPEAK' ? 'var(--accent-a)' : 'var(--accent-b)';
+        }
+        drawSparkline(card.querySelector('.sparkline'), dbGetLast(12, type));
+        card.style.borderColor =
+          status === 'CRITICAL' ? 'rgba(232,69,69,0.5)' :
+            status === 'WARNING' ? 'rgba(240,165,0,0.5)' :
+              'var(--border-subtle)';
+      }
+
+      function updateSourceBadge(source) {
+        const el = document.getElementById('connection-status');
+        if (!el) return;
+        if (source === 'THINGSPEAK') {
+          el.textContent = '● THINGSPEAK LIVE';
+          el.style.color = 'var(--accent-a)';
+        } else {
+          el.textContent = '● SIMULATION';
+          el.style.color = 'var(--accent-b)';
+        }
+      }
+
+      function updateRollingChart(last20) {
+        const tempLineChart = window.tempLineChart || charts.dashboardTemp;
+        if (!tempLineChart) return;
+        tempLineChart.data.labels = last20.map(function (_, index) { return index + 1; });
+        tempLineChart.data.datasets[0].data = last20;
+        tempLineChart.update('none');
+      }
+
+      function updateDbmsLiveTable(reading) {
+        const tbody = document.getElementById('ingestion-body');
+        if (!tbody) return;
+        const time = new Date(reading.timestamp).toLocaleTimeString('en-GB', { hour12: false });
+        tbody.innerHTML = [
+          { id: 'dbms-row-temp', sensor: 'temp_sensor_01', value: reading.temperature + '°C', status: getStatus('temperature', reading.temperature) },
+          { id: 'dbms-row-pres', sensor: 'pres_sensor_01', value: reading.pressure + ' bar', status: getStatus('pressure', reading.pressure) },
+          { id: 'dbms-row-vib', sensor: 'vib_sensor_01', value: reading.vibration + ' mm/s', status: getStatus('vibration', reading.vibration) }
+        ].map(function (row) {
+          return '<tr id="' + row.id + '"><td>' + row.sensor + '</td><td>' + time + '</td><td class="mono">' + row.value + '</td><td>' + row.status + '</td></tr>';
+        }).join('');
+      }
+
+      function appendAlertLog(type, value, status, timestamp) {
+        const label = type.charAt(0).toUpperCase() + type.slice(1);
+        const alertType = label.toUpperCase() + ' ' + status;
+        const time = new Date(timestamp).toLocaleTimeString('en-GB', { hour12: false });
+        const valueText = formatSensorValue(type, value);
+        const nextId = sensorState.operatorAlerts.length ? Math.max.apply(null, sensorState.operatorAlerts.map(function (row) { return row.id; })) + 1 : 1;
+        sensorState.operatorAlerts.unshift({ id: nextId, time: time, machine: 'M-01', sensor: label, type: alertType, value: valueText, resolved: false });
+        sensorState.operatorAlerts = sensorState.operatorAlerts.slice(0, 12);
+        sensorState.dashboardAlerts.unshift({ time: time, sensor: label, type: alertType, value: valueText, status: status });
+        sensorState.dashboardAlerts = sensorState.dashboardAlerts.slice(0, 8);
+        renderDashboardAlerts();
+        renderOperatorDash();
       }
 
       function renderSensorUI() {
-        document.getElementById('temp-value').textContent = sensorState.reading.temperature.toFixed(1) + ' C';
-        document.getElementById('pressure-value').textContent = sensorState.reading.pressure.toFixed(1) + ' bar';
-        document.getElementById('vibration-value').textContent = sensorState.reading.vibration.toFixed(2) + ' mm/s';
+        updateSensorCard('temperature', sensorState.reading.temperature.toFixed(1), sensorState.statuses.temperature, sensorState.source);
+        updateSensorCard('pressure', sensorState.reading.pressure.toFixed(1), sensorState.statuses.pressure, sensorState.source);
+        updateSensorCard('vibration', sensorState.reading.vibration.toFixed(2), sensorState.statuses.vibration, sensorState.source);
         document.getElementById('arch-temp').textContent = sensorState.reading.temperature.toFixed(1) + ' C';
         document.getElementById('arch-pressure').textContent = sensorState.reading.pressure.toFixed(1) + ' bar';
         document.getElementById('arch-vibration').textContent = sensorState.reading.vibration.toFixed(2) + ' mm/s';
+        updateSourceBadge(sensorState.source);
 
         const tempStatus = document.getElementById('temp-status');
         const pressureStatus = document.getElementById('pressure-status');
         const vibrationStatus = document.getElementById('vibration-status');
-        tempStatus.className = 'status-pill ' + sensorClass('temperature', sensorState.statuses.temperature);
-        pressureStatus.className = 'status-pill ' + sensorClass('pressure', sensorState.statuses.pressure);
-        vibrationStatus.className = 'status-pill ' + sensorClass('vibration', sensorState.statuses.vibration);
+        tempStatus.className = 'status-pill sensor-status ' + sensorClass('temperature', sensorState.statuses.temperature);
+        pressureStatus.className = 'status-pill sensor-status ' + sensorClass('pressure', sensorState.statuses.pressure);
+        vibrationStatus.className = 'status-pill sensor-status ' + sensorClass('vibration', sensorState.statuses.vibration);
         tempStatus.textContent = sensorState.statuses.temperature;
         pressureStatus.textContent = sensorState.statuses.pressure;
         vibrationStatus.textContent = sensorState.statuses.vibration;
@@ -3661,6 +4177,7 @@
         document.getElementById('dash-temp-status').textContent = sensorState.statuses.temperature;
         document.getElementById('dash-pressure-status').textContent = sensorState.statuses.pressure;
         document.getElementById('dash-vibration-status').textContent = sensorState.statuses.vibration;
+        renderDatabaseCounter();
       }
 
       function renderEventLog() {
@@ -3672,23 +4189,26 @@
       }
 
       function renderIngestionTables() {
-        const now = formatTime();
-        document.getElementById('ingestion-body').innerHTML = [
-          ['temp_sensor_01', now, sensorState.reading.temperature.toFixed(1) + ' C', sensorState.statuses.temperature],
-          ['pres_sensor_01', now, sensorState.reading.pressure.toFixed(1) + ' bar', sensorState.statuses.pressure],
-          ['vib_sensor_01', now, sensorState.reading.vibration.toFixed(2) + ' mm/s', sensorState.statuses.vibration]
-        ].map(function (row) {
-          return '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td class="mono">' + row[2] + '</td><td>' + row[3] + '</td></tr>';
-        }).join('');
+        updateDbmsLiveTable({
+          timestamp: sensorState.timestamp || new Date().toISOString(),
+          temperature: sensorState.reading.temperature.toFixed(1),
+          pressure: sensorState.reading.pressure.toFixed(1),
+          vibration: sensorState.reading.vibration.toFixed(2)
+        });
         document.getElementById('alert-ingestion-body').innerHTML = sensorState.operatorAlerts.slice(0, 4).map(function (alertRow) {
-          const threshold = alertRow.sensor === 'Temperature' ? '190 C' : alertRow.sensor === 'Pressure' ? '130 bar' : '3.5 mm/s';
+          const threshold = alertRow.sensor === 'Temperature' ? '190 C' : alertRow.sensor === 'Pressure' ? '135 bar' : '3.5 mm/s';
           return '<tr><td>' + alertRow.type + '</td><td>' + alertRow.sensor + '</td><td class="mono">' + threshold + '</td><td class="mono">' + alertRow.value + '</td></tr>';
         }).join('');
       }
 
       function renderDashboardAlerts() {
-        document.getElementById('dashboard-alert-body').innerHTML = sensorState.dashboardAlerts.map(function (row) {
-          const className = row.status === 'ACTIVE' ? 'status-active' : 'status-resolved';
+        const table = document.getElementById('alert-log-body');
+        if (!table) return;
+        table.innerHTML = sensorState.dashboardAlerts.map(function (row) {
+          const className =
+            row.status === 'CRITICAL' ? 'status-critical' :
+              row.status === 'WARNING' || row.status === 'ACTIVE' ? 'status-warning' :
+                'status-resolved';
           return '<tr><td>' + row.time + '</td><td>' + row.sensor + '</td><td>' + row.type + '</td><td class="mono">' + row.value + '</td><td><span class="status-pill ' + className + '">' + row.status + '</span></td></tr>';
         }).join('');
       }
@@ -3826,6 +4346,7 @@
           data: { labels: sensorState.dashboardHistory.temperature.map(function (_, i) { return 'R' + (i + 1); }), datasets: [{ data: sensorState.dashboardHistory.temperature, borderColor: accentA, backgroundColor: accentA + '22', fill: true, pointRadius: 2, tension: 0.3 }] },
           options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: text }, grid: { color: line } }, y: { min: 150, max: 200, ticks: { color: text }, grid: { color: line } } } }
         });
+        window.tempLineChart = charts.dashboardTemp;
 
         if (dashboardPressureCanvas) charts.dashboardPressure = new Chart(dashboardPressureCanvas, {
           type: 'bar',
@@ -3882,6 +4403,7 @@
             }
           }
         });
+        loadStatisticsFromDB();
       }
 
       function updateLiveCharts() {
@@ -3956,68 +4478,84 @@
       }
 
       function updateTelemetry() {
-        sensorState.tick += 1;
-        const forcedSpike = sensorState.tick % 10 === 0 ? ['temperature', 'pressure', 'vibration'][Math.floor(Math.random() * 3)] : '';
-        let temperature = 175 + (Math.random() * 30) - 10;
-        let pressure = 100 + (Math.random() * 40) - 20;
-        let vibration = 2 + (Math.random() * 2) - 1;
-        if (forcedSpike === 'temperature') temperature = 198 + (Math.random() * 2.4);
-        if (forcedSpike === 'pressure') pressure = 136 + (Math.random() * 8);
-        if (forcedSpike === 'vibration') vibration = 4 + (Math.random() * 0.7);
-        temperature = clamp(Number(temperature.toFixed(1)), 165, 198.8);
-        pressure = clamp(Number(pressure.toFixed(1)), 55, 145);
-        vibration = clamp(Number(vibration.toFixed(2)), 0.2, 4.5);
-        sensorState.reading = { temperature: temperature, pressure: pressure, vibration: vibration };
-        sensorState.statuses = {
-          temperature: temperature > 197 ? 'CRITICAL' : temperature > 190 ? 'WARNING' : 'NORMAL',
-          pressure: pressure > 130 ? 'HIGH' : 'NORMAL',
-          vibration: vibration > 3.5 ? 'ALERT' : 'NORMAL'
-        };
-        ['temperature', 'pressure', 'vibration'].forEach(function (key) {
-          sensorState.sparkHistory[key].push(sensorState.reading[key]);
-          sensorState.sparkHistory[key] = sensorState.sparkHistory[key].slice(-12);
-        });
-        sensorState.dashboardHistory.temperature.push(temperature);
-        sensorState.dashboardHistory.temperature = sensorState.dashboardHistory.temperature.slice(-20);
-        sensorState.dashboardHistory.pressure.push(pressure);
-        sensorState.dashboardHistory.pressure = sensorState.dashboardHistory.pressure.slice(-10);
-        registerNewAlerts();
-        renderSensorUI();
-        renderIngestionTables();
-        renderOperatorDash();
-        updateLiveCharts();
+        pollOnce();
       }
 
-      function registerNewAlerts() {
+      function registerNewAlerts(reading) {
         const previous = sensorState.lastStatuses;
         const current = sensorState.statuses;
-        function addAlert(sensor, type, value) {
-          const nextId = sensorState.operatorAlerts.length ? Math.max.apply(null, sensorState.operatorAlerts.map(function (row) { return row.id; })) + 1 : 1;
-          sensorState.operatorAlerts.unshift({ id: nextId, time: formatTime(), machine: 'M-01', sensor: sensor, type: type, value: value, resolved: false });
-          sensorState.operatorAlerts = sensorState.operatorAlerts.slice(0, 12);
-          sensorState.dashboardAlerts.unshift({ time: formatTime(), sensor: sensor, type: type, value: value, status: 'ACTIVE' });
-          sensorState.dashboardAlerts = sensorState.dashboardAlerts.slice(0, 8);
-        }
-        if (current.temperature !== 'NORMAL' && previous.temperature === 'NORMAL') addAlert('Temperature', current.temperature === 'CRITICAL' ? 'HIGH TEMP' : 'THERMAL WARNING', sensorState.reading.temperature.toFixed(1) + ' C');
-        if (current.pressure !== 'NORMAL' && previous.pressure === 'NORMAL') addAlert('Pressure', 'PRESSURE DRIFT', sensorState.reading.pressure.toFixed(1) + ' bar');
-        if (current.vibration !== 'NORMAL' && previous.vibration === 'NORMAL') addAlert('Vibration', 'VIBRATION SURGE', sensorState.reading.vibration.toFixed(2) + ' mm/s');
+        ['temperature', 'pressure', 'vibration'].forEach(function (type) {
+          if (current[type] !== 'NORMAL' && current[type] !== previous[type]) {
+            appendAlertLog(type, reading[type], current[type], reading.timestamp);
+          }
+        });
         sensorState.lastStatuses = Object.assign({}, current);
       }
 
-      function tickEventLog() {
-        const line = '[' + formatTime() + '] - Sensor reading received - temp ' + sensorState.reading.temperature.toFixed(1) + ' C | pressure ' + sensorState.reading.pressure.toFixed(1) + ' bar | vibration ' + sensorState.reading.vibration.toFixed(2) + ' mm/s';
-        sensorState.eventLog.unshift({ text: line, warn: false });
-        if (sensorState.statuses.temperature !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + formatTime() + '] - WARNING: Temperature exceeded 190 C threshold', warn: true });
-        if (sensorState.statuses.pressure !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + formatTime() + '] - WARNING: Pressure exceeded 130 bar threshold', warn: true });
-        if (sensorState.statuses.vibration !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + formatTime() + '] - WARNING: Vibration exceeded 3.5 mm/s threshold', warn: true });
+      function recordPollEvent(reading) {
+        const time = new Date(reading.timestamp).toLocaleTimeString('en-GB', { hour12: false });
+        sensorState.eventLog.unshift({
+          text: '[' + time + '] - Sensor reading received - temp ' + Number(reading.temperature).toFixed(1) + ' C | pressure ' + Number(reading.pressure).toFixed(1) + ' bar | vibration ' + Number(reading.vibration).toFixed(2) + ' mm/s',
+          warn: false
+        });
+        if (sensorState.statuses.temperature !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + time + '] - ' + sensorState.statuses.temperature + ': Temperature exceeded ' + THRESHOLDS.temperature.warning + ' C threshold', warn: true });
+        if (sensorState.statuses.pressure !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + time + '] - ' + sensorState.statuses.pressure + ': Pressure exceeded ' + THRESHOLDS.pressure.warning + ' bar threshold', warn: true });
+        if (sensorState.statuses.vibration !== 'NORMAL') sensorState.eventLog.unshift({ text: '[' + time + '] - ' + sensorState.statuses.vibration + ': Vibration exceeded ' + THRESHOLDS.vibration.warning + ' mm/s threshold', warn: true });
         sensorState.eventLog = sensorState.eventLog.slice(0, 15);
         renderEventLog();
       }
 
-      function tickDashboardAlertStatus() {
-        const row = sensorState.dashboardAlerts[0];
-        if (row && row.status === 'ACTIVE' && Math.random() > 0.5) row.status = 'RESOLVED';
-        renderDashboardAlerts();
+      function startPolling() {
+        stopPolling();
+        dbPreSeed();
+        syncStateFromDatabase();
+        pollOnce();
+        pollingInterval = setInterval(pollOnce, THINGSPEAK.POLL_MS);
+      }
+
+      function stopPolling() {
+        if (pollingInterval) {
+          clearInterval(pollingInterval);
+          pollingInterval = null;
+        }
+      }
+
+      async function pollOnce() {
+        if (pollingBusy) return;
+        pollingBusy = true;
+        try {
+          pollCount += 1;
+          const reading = await fetchFromThingSpeak();
+          dbSave(reading);
+          sensorState.timestamp = reading.timestamp;
+          sensorState.reading = {
+            temperature: Number(reading.temperature),
+            pressure: Number(reading.pressure),
+            vibration: Number(reading.vibration)
+          };
+          sensorState.source = reading.source === 'THINGSPEAK' ? 'THINGSPEAK' : 'SIMULATION';
+          sensorState.statuses = {
+            temperature: getStatus('temperature', sensorState.reading.temperature),
+            pressure: getStatus('pressure', sensorState.reading.pressure),
+            vibration: getStatus('vibration', sensorState.reading.vibration)
+          };
+          sensorState.sparkHistory.temperature = dbGetLast(12, 'temperature');
+          sensorState.sparkHistory.pressure = dbGetLast(12, 'pressure');
+          sensorState.sparkHistory.vibration = dbGetLast(12, 'vibration');
+          sensorState.dashboardHistory.temperature = dbGetLast(20, 'temperature');
+          sensorState.dashboardHistory.pressure = dbGetLast(10, 'pressure');
+          registerNewAlerts(reading);
+          recordPollEvent(reading);
+          renderSensorUI();
+          renderIngestionTables();
+          renderOperatorDash();
+          updateLiveCharts();
+          updateRollingChart(dbGetLast(20, 'temperature'));
+          loadStatisticsFromDB();
+          console.log('[Poll #' + pollCount + '] Source: ' + reading.source + ' | Temp: ' + Number(reading.temperature).toFixed(1) + '°C | Pres: ' + Number(reading.pressure).toFixed(1) + 'bar | Vib: ' + Number(reading.vibration).toFixed(2) + 'mm/s');
+        } finally {
+          pollingBusy = false;
+        }
       }
 
       function advanceCycle() {
@@ -4032,6 +4570,7 @@
         intervals.forEach(function (id) { clearInterval(id); });
         intervals = [];
         seedLogs();
+        syncStateFromDatabase();
         renderNavbarLinks();
         renderSensorUI();
         renderEventLog();
@@ -4046,10 +4585,7 @@
         updateActiveLinks();
         animateCounters();
         appStarted = true;
-        intervals.push(setInterval(updateTelemetry, 1500));
-        intervals.push(setInterval(tickEventLog, 3000));
         intervals.push(setInterval(advanceCycle, 8000));
-        intervals.push(setInterval(tickDashboardAlertStatus, 12000));
       }
 
       function animateCounters() {
@@ -4281,15 +4817,26 @@
       const params = new URLSearchParams(window.location.search);
       const demo = params.get('demo');
       const view = params.get('view');
-      if (demo && USERS[demo]) {
-        setTimeout(function () {
-          selectRoleCard(demo);
-          doLogin(demo, USERS[demo].password);
-          if (view) {
-            setTimeout(function () { scrollToSection(view); }, 1200);
-          }
-        }, 80);
-      }
+      const effectiveDemo = demo && USERS[demo] ? demo : 'operator';
+      const effectiveView = view || 'sec-dashboard';
+
+      setTimeout(function () {
+        selectRoleCard(effectiveDemo);
+        doLogin(effectiveDemo, USERS[effectiveDemo].password);
+        if (effectiveView) {
+          setTimeout(function () {
+            const target = document.getElementById(effectiveView);
+            if (!target) return;
+            const targetTop = target.getBoundingClientRect().top - mainContent.getBoundingClientRect().top + mainContent.scrollTop - 20;
+            mainContent.scrollTo({ top: Math.max(0, targetTop), behavior: 'auto' });
+            setTimeout(function () {
+              const retryTop = target.getBoundingClientRect().top - mainContent.getBoundingClientRect().top + mainContent.scrollTop - 20;
+              mainContent.scrollTo({ top: Math.max(0, retryTop), behavior: 'auto' });
+              updateActiveLinks();
+            }, 240);
+          }, 1200);
+        }
+      }, 80);
     });
   </script>
 </body>
