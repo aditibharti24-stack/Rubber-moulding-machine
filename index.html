@@ -981,10 +981,14 @@
     }
 
     .grid-3,
-    .sensor-grid,
     .stats-grid,
     .designer-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sensor-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
     }
 
     .grid-4,
@@ -1299,27 +1303,46 @@
 
     .sensor-card {
       display: grid;
-      gap: 0.9rem;
+      gap: 0.75rem;
     }
 
     .sensor-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.7rem;
+    }
+
+    .sensor-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 150px;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .sensor-reading {
+      display: grid;
+      gap: 0.28rem;
     }
 
     .sparkline {
-      height: 78px;
+      height: 64px;
       border-radius: 16px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
-      padding: 0.45rem;
+      padding: 0.35rem 0.45rem;
+    }
+
+    .sparkline svg {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .range-text {
-      font-size: 0.84rem;
+      font-size: 0.8rem;
       color: var(--text-2);
+      line-height: 1.35;
     }
 
     .event-log {
@@ -1915,6 +1938,10 @@
       .component-row {
         grid-template-columns: 1fr;
       }
+
+      .sensor-body {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 900px) {
@@ -2396,8 +2423,13 @@
                   </div>
                   <span class="status-badge status-normal" id="temp-status">NORMAL</span>
                 </div>
-                <strong class="sensor-value mono" id="temp-value">184.3 °C</strong>
-                <div class="sparkline" id="temp-spark"></div>
+                <div class="sensor-body">
+                  <div class="sensor-reading">
+                    <strong class="sensor-value mono" id="temp-value">184.3 °C</strong>
+                    <span class="range-text">Live temperature trend</span>
+                  </div>
+                  <div class="sparkline" id="temp-spark"></div>
+                </div>
               </div>
 
               <div class="sensor-card reveal">
@@ -2408,8 +2440,13 @@
                   </div>
                   <span class="status-badge status-normal" id="pressure-status">NORMAL</span>
                 </div>
-                <strong class="sensor-value mono" id="pressure-value">112.7 bar</strong>
-                <div class="sparkline" id="pressure-spark"></div>
+                <div class="sensor-body">
+                  <div class="sensor-reading">
+                    <strong class="sensor-value mono" id="pressure-value">112.7 bar</strong>
+                    <span class="range-text">Live pressure trend</span>
+                  </div>
+                  <div class="sparkline" id="pressure-spark"></div>
+                </div>
               </div>
 
               <div class="sensor-card reveal">
@@ -2420,8 +2457,13 @@
                   </div>
                   <span class="status-badge status-normal" id="vibration-status">NORMAL</span>
                 </div>
-                <strong class="sensor-value mono" id="vibration-value">1.84 mm/s</strong>
-                <div class="sparkline" id="vibration-spark"></div>
+                <div class="sensor-body">
+                  <div class="sensor-reading">
+                    <strong class="sensor-value mono" id="vibration-value">1.84 mm/s</strong>
+                    <span class="range-text">Live vibration trend</span>
+                  </div>
+                  <div class="sparkline" id="vibration-spark"></div>
+                </div>
               </div>
             </div>
 
