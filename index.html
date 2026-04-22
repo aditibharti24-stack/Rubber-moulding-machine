@@ -2737,6 +2737,92 @@
                 </div>
               </div>
             </div>
+
+            <div id="sec-normalization" class="section-card accent-a reveal" style="margin-top:1rem;">
+              <div class="toolbar-row" style="justify-content:space-between;margin-bottom:0.8rem;">
+                <div>
+                  <h3>Normalization: 1NF, 2NF, 3NF, and BCNF</h3>
+                  <div class="muted">The SmartMold relational schema is organized to reduce redundancy, avoid update anomalies, and keep machine data consistent across the project tables.</div>
+                </div>
+                <span class="tiny-chip mono">DBMS NORMALIZATION</span>
+              </div>
+
+              <div class="grid-2">
+                <div class="card">
+                  <span class="tiny-chip mono">1NF</span>
+                  <h3>First Normal Form</h3>
+                  <p class="muted">Every attribute stores a single atomic value. In SmartMold, each SensorReading row stores one sensor, one timestamp, one value, and one status only.</p>
+                  <div class="info-list">
+                    <span>SensorReading(reading_id, sensor_id, timestamp, value, status)</span>
+                    <span>No multi-value fields such as combined temperature-pressure entries</span>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <span class="tiny-chip mono">2NF</span>
+                  <h3>Second Normal Form</h3>
+                  <p class="muted">The schema is already in 1NF, and non-key attributes depend on the full primary key. SmartMold uses single-column surrogate keys, so partial dependency is avoided.</p>
+                  <div class="info-list">
+                    <span>machine_id, sensor_id, reading_id, batch_id, maintenance_id</span>
+                    <span>No non-key field depends on only part of a composite key</span>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <span class="tiny-chip mono">3NF</span>
+                  <h3>Third Normal Form</h3>
+                  <p class="muted">Non-key attributes depend only on the primary key, not on other non-key attributes. Technician details are separated into Technician instead of being repeated in MaintenanceRecord.</p>
+                  <div class="info-list">
+                    <span>MaintenanceRecord stores technician_id only</span>
+                    <span>Technician stores name, specialization, and contact separately</span>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <span class="tiny-chip mono">BCNF</span>
+                  <h3>Boyce-Codd Normal Form</h3>
+                  <p class="muted">For every important functional dependency, the determinant is a key. In SmartMold, the main determinant in each table is its primary key, so the core schema satisfies BCNF.</p>
+                  <div class="info-list">
+                    <span>sensor_id determines sensor_type and unit</span>
+                    <span>machine_id determines machine name, model, and location</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap" style="margin-top:1rem;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Normal Form</th>
+                      <th>Meaning</th>
+                      <th>SmartMold Application</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="mono">1NF</td>
+                      <td>Atomic values only</td>
+                      <td>SensorReading stores one reading per row with no repeating group</td>
+                    </tr>
+                    <tr>
+                      <td class="mono">2NF</td>
+                      <td>No partial dependency</td>
+                      <td>Single-column keys prevent attributes from depending on part of a composite key</td>
+                    </tr>
+                    <tr>
+                      <td class="mono">3NF</td>
+                      <td>No transitive dependency</td>
+                      <td>Technician data is separated from MaintenanceRecord to avoid repeated descriptive fields</td>
+                    </tr>
+                    <tr>
+                      <td class="mono">BCNF</td>
+                      <td>Determinant must be a key</td>
+                      <td>Main table determinants are primary keys, so the schema remains stable and consistent</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </section>
 
           <section id="sec-statistics" class="section-block">
