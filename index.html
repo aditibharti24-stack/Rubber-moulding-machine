@@ -751,10 +751,7 @@
     }
 
     .nav-center {
-      flex: 1 1 auto;
-      justify-content: center;
-      gap: 0;
-      overflow: hidden;
+      display: none;
     }
 
     .nav-summary {
@@ -987,7 +984,7 @@
     .sensor-grid,
     .stats-grid,
     .designer-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .grid-4,
@@ -1664,15 +1661,16 @@
 
     .component-gallery {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.8rem;
     }
 
     .component-row {
       display: grid;
-      grid-template-columns: 170px minmax(0, 1fr);
-      gap: 0.8rem;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
       align-items: start;
-      padding: 0.9rem;
+      padding: 0.85rem;
       border-radius: 16px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
@@ -1702,7 +1700,7 @@
 
     .component-copy h4 {
       margin: 0;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
     .layout-preview-grid {
@@ -1713,10 +1711,10 @@
 
     .mini-preview {
       border-radius: 16px;
-      padding: 0.9rem;
+      padding: 0.8rem;
       display: grid;
       gap: 0.45rem;
-      min-height: 122px;
+      min-height: 104px;
     }
 
     .mini-preview strong {
@@ -1992,7 +1990,7 @@
     }
   </style>
 </head>
-<body class="theme-space">
+<body class="theme-steel">
   <div id="loading-screen">
     <div class="loading-card">
       <div class="brand-row">
@@ -2023,18 +2021,17 @@
   <div id="login-screen">
     <div class="login-shell" id="login-card">
       <div class="login-left">
-        <span class="chip">Trusted Industrial Monitoring Workspace</span>
+        <span class="chip">Industrial Monitoring Workspace</span>
         <div>
           <h1 class="login-title">SmartMold IoT</h1>
-          <p class="login-copy">Data-Driven Digital Transformation of an IoT-Enabled 4-Pillar Compression Type Rubber Molding Machine.</p>
+          <p class="login-copy">Digital transformation of a 4-pillar compression rubber molding machine through sensors, networking, storage, and analytics.</p>
         </div>
-        <p class="login-copy">This portfolio demonstrates how real-time sensors, MQTT networking, relational data storage, and inferential statistics can turn a conventional molding press into a predictive, data-driven industrial system.</p>
+        <p class="login-copy">A compact project demo showing how live machine data becomes dashboards, alerts, and decision-ready engineering insight.</p>
         <div class="chip-row">
           <span class="chip">Real-Time Monitoring</span>
-          <span class="chip">Predictive Maintenance</span>
           <span class="chip">MQTT over TCP/IP</span>
           <span class="chip">PostgreSQL SQL Design</span>
-          <span class="chip">Statistical Process Control</span>
+          <span class="chip">Predictive Maintenance</span>
         </div>
         <div class="login-metrics">
           <div class="mini-card"><strong>99.2%</strong><span class="muted">System uptime</span></div>
@@ -2095,25 +2092,6 @@
           <button class="btn btn-primary" type="submit" style="width:100%;">Access System</button>
         </form>
         <div class="login-error" id="login-error"></div>
-        <details class="credentials-panel">
-          <summary>Demo credentials</summary>
-          <div class="credentials-table-wrap">
-            <table class="credentials-table">
-              <thead>
-                <tr>
-                  <th>Role</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Operator</td><td class="mono">operator</td><td class="mono">mold123</td></tr>
-                <tr><td>Admin</td><td class="mono">admin</td><td class="mono">admin456</td></tr>
-                <tr><td>Designer</td><td class="mono">designer</td><td class="mono">design789</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
       </div>
     </div>
   </div>
@@ -2163,7 +2141,7 @@
             <div class="section-head reveal">
               <span class="section-label">Project Overview</span>
               <h2 class="section-title">SmartMold IoT</h2>
-              <p class="section-subtitle">A compact industrial monitoring portfolio for turning a 4-pillar compression rubber molding machine into a real-time, data-driven production system.</p>
+              <p class="section-subtitle">A concise industrial portfolio showing how SmartMold turns a conventional rubber molding press into a monitored, data-driven machine.</p>
             </div>
 
             <div class="grid-2">
@@ -2173,7 +2151,7 @@
                   <span class="chip">Predictive Monitoring</span>
                 </div>
                 <h3>What The Product Delivers</h3>
-                <p class="muted">SmartMold IoT gives operators and managers live visibility into machine temperature, pressure, vibration, alert history, and process stability so decisions can be taken before downtime or quality loss occurs.</p>
+                <p class="muted">SmartMold IoT gives live visibility into machine temperature, pressure, vibration, alerts, and process health so action can be taken before downtime or quality loss occurs.</p>
                 <div class="hero-actions">
                   <button class="btn btn-primary" type="button" data-target="sec-cndc">Explore Architecture</button>
                   <button class="ghost-btn" type="button" data-target="sec-dashboard">View Dashboard</button>
@@ -2208,7 +2186,7 @@
                   </div>
                   <div class="implementation-step">
                     <strong>3. Transmit To Server Storage</strong>
-                    <span class="muted">Push readings through Industrial LAN to broker, server, and PostgreSQL-backed records.</span>
+                    <span class="muted">Push readings through the Industrial LAN to the broker, server, and database layer.</span>
                   </div>
                   <div class="implementation-step">
                     <strong>4. Analyze And Act</strong>
@@ -2221,11 +2199,11 @@
             <div class="problem-solution" style="margin-top:1rem;">
               <div class="section-card accent-b reveal">
                 <h3>Why The Upgrade Matters</h3>
-                <p class="muted">Traditional rubber molding machines run with fixed cycles and low visibility, which leads to inconsistent quality, delayed fault detection, energy waste, and reactive maintenance.</p>
+                <p class="muted">Traditional rubber molding machines run with fixed cycles and low visibility, leading to inconsistent quality, delayed fault detection, and reactive maintenance.</p>
               </div>
               <div class="section-card accent-a reveal">
                 <h3>What Makes This Different</h3>
-                <p class="muted">The SmartMold stack connects sensing, secure networking, relational storage, and inferential statistics into one workflow so the machine can be monitored, compared historically, and improved using evidence.</p>
+                <p class="muted">The SmartMold stack connects sensing, secure networking, relational storage, and statistics into one workflow so the machine can be monitored and improved using evidence.</p>
               </div>
             </div>
 
@@ -2811,7 +2789,7 @@
             <div class="dash-head reveal">
               <span class="section-label">Admin Workspace</span>
               <h2>Welcome, Admin · System Control Center</h2>
-              <p class="section-subtitle">An administrative control deck for configuration, maintenance scheduling, user management, analytics, and query simulation.</p>
+              <p class="section-subtitle">A compact admin workspace for configuration, maintenance planning, users, analytics, and query checks.</p>
             </div>
 
             <div class="subpanel-grid">
@@ -2934,7 +2912,7 @@
             <div class="dash-head reveal">
               <span class="section-label">Designer Workspace</span>
               <h2>Welcome, Designer · UI Control Studio</h2>
-              <p class="section-subtitle">A live design panel for theme customization, typography, component review, layout density, and animation control.</p>
+              <p class="section-subtitle">A lighter design workspace for theme, typography, component review, layout density, and animation control.</p>
             </div>
 
             <div class="subpanel-grid">
@@ -3016,7 +2994,7 @@
                     </div>
                     <div class="component-copy">
                       <h4>Sensor Cards</h4>
-                      <p class="muted">Live machine readings for temperature, pressure, and vibration with immediate condition feedback and trend context.</p>
+                      <p class="muted">Live telemetry cards for temperature, pressure, and vibration.</p>
                     </div>
                   </div>
                   <div class="component-row">
@@ -3027,7 +3005,7 @@
                     </div>
                     <div class="component-copy">
                       <h4>Stat Cards</h4>
-                      <p class="muted">Executive metric blocks used for uptime, latency, alert count, and productivity comparisons.</p>
+                      <p class="muted">KPI blocks for uptime, latency, and alert comparison.</p>
                     </div>
                   </div>
                   <div class="component-row">
@@ -3037,7 +3015,7 @@
                     </div>
                     <div class="component-copy">
                       <h4>Primary Actions</h4>
-                      <p class="muted">Single next-step actions used for login, save, query execution, and acknowledgment workflows.</p>
+                      <p class="muted">Main action buttons for login, save, and workflow confirmation.</p>
                     </div>
                   </div>
                 </div>
@@ -3071,7 +3049,6 @@
                     <span class="preview-line medium"></span>
                   </div>
                 </div>
-                <p class="section-subtitle" style="margin-top:1rem;">Switch the density class to make the same interface feel compact, standard, or presentation-sized while preserving layout structure.</p>
               </div>
             </div>
           </div>
@@ -3360,7 +3337,7 @@
       }
 
       function renderNavbar() {
-        dom.navbarLinks.innerHTML = '<div class="nav-summary mono">Use the sidebar to navigate sections</div>';
+        dom.navbarLinks.innerHTML = '';
       }
 
       function renderSidebar(role) {
@@ -3586,7 +3563,7 @@
       }
 
       function loadTheme() {
-        const stored = localStorage.getItem('smiot_theme') || 'theme-space';
+        const stored = localStorage.getItem('smiot_theme') || 'theme-steel';
         const index = THEMES.findIndex(function (theme) { return theme.className === stored; });
         applyTheme(index >= 0 ? index : 0, true);
       }
