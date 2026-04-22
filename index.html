@@ -1006,6 +1006,46 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .trend-window-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .trend-card {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      padding: 1rem;
+      display: grid;
+      gap: 0.28rem;
+    }
+
+    .trend-delta {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      color: var(--accent-a);
+    }
+
+    .trend-context {
+      color: var(--text-2);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .trend-summary {
+      margin-top: 0.95rem;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
     .team-grid {
       grid-template-columns: repeat(5, minmax(0, 1fr));
     }
@@ -1935,7 +1975,8 @@
     @media (max-width: 1280px) {
       .hero-grid,
       .grid-4,
-      .metric-grid {
+      .metric-grid,
+      .trend-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1972,6 +2013,7 @@
       .grid-2,
       .layout-preview-grid,
       .dashboard-charts,
+      .trend-grid,
       .entity-grid,
       .relationship-map,
       .automation-grid {
@@ -2907,6 +2949,19 @@
             </div>
 
             <div class="table-card reveal" style="margin-top:1rem;">
+              <div class="toolbar-row" style="justify-content:space-between;margin-bottom:0.8rem;">
+                <div>
+                  <h3>Trend Comparison</h3>
+                  <div class="muted">Compare sensor changes across short-term and long-term operating windows.</div>
+                </div>
+                <span class="tiny-chip mono">2H TO 2YRS</span>
+              </div>
+              <div class="trend-window-row" id="trend-toolbar-public"></div>
+              <div class="trend-grid" id="trend-grid-public"></div>
+              <div class="trend-summary" id="trend-summary-public"></div>
+            </div>
+
+            <div class="table-card reveal" style="margin-top:1rem;">
               <h3>Alert Log</h3>
               <div class="table-wrap">
                 <table>
@@ -2973,6 +3028,14 @@
                     <tbody id="operator-sensor-body"></tbody>
                   </table>
                 </div>
+              </div>
+
+              <div id="op-trends" class="dash-card reveal subpanel">
+                <div class="section-anchor">Trend View</div>
+                <h3>Operator Trend Comparison</h3>
+                <div class="trend-window-row" id="trend-toolbar-operator"></div>
+                <div class="trend-grid" id="trend-grid-operator"></div>
+                <div class="trend-summary" id="trend-summary-operator"></div>
               </div>
 
               <div id="op-alerts" class="dash-card reveal subpanel">
@@ -3049,6 +3112,14 @@
                   <div class="stat-card"><span class="metric-label">Alerts This Week</span><strong class="metric-value mono">7</strong></div>
                   <div class="stat-card"><span class="metric-label">Uptime</span><strong class="metric-value mono">99.2%</strong></div>
                 </div>
+              </div>
+
+              <div id="admin-trends" class="dash-card reveal subpanel">
+                <div class="section-anchor">Trend View</div>
+                <h3>Admin Trend Comparison</h3>
+                <div class="trend-window-row" id="trend-toolbar-admin"></div>
+                <div class="trend-grid" id="trend-grid-admin"></div>
+                <div class="trend-summary" id="trend-summary-admin"></div>
               </div>
 
               <div id="admin-sensors" class="dash-card reveal subpanel">
@@ -3298,6 +3369,14 @@
                 </div>
               </div>
 
+              <div id="designer-trends" class="dash-card reveal subpanel">
+                <div class="section-anchor">Trend View</div>
+                <h3>Designer Trend Preview</h3>
+                <div class="trend-window-row" id="trend-toolbar-designer"></div>
+                <div class="trend-grid" id="trend-grid-designer"></div>
+                <div class="trend-summary" id="trend-summary-designer"></div>
+              </div>
+
               <div id="designer-query" class="dash-card reveal subpanel">
                 <div class="section-anchor">Query Writing</div>
                 <h3>Designer Query Writing</h3>
@@ -3350,10 +3429,12 @@
           { id: 'op-monitor', label: 'Live Monitor', icon: '⚡' },
           { id: 'op-alerts', label: 'Alerts', icon: '🔔' },
           { id: 'op-status', label: 'Machine Status', icon: '⚙' },
+          { id: 'op-trends', label: 'Trend View', icon: '📈' },
           { id: 'op-query', label: 'Query Writing', icon: '🗃' }
         ],
         admin: [
           { id: 'admin-overview', label: 'System Stats', icon: '📋' },
+          { id: 'admin-trends', label: 'Trend View', icon: '📈' },
           { id: 'admin-sensors', label: 'Sensor Config', icon: '🔧' },
           { id: 'admin-maintenance', label: 'Maintenance', icon: '🛠' },
           { id: 'admin-users', label: 'Users', icon: '👥' },
@@ -3364,6 +3445,7 @@
           { id: 'designer-fonts', label: 'Fonts', icon: '🔤' },
           { id: 'designer-components', label: 'Components', icon: '🧩' },
           { id: 'designer-preview', label: 'Preview', icon: '📐' },
+          { id: 'designer-trends', label: 'Trend View', icon: '📈' },
           { id: 'designer-animations', label: 'Animations', icon: '✨' },
           { id: 'designer-query', label: 'Query Writing', icon: '🗃' }
         ]
@@ -3466,6 +3548,76 @@
         }
       };
 
+      const TREND_WINDOWS = [
+        { key: '2h', label: '2 hrs' },
+        { key: '4h', label: '4 hrs' },
+        { key: '8h', label: '8 hrs' },
+        { key: '16h', label: '16 hrs' },
+        { key: '24h', label: '24 hrs' },
+        { key: '48h', label: '48 hrs' },
+        { key: '1yr', label: '1 yr' },
+        { key: '2yrs', label: '2 yrs' }
+      ];
+
+      const TREND_DATA = {
+        '2h': {
+          temperature: { delta: '+1.8 °C', context: 'Avg 183.6 °C', note: 'Mild thermal rise' },
+          pressure: { delta: '-2.4 bar', context: 'Avg 111.4 bar', note: 'Pressure still stable' },
+          vibration: { delta: '+0.08 mm/s', context: 'Avg 1.79 mm/s', note: 'Low vibration shift' },
+          faults: { delta: '+1 alert', context: '2 active warnings', note: 'Watch the heater cycle' },
+          summary: 'In the last 2 hours, temperature has risen slightly while pressure and vibration remain within normal operating limits.'
+        },
+        '4h': {
+          temperature: { delta: '+2.6 °C', context: 'Avg 182.9 °C', note: 'Warm-up impact visible' },
+          pressure: { delta: '-1.1 bar', context: 'Avg 110.8 bar', note: 'No critical drift' },
+          vibration: { delta: '+0.13 mm/s', context: 'Avg 1.76 mm/s', note: 'Small bearing response' },
+          faults: { delta: '+2 alerts', context: '3 warning events', note: 'Trend needs observation' },
+          summary: 'The 4-hour trend shows a controlled rise in temperature and a small increase in vibration, but no unstable pressure behavior.'
+        },
+        '8h': {
+          temperature: { delta: '+3.9 °C', context: 'Avg 181.8 °C', note: 'Shift-level heating effect' },
+          pressure: { delta: '+0.6 bar', context: 'Avg 109.9 bar', note: 'Balanced pressure profile' },
+          vibration: { delta: '+0.18 mm/s', context: 'Avg 1.71 mm/s', note: 'Mechanical load slightly higher' },
+          faults: { delta: '+3 alerts', context: '4 total events', note: 'Maintenance watch advised' },
+          summary: 'Across 8 hours, the machine stays productive, but the gradual temperature and vibration rise suggests closer shift monitoring.'
+        },
+        '16h': {
+          temperature: { delta: '+2.7 °C', context: 'Avg 180.7 °C', note: 'Day-long thermal drift' },
+          pressure: { delta: '+1.9 bar', context: 'Avg 109.4 bar', note: 'Compression stage stronger' },
+          vibration: { delta: '+0.22 mm/s', context: 'Avg 1.68 mm/s', note: 'Repeated cycles increase motion' },
+          faults: { delta: '+4 alerts', context: '5 total events', note: 'Review repeated warnings' },
+          summary: 'The 16-hour window suggests the machine remains stable overall, but repeated alerts indicate a pattern that should be reviewed.'
+        },
+        '24h': {
+          temperature: { delta: '+1.9 °C', context: 'Avg 179.8 °C', note: 'Daily average near target' },
+          pressure: { delta: '+2.8 bar', context: 'Avg 108.7 bar', note: 'Pressure improved over day' },
+          vibration: { delta: '+0.17 mm/s', context: 'Avg 1.64 mm/s', note: 'No severe mechanical jump' },
+          faults: { delta: '+5 alerts', context: '6 recorded events', note: 'Mostly warning-level faults' },
+          summary: 'Over 24 hours, the process remains close to target temperature, with manageable pressure improvement and moderate warning activity.'
+        },
+        '48h': {
+          temperature: { delta: '-0.8 °C', context: 'Avg 179.1 °C', note: 'Cooling correction effective' },
+          pressure: { delta: '+3.6 bar', context: 'Avg 108.2 bar', note: 'More stable molding force' },
+          vibration: { delta: '+0.11 mm/s', context: 'Avg 1.58 mm/s', note: 'Steady mechanical condition' },
+          faults: { delta: '+7 alerts', context: '8 total events', note: 'Recurring alert cycle visible' },
+          summary: 'The 48-hour trend indicates process stabilization after control correction, especially in temperature and pressure behavior.'
+        },
+        '1yr': {
+          temperature: { delta: '-3.4 °C', context: 'Avg 178.4 °C', note: 'Year-over-year thermal control improved' },
+          pressure: { delta: '+4.8 bar', context: 'Avg 107.6 bar', note: 'Pressure consistency improved' },
+          vibration: { delta: '-0.22 mm/s', context: 'Avg 1.41 mm/s', note: 'Mechanical health better than baseline' },
+          faults: { delta: '-18 alerts', context: 'Downtime reduced 11%', note: 'Predictive response is working' },
+          summary: 'The 1-year trend shows improved control stability, fewer faults, and better mechanical behavior after data-driven monitoring adoption.'
+        },
+        '2yrs': {
+          temperature: { delta: '-5.1 °C', context: 'Avg 177.2 °C', note: 'Long-term tuning reduced overheating' },
+          pressure: { delta: '+6.3 bar', context: 'Avg 106.8 bar', note: 'Compression stability stronger' },
+          vibration: { delta: '-0.35 mm/s', context: 'Avg 1.32 mm/s', note: 'Wear trend reduced by maintenance planning' },
+          faults: { delta: '-31 alerts', context: 'Downtime reduced 19%', note: 'Reliability improved significantly' },
+          summary: 'The 2-year trend suggests that predictive maintenance and parameter optimization have materially improved reliability and process stability.'
+        }
+      };
+
       const adminState = {
         configs: [
           { id: 'temp_sensor_01', machine: 'M-01', type: 'Temperature', unit: '°C', min: 150, max: 200, status: 'Active', editing: false },
@@ -3499,6 +3651,12 @@
         revealObserver: null,
         appStarted: false,
         activeOpFilter: 'all',
+        trendSelections: {
+          public: '24h',
+          operator: '8h',
+          admin: '48h',
+          designer: '1yr'
+        },
         queryTimer: null,
         tick: 0,
         dbRecords: 1834,
@@ -3715,6 +3873,7 @@
         });
         document.getElementById('dash-' + role).style.display = 'block';
 
+        renderAllTrendPanels();
         updateActiveLinks();
         setupRevealObserver();
       }
@@ -4311,6 +4470,43 @@
         }).join('');
       }
 
+      function renderTrendPanel(scope) {
+        const toolbar = document.getElementById('trend-toolbar-' + scope);
+        const grid = document.getElementById('trend-grid-' + scope);
+        const summary = document.getElementById('trend-summary-' + scope);
+        if (!toolbar || !grid || !summary) return;
+
+        const selected = state.trendSelections[scope] || '24h';
+        const trend = TREND_DATA[selected];
+
+        toolbar.innerHTML = TREND_WINDOWS.map(function (windowItem) {
+          return '<button class="layout-btn trend-window-btn' + (windowItem.key === selected ? ' active' : '') + '" type="button" data-trend-scope="' + scope + '" data-trend-window="' + windowItem.key + '">' + windowItem.label + '</button>';
+        }).join('');
+
+        grid.innerHTML = [
+          { title: 'Temperature Change', data: trend.temperature },
+          { title: 'Pressure Change', data: trend.pressure },
+          { title: 'Vibration Change', data: trend.vibration },
+          { title: 'Fault Change', data: trend.faults }
+        ].map(function (item) {
+          return '' +
+            '<div class="trend-card">' +
+              '<span class="metric-label">' + item.title + '</span>' +
+              '<strong class="trend-delta">' + item.data.delta + '</strong>' +
+              '<span class="trend-context">' + item.data.context + '</span>' +
+              '<span class="trend-context">' + item.data.note + '</span>' +
+            '</div>';
+        }).join('');
+
+        summary.textContent = trend.summary;
+      }
+
+      function renderAllTrendPanels() {
+        ['public', 'operator', 'admin', 'designer'].forEach(function (scope) {
+          renderTrendPanel(scope);
+        });
+      }
+
       function buildChartOptions(config) {
         config = config || {};
         const text = getCssVar('--text-2');
@@ -4795,6 +4991,13 @@
             return;
           }
 
+          const trendButton = event.target.closest('.trend-window-btn');
+          if (trendButton) {
+            state.trendSelections[trendButton.dataset.trendScope] = trendButton.dataset.trendWindow;
+            renderTrendPanel(trendButton.dataset.trendScope);
+            return;
+          }
+
           const densityButton = event.target.closest('.layout-btn[data-density]');
           if (densityButton) {
             setDensity(densityButton.dataset.density);
@@ -4837,6 +5040,7 @@
         renderDashboardAlertTable();
         renderOperatorTables();
         renderAdminTables();
+        renderAllTrendPanels();
         seedInitialLogs();
         setupRevealObserver();
         buildCharts();
