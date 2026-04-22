@@ -2633,6 +2633,55 @@
 <span class="sql-key">END</span>;</pre>
               </div>
             </div>
+
+            <div class="section-card accent-c reveal" style="margin-top:1rem;">
+              <div class="toolbar-row" style="justify-content:space-between;margin-bottom:0.8rem;">
+                <div>
+                  <h3>SQL Query Examples</h3>
+                  <div class="muted">PostgreSQL queries used to inspect readings, join machine entities, summarize telemetry, and check maintenance due cases.</div>
+                </div>
+                <span class="tiny-chip mono">QUERY DEMO</span>
+              </div>
+
+              <div class="grid-2">
+                <div class="card">
+                  <span class="tiny-chip mono">Selection</span>
+                  <h3>Critical Temperature Readings</h3>
+                  <pre class="sql-snippet"><span class="sql-key">SELECT</span> reading_id, sensor_id, value, timestamp
+<span class="sql-key">FROM</span> SensorReading
+<span class="sql-key">WHERE</span> value &gt; <span class="sql-string">190</span>
+  <span class="sql-key">AND</span> status = <span class="sql-string">'WARNING'</span>;</pre>
+                </div>
+
+                <div class="card">
+                  <span class="tiny-chip mono">Join</span>
+                  <h3>Machine + Sensor + Reading</h3>
+                  <pre class="sql-snippet"><span class="sql-key">SELECT</span> m.name, s.sensor_type, r.value, r.timestamp
+<span class="sql-key">FROM</span> Machine m
+<span class="sql-key">JOIN</span> Sensor s <span class="sql-key">ON</span> m.machine_id = s.machine_id
+<span class="sql-key">JOIN</span> SensorReading r <span class="sql-key">ON</span> s.sensor_id = r.sensor_id
+<span class="sql-key">ORDER BY</span> r.timestamp <span class="sql-key">DESC</span>;</pre>
+                </div>
+
+                <div class="card">
+                  <span class="tiny-chip mono">Aggregation</span>
+                  <h3>Average Sensor Trend</h3>
+                  <pre class="sql-snippet"><span class="sql-key">SELECT</span> sensor_id, AVG(value) AS avg_value, COUNT(*) AS total_rows
+<span class="sql-key">FROM</span> SensorReading
+<span class="sql-key">GROUP BY</span> sensor_id
+<span class="sql-key">HAVING</span> AVG(value) &gt; <span class="sql-string">180</span>;</pre>
+                </div>
+
+                <div class="card">
+                  <span class="tiny-chip mono">Procedure</span>
+                  <h3>Maintenance Due Check</h3>
+                  <pre class="sql-snippet"><span class="sql-key">CALL</span> get_maintenance_due();
+
+<span class="sql-comment">-- Returns machines whose latest maintenance</span>
+<span class="sql-comment">-- date is beyond the expected service window.</span></pre>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section id="sec-statistics" class="section-block">
