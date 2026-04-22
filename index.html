@@ -1454,6 +1454,12 @@
       gap: 1rem;
     }
 
+    .level-note {
+      margin: 0 0 0.95rem;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
     .entity-card h3,
     .card h3,
     .panel h3,
@@ -1472,6 +1478,35 @@
       color: var(--text-2);
       font-family: var(--font-mono);
       font-size: 0.8rem;
+    }
+
+    .relationship-map {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .relationship-card {
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      padding: 0.95rem 1rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .relationship-card strong {
+      margin: 0;
+      font-family: var(--font-display);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .relationship-card .mono {
+      font-size: 0.77rem;
+      color: var(--accent-a);
     }
 
     .automation-grid {
@@ -1899,6 +1934,7 @@
       }
 
       .entity-grid,
+      .relationship-map,
       .automation-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -1927,6 +1963,7 @@
       .layout-preview-grid,
       .dashboard-charts,
       .entity-grid,
+      .relationship-map,
       .automation-grid {
         grid-template-columns: 1fr;
       }
@@ -2476,6 +2513,7 @@
             <div class="db-levels">
               <div class="level-band level-one reveal">
                 <span class="layer-title">Level 1 — Real-Time Data Ingestion</span>
+                <p class="level-note">This level captures live sensor readings and threshold-based alerts as soon as the machine sends data into the system.</p>
                 <div class="grid-2">
                   <div class="table-card">
                     <h3>SensorReading</h3>
@@ -2514,21 +2552,8 @@
 
               <div class="level-band level-two reveal">
                 <span class="layer-title">Level 2 — Core Relational Database</span>
+                <p class="level-note">This level stores the main SmartMold entities and shows their relationships in simple plain language.</p>
                 <div class="entity-shell">
-                  <svg class="entity-svg" viewBox="0 0 1000 180" aria-hidden="true">
-                    <line x1="120" y1="54" x2="320" y2="54"></line>
-                    <text x="208" y="42">1:N</text>
-                    <line x1="380" y1="54" x2="580" y2="54"></line>
-                    <text x="468" y="42">1:N</text>
-                    <line x1="120" y1="126" x2="320" y2="126"></line>
-                    <text x="208" y="114">1:N</text>
-                    <line x1="380" y1="126" x2="580" y2="126"></line>
-                    <text x="466" y="114">1:N</text>
-                    <line x1="640" y1="126" x2="860" y2="126"></line>
-                    <text x="742" y="114">N:1</text>
-                    <line x1="380" y1="54" x2="380" y2="126"></line>
-                    <text x="394" y="95">1:N</text>
-                  </svg>
                   <div class="entity-grid">
                     <div class="entity-card">
                       <h3>Machine</h3>
@@ -2585,26 +2610,59 @@
                       </div>
                     </div>
                   </div>
+                  <div class="relationship-map">
+                    <div class="relationship-card">
+                      <strong>Machine to Sensor</strong>
+                      <span class="mono">One machine can have many sensors.</span>
+                      <span class="muted">Temperature, pressure, and vibration sensors are attached to one machine.</span>
+                    </div>
+                    <div class="relationship-card">
+                      <strong>Sensor to SensorReading</strong>
+                      <span class="mono">One sensor can have many readings.</span>
+                      <span class="muted">Each timestamped value is stored as a separate reading row.</span>
+                    </div>
+                    <div class="relationship-card">
+                      <strong>Machine to ProductionBatch</strong>
+                      <span class="mono">One machine can produce many batches.</span>
+                      <span class="muted">Each batch stores quality score and defect count for comparison.</span>
+                    </div>
+                    <div class="relationship-card">
+                      <strong>Machine to MaintenanceRecord</strong>
+                      <span class="mono">One machine can have many maintenance records.</span>
+                      <span class="muted">Every service visit is tracked as a separate maintenance entry.</span>
+                    </div>
+                    <div class="relationship-card">
+                      <strong>Technician to MaintenanceRecord</strong>
+                      <span class="mono">One technician can manage many maintenance records.</span>
+                      <span class="muted">This keeps the service history linked to the responsible technician.</span>
+                    </div>
+                    <div class="relationship-card">
+                      <strong>Sensor to Alert</strong>
+                      <span class="mono">One sensor can generate many alerts.</span>
+                      <span class="muted">Alerts are created when live readings cross warning or fault thresholds.</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div class="level-band level-three reveal">
                 <span class="layer-title">Level 3 — Views, Triggers &amp; Stored Procedures</span>
+                <p class="level-note">This level turns stored data into automation logic for live summaries, alert generation, and maintenance checks.</p>
                 <div class="automation-grid">
                   <div class="card accent-a">
-                    <h3>VIEW</h3>
+                    <h3>Live Status View</h3>
                     <p class="mono">live_sensor_status</p>
                   </div>
                   <div class="card accent-c">
-                    <h3>VIEW</h3>
+                    <h3>Health Summary View</h3>
                     <p class="mono">machine_health_summary</p>
                   </div>
                   <div class="card accent-b">
-                    <h3>TRIGGER</h3>
+                    <h3>Auto Alert Trigger</h3>
                     <p class="mono">auto_alert_on_threshold</p>
                   </div>
                   <div class="card accent-b">
-                    <h3>STORED PROC</h3>
+                    <h3>Maintenance Procedure</h3>
                     <p class="mono">get_maintenance_due()</p>
                   </div>
                 </div>
