@@ -2859,6 +2859,22 @@
                   <button class="ghost-btn quick-action" type="button" data-toast="Operator observation added to machine log.">Log Observation</button>
                 </div>
               </div>
+
+              <div id="op-query" class="dash-card reveal subpanel">
+                <div class="section-anchor">Query Writing</div>
+                <h3>Operator Query Writing</h3>
+                <div class="toolbar-row" style="margin-bottom:1rem;">
+                  <select class="select-input" id="op-query-select" style="flex:1 1 260px;">
+                    <option value="">Select Query to View</option>
+                    <option value="latest">Latest live readings</option>
+                    <option value="warnings">Warning sensor values</option>
+                    <option value="recent-alerts">Recent active alerts</option>
+                  </select>
+                  <button class="btn btn-primary" id="run-op-query" type="button">Run Query</button>
+                </div>
+                <div class="result-card mono" id="op-query-terminal">Choose an operator query and run it.</div>
+                <div class="table-wrap" id="op-query-result" style="margin-top:1rem;"></div>
+              </div>
             </div>
           </div>
 
@@ -2967,8 +2983,8 @@
               </div>
 
               <div id="admin-query" class="dash-card reveal subpanel">
-                <div class="section-anchor">Query Tool</div>
-                <h3>Database Query Simulator</h3>
+                <div class="section-anchor">Query Writing</div>
+                <h3>Admin Query Writing</h3>
                 <div class="toolbar-row" style="margin-bottom:1rem;">
                   <select class="select-input" id="query-select" style="flex:1 1 260px;">
                     <option value="">Select Query to Run</option>
@@ -3127,6 +3143,22 @@
                   </div>
                 </div>
               </div>
+
+              <div id="designer-query" class="dash-card reveal subpanel">
+                <div class="section-anchor">Query Writing</div>
+                <h3>Designer Query Writing</h3>
+                <div class="toolbar-row" style="margin-bottom:1rem;">
+                  <select class="select-input" id="designer-query-select" style="flex:1 1 260px;">
+                    <option value="">Select Query to View</option>
+                    <option value="ui-status">Dashboard status view</option>
+                    <option value="theme-audit">Theme setting audit</option>
+                    <option value="component-usage">Component usage summary</option>
+                  </select>
+                  <button class="btn btn-primary" id="run-designer-query" type="button">Run Query</button>
+                </div>
+                <div class="result-card mono" id="designer-query-terminal">Choose a designer query and run it.</div>
+                <div class="table-wrap" id="designer-query-result" style="margin-top:1rem;"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -3163,21 +3195,23 @@
         operator: [
           { id: 'op-monitor', label: 'Live Monitor', icon: '⚡' },
           { id: 'op-alerts', label: 'Alerts', icon: '🔔' },
-          { id: 'op-status', label: 'Machine Status', icon: '⚙' }
+          { id: 'op-status', label: 'Machine Status', icon: '⚙' },
+          { id: 'op-query', label: 'Query Writing', icon: '🗃' }
         ],
         admin: [
           { id: 'admin-overview', label: 'System Stats', icon: '📋' },
           { id: 'admin-sensors', label: 'Sensor Config', icon: '🔧' },
           { id: 'admin-maintenance', label: 'Maintenance', icon: '🛠' },
           { id: 'admin-users', label: 'Users', icon: '👥' },
-          { id: 'admin-query', label: 'Query Tool', icon: '🗃' }
+          { id: 'admin-query', label: 'Query Writing', icon: '🗃' }
         ],
         designer: [
           { id: 'designer-theme', label: 'Theme Studio', icon: '🎨' },
           { id: 'designer-fonts', label: 'Fonts', icon: '🔤' },
           { id: 'designer-components', label: 'Components', icon: '🧩' },
           { id: 'designer-preview', label: 'Preview', icon: '📐' },
-          { id: 'designer-animations', label: 'Animations', icon: '✨' }
+          { id: 'designer-animations', label: 'Animations', icon: '✨' },
+          { id: 'designer-query', label: 'Query Writing', icon: '🗃' }
         ]
       };
 
@@ -3215,6 +3249,65 @@
           rows: [
             ['M-02', '2026-03-22', 30],
             ['M-03', '2026-03-10', 42]
+          ]
+        }
+      };
+
+      const OPERATOR_QUERY_RESULTS = {
+        latest: {
+          sql: "SELECT sensor_id, value, status, timestamp\\nFROM SensorReading\\nORDER BY timestamp DESC\\nLIMIT 3;",
+          headers: ['sensor_id', 'value', 'status', 'timestamp'],
+          rows: [
+            ['temp_sensor_01', '184.3 °C', 'NORMAL', '2026-04-21 10:08:12'],
+            ['pres_sensor_01', '112.7 bar', 'NORMAL', '2026-04-21 10:08:12'],
+            ['vib_sensor_01', '1.84 mm/s', 'NORMAL', '2026-04-21 10:08:12']
+          ]
+        },
+        warnings: {
+          sql: "SELECT sensor_id, value, status\\nFROM SensorReading\\nWHERE status <> 'NORMAL';",
+          headers: ['sensor_id', 'value', 'status'],
+          rows: [
+            ['temp_sensor_01', '191.6 °C', 'WARNING'],
+            ['vib_sensor_01', '4.28 mm/s', 'ALERT']
+          ]
+        },
+        'recent-alerts': {
+          sql: "SELECT alert_type, actual_value, resolved\\nFROM Alert\\nORDER BY triggered_at DESC\\nLIMIT 5;",
+          headers: ['alert_type', 'actual_value', 'resolved'],
+          rows: [
+            ['HIGH_TEMP', '198.4 °C', 'FALSE'],
+            ['VIBRATION_SURGE', '4.28 mm/s', 'TRUE'],
+            ['PRESSURE_HIGH', '108.7 bar', 'TRUE']
+          ]
+        }
+      };
+
+      const DESIGNER_QUERY_RESULTS = {
+        'ui-status': {
+          sql: "SELECT widget_name, visibility, theme_name\\nFROM dashboard_ui_state\\nWHERE role = 'designer';",
+          headers: ['widget_name', 'visibility', 'theme_name'],
+          rows: [
+            ['sensor_cards', 'visible', 'Steel Forge'],
+            ['analytics_panel', 'visible', 'Steel Forge'],
+            ['layout_preview', 'visible', 'Steel Forge']
+          ]
+        },
+        'theme-audit': {
+          sql: "SELECT theme_name, accent_a, accent_b, accent_c\\nFROM theme_audit_log\\nORDER BY updated_at DESC\\nLIMIT 3;",
+          headers: ['theme_name', 'accent_a', 'accent_b', 'accent_c'],
+          rows: [
+            ['Steel Forge', '#F0A500', '#E84545', '#4A9E8A'],
+            ['Deep Space', '#00E5CC', '#FF5722', '#7B5EA7'],
+            ['Arctic Lab', '#0070F3', '#FF4500', '#6C3FC5']
+          ]
+        },
+        'component-usage': {
+          sql: "SELECT component_name, total_instances, primary_use\\nFROM ui_component_registry\\nORDER BY total_instances DESC;",
+          headers: ['component_name', 'total_instances', 'primary_use'],
+          rows: [
+            ['stat_card', 14, 'dashboard KPIs'],
+            ['sensor_card', 6, 'live telemetry'],
+            ['status_badge', 18, 'alerts and states']
           ]
         }
       };
@@ -3328,10 +3421,18 @@
         navUsername: document.getElementById('nav-username'),
         sidebarToggle: document.getElementById('sidebar-toggle'),
         logoutBtn: document.getElementById('logout-btn'),
+        opQuerySelect: document.getElementById('op-query-select'),
+        runOpQueryButton: document.getElementById('run-op-query'),
+        opQueryTerminal: document.getElementById('op-query-terminal'),
+        opQueryResult: document.getElementById('op-query-result'),
         querySelect: document.getElementById('query-select'),
         runQueryButton: document.getElementById('run-query'),
         adminQueryTerminal: document.getElementById('admin-query-terminal'),
-        adminQueryResult: document.getElementById('admin-query-result')
+        adminQueryResult: document.getElementById('admin-query-result'),
+        designerQuerySelect: document.getElementById('designer-query-select'),
+        runDesignerQueryButton: document.getElementById('run-designer-query'),
+        designerQueryTerminal: document.getElementById('designer-query-terminal'),
+        designerQueryResult: document.getElementById('designer-query-result')
       };
 
       function getCssVar(name) {
@@ -4324,37 +4425,49 @@
         }
       }
 
-      function runAdminQuery() {
-        const key = dom.querySelect.value;
-        if (!key || !ADMIN_QUERY_RESULTS[key]) {
+      function runRoleQuery(selectNode, terminalNode, resultNode, queryResults, emptyMessage) {
+        const key = selectNode.value;
+        if (!key || !queryResults[key]) {
           showToast('Choose a query first.', 'warning');
           return;
         }
 
-        const query = ADMIN_QUERY_RESULTS[key];
-        dom.adminQueryResult.innerHTML = '';
-        dom.adminQueryTerminal.textContent = '';
+        const query = queryResults[key];
+        resultNode.innerHTML = '';
+        terminalNode.textContent = '';
 
         if (state.queryTimer) clearInterval(state.queryTimer);
 
         let index = 0;
         state.queryTimer = setInterval(function () {
-          dom.adminQueryTerminal.textContent = 'Executing...\\n' + query.sql.slice(0, index + 1);
+          terminalNode.textContent = 'Executing...\\n' + query.sql.slice(0, index + 1);
           index += 1;
           if (index >= query.sql.length) {
             clearInterval(state.queryTimer);
             state.queryTimer = null;
-            renderAdminQueryResult(query);
+            renderQueryResult(resultNode, query);
           }
         }, 22);
       }
 
-      function renderAdminQueryResult(query) {
+      function runAdminQuery() {
+        runRoleQuery(dom.querySelect, dom.adminQueryTerminal, dom.adminQueryResult, ADMIN_QUERY_RESULTS, 'Select a query and run the simulator.');
+      }
+
+      function runOperatorQuery() {
+        runRoleQuery(dom.opQuerySelect, dom.opQueryTerminal, dom.opQueryResult, OPERATOR_QUERY_RESULTS, 'Choose an operator query and run it.');
+      }
+
+      function runDesignerQuery() {
+        runRoleQuery(dom.designerQuerySelect, dom.designerQueryTerminal, dom.designerQueryResult, DESIGNER_QUERY_RESULTS, 'Choose a designer query and run it.');
+      }
+
+      function renderQueryResult(targetNode, query) {
         const headerHtml = query.headers.map(function (header) { return '<th>' + header + '</th>'; }).join('');
         const rowHtml = query.rows.map(function (row) {
           return '<tr>' + row.map(function (cell) { return '<td>' + cell + '</td>'; }).join('') + '</tr>';
         }).join('');
-        dom.adminQueryResult.innerHTML = '<table><thead><tr>' + headerHtml + '</tr></thead><tbody>' + rowHtml + '</tbody></table>';
+        targetNode.innerHTML = '<table><thead><tr>' + headerHtml + '</tr></thead><tbody>' + rowHtml + '</tbody></table>';
       }
 
       function resolveOperatorAlert(index) {
@@ -4491,7 +4604,9 @@
           }
         });
 
+        dom.runOpQueryButton.addEventListener('click', runOperatorQuery);
         dom.runQueryButton.addEventListener('click', runAdminQuery);
+        dom.runDesignerQueryButton.addEventListener('click', runDesignerQuery);
 
         ['color-base', 'color-a', 'color-b', 'color-c'].forEach(function (id) {
           document.getElementById(id).addEventListener('input', function () {
