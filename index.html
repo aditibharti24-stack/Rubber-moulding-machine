@@ -4225,7 +4225,8 @@
         }).join('');
       }
 
-      function buildChartOptions() {
+      function buildChartOptions(config) {
+        config = config || {};
         const text = getCssVar('--text-2');
         const line = getCssVar('--line');
         return {
@@ -4242,11 +4243,29 @@
           },
           scales: {
             x: {
-              ticks: { color: text },
+              title: {
+                display: !!config.xTitle,
+                text: config.xTitle || '',
+                color: text,
+                font: { family: 'DM Sans', size: 12, weight: '600' }
+              },
+              ticks: {
+                color: text,
+                callback: config.xTickFormatter || undefined
+              },
               grid: { color: line }
             },
             y: {
-              ticks: { color: text },
+              title: {
+                display: !!config.yTitle,
+                text: config.yTitle || '',
+                color: text,
+                font: { family: 'DM Sans', size: 12, weight: '600' }
+              },
+              ticks: {
+                color: text,
+                callback: config.yTickFormatter || undefined
+              },
               grid: { color: line }
             }
           }
@@ -4290,7 +4309,10 @@
               }
             ]
           },
-          options: Object.assign(buildChartOptions(), {
+          options: Object.assign(buildChartOptions({
+            xTitle: 'Standardized score',
+            yTitle: 'Probability density'
+          }), {
             plugins: { legend: { display: true } }
           })
         });
@@ -4319,7 +4341,10 @@
               }
             ]
           },
-          options: buildChartOptions()
+          options: buildChartOptions({
+            xTitle: 'Temperature (°C)',
+            yTitle: 'Quality score'
+          })
         });
 
         charts.statAnomaly = new Chart(document.getElementById('stat-anomaly-chart'), {
@@ -4347,13 +4372,16 @@
               }
             ]
           },
-          options: buildChartOptions()
+          options: buildChartOptions({
+            xTitle: 'Sample index',
+            yTitle: 'Vibration (mm/s)'
+          })
         });
 
         charts.dashboardTemp = new Chart(document.getElementById('dashboard-temp-chart'), {
           type: 'line',
           data: {
-            labels: state.dashboardTempHistory.map(function (_, index) { return index + 1; }),
+            labels: state.dashboardTempHistory.map(function (_, index) { return ((index + 1) * 5) + 's'; }),
             datasets: [{
               label: 'Temperature',
               data: state.dashboardTempHistory,
@@ -4363,7 +4391,10 @@
               tension: 0.3
             }]
           },
-          options: buildChartOptions()
+          options: buildChartOptions({
+            xTitle: 'Time window (s)',
+            yTitle: 'Temperature (°C)'
+          })
         });
 
         charts.dashboardPressure = new Chart(document.getElementById('dashboard-pressure-chart'), {
@@ -4379,7 +4410,10 @@
               borderRadius: 8
             }]
           },
-          options: buildChartOptions()
+          options: buildChartOptions({
+            xTitle: 'Production cycle',
+            yTitle: 'Pressure (bar)'
+          })
         });
 
         if (state.currentRole === 'admin') {
@@ -4409,7 +4443,10 @@
                 }
               ]
             },
-            options: buildChartOptions()
+            options: buildChartOptions({
+              xTitle: 'Standardized score',
+              yTitle: 'Probability density'
+            })
           });
 
           charts.adminRegression = new Chart(document.getElementById('admin-regression-chart'), {
@@ -4436,7 +4473,10 @@
                 }
               ]
             },
-            options: buildChartOptions()
+            options: buildChartOptions({
+              xTitle: 'Temperature (°C)',
+              yTitle: 'Quality score'
+            })
           });
 
           charts.adminAnomaly = new Chart(document.getElementById('admin-anomaly-chart'), {
@@ -4464,7 +4504,10 @@
                 }
               ]
             },
-            options: buildChartOptions()
+            options: buildChartOptions({
+              xTitle: 'Sample index',
+              yTitle: 'Vibration (mm/s)'
+            })
           });
         }
       }
@@ -4476,7 +4519,7 @@
 
       function updateRuntimeCharts() {
         if (charts.dashboardTemp) {
-          charts.dashboardTemp.data.labels = state.dashboardTempHistory.map(function (_, index) { return index + 1; });
+          charts.dashboardTemp.data.labels = state.dashboardTempHistory.map(function (_, index) { return ((index + 1) * 5) + 's'; });
           charts.dashboardTemp.data.datasets[0].data = state.dashboardTempHistory;
           charts.dashboardTemp.data.datasets[0].borderColor = getCssVar('--accent-a');
           charts.dashboardTemp.data.datasets[0].backgroundColor = getCssVar('--accent-a') + '22';
