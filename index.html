@@ -2165,19 +2165,19 @@
         <div class="content-shell">
           <section id="sec-overview" class="section-block">
             <div class="section-head reveal">
-              <span class="section-label">Project Overview</span>
-              <h2 class="section-title">SmartMold IoT</h2>
-              <p class="section-subtitle">A concise industrial portfolio showing how SmartMold turns a conventional rubber molding press into a monitored, data-driven machine.</p>
+              <span class="section-label">Project Title & Problem Statement</span>
+              <h2 class="section-title">Data-Driven Digital Transformation of an IoT-Enabled 4-Pillar Compression Type Rubber Molding Machine</h2>
+              <p class="section-subtitle">SmartMold IoT connects sensing, communication, storage, and analytics so a traditional rubber molding machine can be monitored and improved using live industrial data.</p>
             </div>
 
             <div class="grid-2">
               <div class="section-card accent-a reveal overview-stack">
                 <div class="chip-row">
-                  <span class="chip">Industrial IoT Product</span>
-                  <span class="chip">Predictive Monitoring</span>
+                  <span class="chip">Project Title</span>
+                  <span class="chip">Clear Problem</span>
                 </div>
-                <h3>What The Product Delivers</h3>
-                <p class="muted">SmartMold IoT gives live visibility into machine temperature, pressure, vibration, alerts, and process health so action can be taken before downtime or quality loss occurs.</p>
+                <h3>Traditional Machine Problem</h3>
+                <p class="muted">The traditional machine lacks real-time monitoring, so operators cannot see live temperature, pressure, or vibration behavior. This causes poor quality, downtime, and energy waste.</p>
                 <div class="hero-actions">
                   <button class="btn btn-primary" type="button" data-target="sec-cndc">Explore Architecture</button>
                   <button class="ghost-btn" type="button" data-target="sec-dashboard">View Dashboard</button>
@@ -2199,37 +2199,23 @@
               </div>
 
               <div class="section-card accent-c reveal">
-                <span class="tiny-chip mono">Implementation Flow</span>
-                <h3>How We Implement SmartMold</h3>
-                <div class="implementation-list">
-                  <div class="implementation-step">
-                    <strong>1. Instrument The Machine</strong>
-                    <span class="muted">Install temperature, pressure, and vibration sensing points on the molding press.</span>
-                  </div>
-                  <div class="implementation-step">
-                    <strong>2. Collect Through PLC / ESP32</strong>
-                    <span class="muted">Read field values locally and package the telemetry as MQTT messages.</span>
-                  </div>
-                  <div class="implementation-step">
-                    <strong>3. Transmit To Server Storage</strong>
-                    <span class="muted">Push readings through the Industrial LAN to the broker, server, and database layer.</span>
-                  </div>
-                  <div class="implementation-step">
-                    <strong>4. Analyze And Act</strong>
-                    <span class="muted">Convert stored history into dashboards, alerts, and statistical maintenance insight.</span>
-                  </div>
+                <span class="tiny-chip mono">Solution Overview</span>
+                <h3>Connected SmartMold System</h3>
+                <p class="muted">IoT sensors, PLC or ESP32 control, MQTT messaging, server processing, database storage, and dashboard visualization work together as one connected system.</p>
+                <div class="flow-line mono" style="margin-top:0.8rem;">
+                  <span>Sensors</span><span>→</span><span>PLC</span><span>→</span><span>MQTT</span><span>→</span><span>Server</span><span>→</span><span>DB</span><span>→</span><span>Dashboard</span>
                 </div>
               </div>
             </div>
 
             <div class="problem-solution" style="margin-top:1rem;">
               <div class="section-card accent-b reveal">
-                <h3>Why The Upgrade Matters</h3>
-                <p class="muted">Traditional rubber molding machines run with fixed cycles and low visibility, leading to inconsistent quality, delayed fault detection, and reactive maintenance.</p>
+                <h3>Core Impact</h3>
+                <p class="muted">With live monitoring, the machine can be observed continuously, faults can be detected earlier, and process quality and energy usage can be managed better.</p>
               </div>
               <div class="section-card accent-a reveal">
-                <h3>What Makes This Different</h3>
-                <p class="muted">The SmartMold stack connects sensing, secure networking, relational storage, and statistics into one workflow so the machine can be monitored and improved using evidence.</p>
+                <h3>CNDC + DBMS + Statistics</h3>
+                <p class="muted">CNDC handles transmission, DBMS stores the records, and Statistics turns the stored data into process insight for better engineering decisions.</p>
               </div>
             </div>
 
@@ -2279,8 +2265,8 @@
           <section id="sec-cndc" class="section-block">
             <div class="section-head reveal">
               <span class="section-label">CNDC · Communication, Networking &amp; Data Communication</span>
-              <h2 class="section-title">Communication Architecture</h2>
-              <p class="section-subtitle">A 3-layer industrial client-server architecture using MQTT over TCP/IP to move machine telemetry securely from the molding press to the database and dashboard.</p>
+              <h2 class="section-title">Machine-to-Server Communication</h2>
+              <p class="section-subtitle">This section shows how SmartMold moves sensor data from the machine controller across the industrial network to the server, database, and live dashboard.</p>
             </div>
 
             <div class="architecture-shell reveal">
@@ -2410,8 +2396,9 @@
           <section id="sec-sensors" class="section-block">
             <div class="section-head reveal">
               <span class="section-label">Live Sensor Monitoring</span>
-              <h2 class="section-title">Simulated Real-Time Data Stream</h2>
-              <p class="section-subtitle">Temperature, pressure, and vibration values update every 1.5 seconds, with warnings and spikes injected to demonstrate fault detection behavior.</p>
+              <h2 class="section-title">Real-Time Sensor Cards</h2>
+              <p class="section-subtitle">Temperature, pressure, and vibration values update every 5 seconds using simulation data so live trends and fault behavior can be demonstrated clearly.</p>
+              <p class="muted mono">Temperature (&deg;C) &middot; Pressure (bar) &middot; Vibration (mm/s)</p>
             </div>
 
             <div class="sensor-grid">
@@ -2482,8 +2469,8 @@
           <section id="sec-database" class="section-block">
             <div class="section-head reveal">
               <span class="section-label">DBMS · 3-Level Data Architecture</span>
-              <h2 class="section-title">Database Architecture</h2>
-              <p class="section-subtitle">A PostgreSQL relational design with live ingestion, normalized entity relationships, and automation logic for views, triggers, and stored procedures.</p>
+              <h2 class="section-title">PostgreSQL Data Storage</h2>
+              <p class="section-subtitle">This section shows how SmartMold stores live readings, alerts, maintenance records, and quality data in PostgreSQL for real-time and historical analysis.</p>
             </div>
 
             <div class="db-levels">
@@ -2686,9 +2673,9 @@
 
           <section id="sec-statistics" class="section-block">
             <div class="section-head reveal">
-              <span class="section-label">Inferential Statistics</span>
-              <h2 class="section-title">Statistical Process Intelligence</h2>
-              <p class="section-subtitle">A 30-day sensor dataset visualized through hypothesis testing, regression analysis, and anomaly detection to support process optimization and predictive maintenance.</p>
+              <span class="section-label">Statistics Topic</span>
+              <h2 class="section-title">Process Analysis &amp; Inference</h2>
+              <p class="section-subtitle">This section uses stored sensor data for hypothesis testing, regression, and anomaly detection so machine behavior can be interpreted and engineering decisions can be supported by evidence.</p>
             </div>
 
             <div class="stats-grid">
@@ -4546,7 +4533,7 @@
         loadFontPair();
         updateActiveLinks();
 
-        state.intervals.push(setInterval(updateReadings, 1500));
+        state.intervals.push(setInterval(updateReadings, 5000));
         state.intervals.push(setInterval(function () {
           if (state.dashboardAlerts.length) {
             const active = state.dashboardAlerts.find(function (item) { return item.status === 'ACTIVE'; });
