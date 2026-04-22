@@ -417,17 +417,17 @@
       background:
         radial-gradient(circle at top right, rgba(255,255,255,0.04), transparent 26%),
         linear-gradient(135deg, var(--bg-base), var(--bg-panel));
-      padding: 1rem;
+      padding: 1.25rem;
       transition: opacity 0.4s ease;
     }
 
     .login-shell {
-      width: min(980px, 100%);
-      max-height: calc(100vh - 1.5rem);
+      width: min(900px, calc(100vw - 2rem));
+      max-height: calc(100vh - 2.5rem);
       border-radius: var(--radius-xl);
       overflow: hidden;
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+      grid-template-columns: minmax(0, 0.96fr) minmax(340px, 0.92fr);
       position: relative;
       animation: loginRise 0.65s ease both;
     }
@@ -455,7 +455,7 @@
 
     .login-left,
     .login-right {
-      padding: 1.35rem;
+      padding: 1.15rem 1.2rem;
       position: relative;
       z-index: 1;
     }
@@ -464,7 +464,7 @@
       border-right: 1px solid var(--line);
       display: grid;
       align-content: center;
-      gap: 0.85rem;
+      gap: 0.7rem;
       background:
         radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 34%),
         linear-gradient(160deg, rgba(255,255,255,0.02), transparent 58%),
@@ -481,7 +481,7 @@
     .login-right {
       display: grid;
       align-content: center;
-      gap: 0.85rem;
+      gap: 0.75rem;
       background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 42%), var(--bg-card);
     }
 
@@ -514,7 +514,7 @@
     }
 
     .brand-text {
-      font-size: 1.35rem;
+      font-size: 1.22rem;
       line-height: 1;
     }
 
@@ -526,54 +526,54 @@
 
     .login-title {
       margin: 0;
-      font-size: clamp(2.1rem, 5vw, 4rem);
-      line-height: 0.96;
+      font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+      line-height: 0.98;
     }
 
     .login-copy {
       margin: 0;
       color: var(--text-2);
-      max-width: 46ch;
-      line-height: 1.65;
-      font-size: 0.98rem;
+      max-width: 40ch;
+      line-height: 1.55;
+      font-size: 0.91rem;
     }
 
     .chip-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.42rem;
     }
 
     .login-metrics {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.65rem;
+      gap: 0.5rem;
     }
 
     .mini-card {
       border-radius: var(--radius-md);
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.04);
-      padding: 0.75rem;
+      padding: 0.62rem 0.7rem;
     }
 
     .mini-card strong {
       display: block;
       font-family: var(--font-mono);
-      font-size: 1.4rem;
-      margin-bottom: 0.35rem;
+      font-size: 1.15rem;
+      margin-bottom: 0.2rem;
     }
 
     .role-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
 
     .role-card {
       border-radius: var(--radius-md);
-      padding: 0.8rem;
-      min-height: 102px;
+      padding: 0.7rem;
+      min-height: 88px;
       text-align: left;
       cursor: pointer;
       color: var(--text-1);
@@ -594,30 +594,30 @@
     .role-card .role-icon {
       display: inline-grid;
       place-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.04);
-      margin-bottom: 0.7rem;
-      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.92rem;
     }
 
     .role-card strong {
       display: block;
-      font-size: 1rem;
-      margin-bottom: 0.3rem;
+      font-size: 0.92rem;
+      margin-bottom: 0.18rem;
     }
 
     .role-card small {
       color: var(--text-2);
-      font-size: 0.86rem;
-      line-height: 1.45;
+      font-size: 0.78rem;
+      line-height: 1.35;
     }
 
     .field-group {
       display: grid;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
     .field-label {
@@ -628,8 +628,8 @@
     .text-input,
     .select-input {
       width: 100%;
-      min-height: 48px;
-      padding: 0.8rem 0.95rem;
+      min-height: 45px;
+      padding: 0.72rem 0.9rem;
       border-radius: 16px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.04);
@@ -647,7 +647,7 @@
     .login-hint,
     .login-error {
       min-height: 1.2rem;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
     }
 
     .login-hint {
@@ -2024,13 +2024,12 @@
         <span class="chip">Industrial Monitoring Workspace</span>
         <div>
           <h1 class="login-title">SmartMold IoT</h1>
-          <p class="login-copy">Digital transformation of a 4-pillar compression rubber molding machine through sensors, networking, storage, and analytics.</p>
+          <p class="login-copy">A compact industrial login panel for the SmartMold IoT monitoring system.</p>
         </div>
-        <p class="login-copy">A compact project demo showing how live machine data becomes dashboards, alerts, and decision-ready engineering insight.</p>
+        <p class="login-copy">Monitor machine health, review alerts, and access the project dashboards through one role-based workspace.</p>
         <div class="chip-row">
           <span class="chip">Real-Time Monitoring</span>
           <span class="chip">MQTT over TCP/IP</span>
-          <span class="chip">PostgreSQL SQL Design</span>
           <span class="chip">Predictive Maintenance</span>
         </div>
         <div class="login-metrics">
@@ -2058,7 +2057,7 @@
             </div>
             <div>
               <div class="brand-text">SmartMold IoT</div>
-              <div class="tagline">Real-Time Monitoring · Predictive Maintenance · Data-Driven Control</div>
+              <div class="tagline">Choose your workspace and continue</div>
             </div>
           </div>
         </div>
@@ -2066,17 +2065,17 @@
           <button class="role-card" type="button" data-role="operator">
             <div class="role-icon">👷</div>
             <strong>Operator</strong>
-            <small>Machine floor monitoring and alert response.</small>
+            <small>Live floor monitoring.</small>
           </button>
           <button class="role-card" type="button" data-role="admin">
             <div class="role-icon">🛠</div>
             <strong>Admin</strong>
-            <small>System control, sensor configuration, and reports.</small>
+            <small>Controls and reports.</small>
           </button>
           <button class="role-card" type="button" data-role="designer">
             <div class="role-icon">🎨</div>
             <strong>Designer</strong>
-            <small>Theme studio, UI components, and layout control.</small>
+            <small>Theme and UI studio.</small>
           </button>
         </div>
         <div class="login-hint" id="login-hint"></div>
